@@ -4,6 +4,8 @@ set shiftwidth=4
 set tabstop=4
 set smarttab
 
+set ls=0
+
 set number
 highlight LineNr ctermfg=green
 
