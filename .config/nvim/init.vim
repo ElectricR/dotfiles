@@ -23,5 +23,6 @@ Plug 'ycm-core/YouCompleteMe'
 " vim-plug end
 call plug#end()
 
-let g:ycm_global_ycm_extra_conf = ''
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
 
