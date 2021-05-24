@@ -1,0 +1,2 @@
+
+set completeopt-=preview
