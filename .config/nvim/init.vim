@@ -14,11 +14,14 @@ set hls
 set is
 
 " vim-plug begin
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' :'~/.vim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
+Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --all --clangd-completer' }
 
 " vim-plug end
 call plug#end()
+
+let g:ycm_global_ycm_extra_conf = ''
 
