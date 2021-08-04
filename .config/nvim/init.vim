@@ -1,4 +1,5 @@
 filetype plugin indent on
+
 set expandtab
 set shiftwidth=4
 set nocompatible
@@ -7,24 +8,28 @@ set smarttab
 
 set ls=0
 
-set number
+set number relativenumber
 highlight LineNr ctermfg=green
 
 set hls
 set is
 
-" vim-plug begin
+
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'ycm-core/YouCompleteMe'
-" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --all --clangd-completer' }
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'jackguo380/vim-lsp-cxx-highlight'
+    Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
-" vim-plug end
 call plug#end()
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
+set clipboard^=unnamed
 
+" Completion remap
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
