@@ -1,11 +1,15 @@
 font:
-  size:
-    8
+  size: 8
 
-background_opacity: 
-  0.9
+background_opacity: 0.9
 
 window:
-  startup_mode:
-    Fullscreen
+  startup_mode: Fullscreen
+
+shell:
+  program: /bin/bash
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"
 
