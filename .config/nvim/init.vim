@@ -8,12 +8,14 @@ set smarttab
 
 set ls=0
 
+" Bottom/top cursor indent
+set scrolloff=8
+
 set number relativenumber
 highlight LineNr ctermfg=green
 
 set hls
 set is
-
 
 call plug#begin(stdpath('data') . '/plugged')
 
@@ -29,3 +31,7 @@ set clipboard^=unnamed
 " Completion remap
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+let mapleader=" "
+
+
