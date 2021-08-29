@@ -1,5 +1,9 @@
+env:
+  WINIT_X11_SCALE_FACTOR: "1"
+
 font:
-  size: 8
+  size:
+    12
 
 background_opacity: 0.6
 
