@@ -17,6 +17,9 @@ NoiseStrength=0
 [KDE]
 AnimationDurationFactor=0.125
 
+[ModifierOnlyShortcuts]
+Meta=org.kde.plasmashell,/PlasmaShell,org.kde.PlasmaShell,activateLauncherMenu
+
 [Plugins]
 blurEnabled=true
 contrastEnabled=true
