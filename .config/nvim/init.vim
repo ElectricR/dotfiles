@@ -23,6 +23,8 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'jackguo380/vim-lsp-cxx-highlight'
     Plug 'jeffkreeftmeijer/vim-numbertoggle'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'kyazdani42/nvim-tree.lua'
 
 call plug#end()
 
