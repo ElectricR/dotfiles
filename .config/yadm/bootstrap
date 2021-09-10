@@ -8,11 +8,12 @@ def force_blur():
 
 
 if __name__ == "__main__":
-    os.system("sudo xbps-install curl python3-pip nodejs clang")
+    os.system("sudo xbps-install git neovim tmux curl python3-pip nodejs clang")
     os.system("sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'")
     os.system("nvim +PlugInstall +qall")
     os.system("nvim \"+CocInstall coc-clangd\" +qall")
     os.system("pip3 install pynvim --upgrade")
+    os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
 
     force_blur()
 
