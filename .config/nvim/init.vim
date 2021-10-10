@@ -51,13 +51,6 @@ let mapleader=" "
     " Highlight the symbol and its references when holding the cursor.
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
-    " Go to definition
-    nnoremap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
-
-    " Error jumps
-    nmap <silent> g[ <Plug>(coc-diagnostic-prev)
-    nmap <silent> g] <Plug>(coc-diagnostic-next)
-
     " Use K to show documentation in preview window.
     nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -82,5 +75,33 @@ let mapleader=" "
     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+    " Map 'around' and 'inside' selections for functions and classes
+    " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+    xmap if <Plug>(coc-funcobj-i)
+    omap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap af <Plug>(coc-funcobj-a)
+    xmap ic <Plug>(coc-classobj-i)
+    omap ic <Plug>(coc-classobj-i)
+    xmap ac <Plug>(coc-classobj-a)
+    omap ac <Plug>(coc-classobj-a)
+
+    " Remap <C-f> and <C-b> for scroll float windows/popups.
+    if has('nvim-0.4.0') || has('patch-8.2.0750')
+        nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+        inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+        inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+        vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    endif
+
+    " Go to definitions
+    nnoremap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Error jumps
+    nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+    nmap <silent> g] <Plug>(coc-diagnostic-next)
 "#########################################################
 
