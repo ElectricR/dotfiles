@@ -25,6 +25,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'jeffkreeftmeijer/vim-numbertoggle'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'kyazdani42/nvim-tree.lua'
+    Plug 'lervag/vimtex'
 
 call plug#end()
 
