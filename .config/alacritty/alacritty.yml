@@ -19,8 +19,18 @@ shell:
 
 colors:
   primary:
-    background: '0x2f2f2f'
-    foreground: '0xeff0eb'
+    background: '0x2a2a2a' #gray
+    #background: '0x000000' #black
+    #background: '0x301a30' #purple
+    #background: '0x180722' #dark-purple
+    #background: '0x1B0A30' #dark-blue-purple
+    #background: '0x180F0F' #coffee
+    #background: '0x202010' #dark sun
+    #background: '0x451110' #blood moon
+    #background: '0x000040' #blue
+
+    #foreground: '0xeff0eb'
+    foreground: '0xFFFFFF'
 
   normal:
     black:   '0x2e2e2e'
