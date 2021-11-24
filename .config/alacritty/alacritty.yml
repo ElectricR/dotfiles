@@ -3,19 +3,19 @@ env:
 
 font:
   size:
-    12
+    10
 
 background_opacity: 0.6
 
-window:
-  startup_mode: Fullscreen
+  #window:
+  #  startup_mode: Fullscreen
 
-shell:
-  program: /bin/bash
-  args:
-    - -l
-    - -c
-    - "tmux attach || tmux"
+  #shell:
+  #  program: /bin/bash
+  #  args:
+  #    - -l
+  #    - -c
+  #    - "tmux attach || tmux"
 
 colors:
   primary:

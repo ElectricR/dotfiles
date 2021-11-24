@@ -26,6 +26,8 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'kyazdani42/nvim-tree.lua'
     Plug 'lervag/vimtex'
+    Plug 'sonph/onehalf', { 'rtp': 'vim' }
+
 
 call plug#end()
 
@@ -105,3 +107,14 @@ let mapleader=" "
     nmap <silent> g] <Plug>(coc-diagnostic-next)
 "#########################################################
 
+"#########################################################
+" Theming
+"#########################################################
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+"colorscheme onehalfdark
+"#########################################################
