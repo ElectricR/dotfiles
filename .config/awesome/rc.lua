@@ -95,8 +95,8 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
+-- mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+--                                      menu = mymainmenu })
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -106,9 +106,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
-
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -164,6 +161,12 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+rrect = function(radius)
+    return function(cr, width, height)
+        gears.shape.rounded_rect(cr, width, height, radius)
+    end
+end
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
@@ -196,24 +199,46 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "#00" })
+    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "#00", border_width = 10 })
+
+    -- Create a textclock widget
+    mytextclock = wibox.widget.textclock('<span color="#ffffff" font="Ubuntu 8"> %H %M </span>')
+
 
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
+        {
+            {
+                s.mylayoutbox,
+                s.mytaglist,
+                layout = wibox.layout.align.horizontal,
+            },
+            bg = "#724B2D",
+            shape = rrect(24),
+            widget = wibox.container.background,
         },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
+        {
+            {
+                s.mypromptbox,
+                bg = "#00000000",
+                shape = rrect(24),
+                widget = wibox.container.background,
+            },
+            halign = "center",
+            valign = "center",
+            widget = wibox.container.place
+        },
+        {
+            {
+                mytextclock,
+                --mykeyboardlayout,
+                wibox.widget.systray(),
+                layout = wibox.layout.align.horizontal,
+            },
+            bg = "#724B2D",
+            shape = rrect(24),
+            widget = wibox.container.background,
         },
     }
 end)
@@ -325,9 +350,9 @@ globalkeys = gears.table.join(
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incmwfact(-0.01)          end,
               {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "j",     function () awful.client.incwfact( 0.03)          end,
+    awful.key({ modkey, "Shift"   }, "k",     function () awful.client.incwfact( 0.03)          end,
               {description = "increase client height factor", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "k",     function () awful.client.incwfact(-0.03)          end,
+    awful.key({ modkey, "Shift"   }, "j",     function () awful.client.incwfact(-0.03)          end,
               {description = "decrease client height factor", group = "layout"}),
     awful.key({ modkey, "Shift", "Control"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
@@ -477,6 +502,8 @@ root.keys(globalkeys)
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
+    { rule = { class = "firefox" },
+          properties = { opacity = 1, maximized = false, floating = false } },
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
