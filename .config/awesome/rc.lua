@@ -626,13 +626,20 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("compton")
 
 -- Round corners
+function manage_corners (c)
+    if not c.fullscreen then
+        c.shape = gears.shape.rounded_rect
+    else
+        c.shape = gears.shape.rectangle
+    end
+end
+
 client.connect_signal("manage", function (c)
-    c.shape = gears.shape.rounded_rect
+    manage_corners(c)
 end)
 
--- Borders
-client.connect_signal("manage", function (c)
-    beautiful.useless_gap = 4
+client.connect_signal("property::size", function (c)
+    manage_corners(c)
 end)
 
 require("collision") {
