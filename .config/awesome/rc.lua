@@ -45,10 +45,10 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("~/.config/awesome/theme.lua")
+beautiful.init("~/.config/awesome/white_theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
