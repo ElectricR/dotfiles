@@ -1,23 +1,15 @@
 #!/usr/bin/env python3
 import os
 
-def force_blur():
-    os.system("plasmapkg2 -i forceblur.kwinscript || plasmapkg2 -u forceblur.kwinscript")
-    os.system("mkdir -pv ~/.local/share/kservices5/")
-    os.system("cp -vf metadata.desktop ~/.local/share/kservices5/forceblur.desktop")
+package_to_install = ["picom", "git", "neovim", "tmux", "curl", "python3-pip", "nodejs"]
 
-
-if __name__ == "__main__":
-    os.system("sudo xbps-install git neovim tmux curl python3-pip nodejs clang")
+def configure_nvim():
     os.system("sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'")
     os.system("nvim +PlugInstall +qall")
     os.system("nvim \"+CocInstall coc-clangd coc-cmake\" +qall")
     os.system("pip3 install pynvim --upgrade")
+
+if __name__ == "__main__":
+    os.system("sudo xbps-install " + ' '.join(package_to_install))
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
-
-    force_blur()
-
-
-
- 
 
