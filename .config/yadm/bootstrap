@@ -2,8 +2,8 @@
 import os
 
 
-package_to_install = ["zsh", "kitty", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
-package_to_install_void_specific = ["picom"]
+package_to_install = ["zsh", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
+package_to_install_void_specific = ["picom", "kitty"]
 
 def jetbrains_font():
     os.system("wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip")
@@ -20,12 +20,14 @@ def configure_nvim():
 def configure_shell():
     os.system("chsh -s $(which zsh)")
 
+def ubuntu_install():
+    pass
 
-def install(package_manager, distro_specific_packages, distro_specific_steps):
+
+def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system(f"sudo {package_manager} " + ' '.join(package_to_install + distro_specific_packages))
     configure_shell()
-    for step in distro_specific_steps:
-        step()
+    distro_specific_step()
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     jetbrains_font()
     configure_nvim()
