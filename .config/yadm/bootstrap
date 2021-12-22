@@ -31,7 +31,7 @@ def install(package_manager, distro_specific_packages, distro_specific_steps):
     configure_nvim()
 
 if __name__ == "__main__":
-    match input("void/ubuntu"):
+    match input("void/ubuntu:\n\t"):
         case "void":
             install("xbps-install", package_to_install_void_specific, [])
         case "ubuntu":
