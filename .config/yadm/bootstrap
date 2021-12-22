@@ -2,7 +2,7 @@
 import os
 
 
-package_to_install = ["unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
+package_to_install = ["zsh", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
 package_to_install_void_specific = ["picom"]
 
 def jetbrains_font():
@@ -17,8 +17,13 @@ def configure_nvim():
     os.system("nvim \"+CocInstall coc-clangd coc-pyright coc-cmake\" +qall")
     os.system("pip3 install pynvim --upgrade")
 
+def configure_shell():
+    os.system("chsh -s $(which zsh)")
+
+
 def install(package_manager, distro_specific_packages, distro_specific_steps):
     os.system(f"sudo {package_manager} " + ' '.join(package_to_install + distro_specific_packages))
+    configure_shell()
     for step in distro_specific_steps:
         step()
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
