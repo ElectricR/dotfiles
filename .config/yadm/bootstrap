@@ -2,7 +2,7 @@
 import os
 
 
-package_to_install = ["git", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
+package_to_install = ["unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
 package_to_install_void_specific = ["picom"]
 
 def jetbrains_font():
@@ -33,4 +33,4 @@ if __name__ == "__main__":
             install("apt install", [], [])
         case _:
             print("Aborted")
-        
+
