@@ -2,7 +2,7 @@
 import os
 
 
-package_to_install = ["zsh", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
+package_to_install = ["cmake", "zsh", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
 package_to_install_void_specific = ["picom", "kitty"]
 
 def jetbrains_font():
@@ -20,8 +20,9 @@ def configure_nvim():
 def configure_shell():
     os.system("chsh -s $(which zsh)")
 
+
 def ubuntu_install():
-    pass
+    os.system("curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin")
 
 
 def install(package_manager, distro_specific_packages, distro_specific_step):
