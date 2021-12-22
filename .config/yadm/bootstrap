@@ -23,6 +23,7 @@ def configure_shell():
 
 def ubuntu_install():
     os.system("curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin")
+    os.system("sudo ln -s ~/.local/kitty.app/bin/kitty /usr/bin/kitty")
 
 
 def install(package_manager, distro_specific_packages, distro_specific_step):
