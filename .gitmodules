@@ -1,0 +1,3 @@
+[submodule ".config/awesome/collision"]
+	path = .config/awesome/collision
+	url = https://github.com/ElectricR/collision
