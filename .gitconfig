@@ -1,0 +1,9 @@
+[alias]
+    st = status
+    cm = commit -m
+    p = push
+[credential]
+    helper = store
+[user]
+    email = chulkovroma@mail.ru
+    name = ElectricR
