@@ -1,4 +1,14 @@
 {
     "clangd.semanticHighlighting": true,
-    "coc.preferences.semanticTokensHighlights": false
+    "coc.preferences.semanticTokensHighlights": false,
+
+    "languageserver": {
+      "golang": {
+        "command": "/home/roman-chulkov/go/bin/gopls",
+        "rootPatterns": ["go.mod"],
+        "filetypes": ["go"]
+      }
+    }
+
+
 }
