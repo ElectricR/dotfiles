@@ -37,16 +37,17 @@ def ubuntu_install():
         os.system("sudo ninja -C build install")
         os.system("rm picom -rf")
 
+    def go_install():
+        os.system("wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz")
+        os.system("sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz")
+
     os.system("curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin")
     os.system("sudo ln -s ~/.local/kitty.app/bin/kitty /usr/bin/kitty")
 
     awesome_install()
     picom_install()
+    go_install()
 
-
-def go_install():
-    os.system("wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz")
-    os.system("sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz")
 
 def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system(f"sudo {package_manager} " + ' '.join(package_to_install + distro_specific_packages))
