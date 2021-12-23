@@ -2,7 +2,7 @@
 import os
 
 
-package_to_install = ["cmake", "zsh", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
+package_to_install = ["flameshot", "cmake", "zsh", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
 package_to_install_void_specific = ["picom", "kitty"]
 package_to_install_ubuntu_specific = ["libxcb-xfixes0-dev", "lua5.2"]
 
