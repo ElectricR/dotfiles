@@ -3,7 +3,7 @@
     cm = commit -m
     p = push
 [credential]
-    helper = store
+	helper = store
 [user]
-    email = chulkovroma@mail.ru
-    name = ElectricR
+	email = chulkovroma@mail.ru
+	name = ElectricR

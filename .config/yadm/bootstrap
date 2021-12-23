@@ -4,6 +4,7 @@ import os
 
 package_to_install = ["cmake", "zsh", "unzip", "neovim", "tmux", "curl", "python3-pip", "nodejs", "awesome"]
 package_to_install_void_specific = ["picom", "kitty"]
+package_to_install_ubuntu_specific = ["libxcb-xfixes0-dev", "lua5.2"]
 
 def jetbrains_font():
     os.system("wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip")
@@ -22,9 +23,30 @@ def configure_shell():
 
 
 def ubuntu_install():
+    def awesome_install():
+        os.system("git clone https://github.com/awesomeWM/awesome")
+        os.system("cd awesome; sudo apt build-dep awesome; make package;")
+        os.system("cd awesome/build; sudo dpkg -i *.deb")
+        os.system("rm awesome -rf")
+
+    def picom_install():
+        picom_deps = "libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson"
+        os.system("git clone https://github.com/yshui/picom")
+        os.system(f"sudo apt install -y {picom_deps}")
+        os.system("cd picom; git submodule update --init --recursive; meson --buildtype=release . build; ninja -C build ")
+        os.system("sudo ninja -C build install")
+        os.system("rm picom -rf")
+
     os.system("curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin")
     os.system("sudo ln -s ~/.local/kitty.app/bin/kitty /usr/bin/kitty")
 
+    awesome_install()
+    picom_install()
+
+
+def go_install():
+    os.system("wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz")
+    os.system("sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz")
 
 def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system(f"sudo {package_manager} " + ' '.join(package_to_install + distro_specific_packages))
