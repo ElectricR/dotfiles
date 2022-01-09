@@ -18,6 +18,11 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- load the widget code
+local volume_control = require("volume-control")
+-- define your volume control, using default settings:
+volumecfg = volume_control({})
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -233,6 +238,7 @@ awful.screen.connect_for_each_screen(function(s)
             {
                 mytextclock,
                 --mykeyboardlayout,
+                volumecfg.widget,
                 wibox.widget.systray(),
                 layout = wibox.layout.align.horizontal,
             },
@@ -262,6 +268,10 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+
+    awful.key({}, "XF86AudioRaiseVolume", function() volumecfg:up() end),
+    awful.key({}, "XF86AudioLowerVolume", function() volumecfg:down() end),
+    awful.key({}, "XF86AudioMute",        function() volumecfg:toggle() end),
 
     -- awful.key({ modkey,           }, "j",
     --     function ()

@@ -1,3 +1,6 @@
 [submodule ".config/awesome/collision"]
 	path = .config/awesome/collision
 	url = https://github.com/ElectricR/collision
+[submodule ".config/awesome/volume-control"]
+	path = .config/awesome/volume-control
+	url = https://github.com/deficient/volume-control.git
