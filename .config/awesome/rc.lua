@@ -367,7 +367,10 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift", "Control"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
     awful.key({ modkey, "Shift", "Control"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
-              {description = "decrease the number of master clients", group = "layout"})
+              {description = "decrease the number of master clients", group = "layout"}),
+
+    -- Lock screen
+    awful.key({ "Control", "Shift" }, "l", function () awful.util.spawn("slock") end)
 )
 
 clientkeys = gears.table.join(
