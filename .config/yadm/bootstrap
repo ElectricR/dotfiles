@@ -6,6 +6,9 @@ package_to_install = ["xautolock", "slock", "flameshot", "cmake", "zsh", "unzip"
 package_to_install_void_specific = ["picom", "kitty"]
 package_to_install_ubuntu_specific = ["libxcb-xfixes0-dev", "lua5.2"]
 
+def zsh_autosuggestions():
+    os.system("git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions")
+
 def jetbrains_font():
     os.system("wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip")
     os.system("unzip JetBrainsMono-2.242.zip -d tempaoeu")
@@ -55,6 +58,7 @@ def install(package_manager, distro_specific_packages, distro_specific_step):
     distro_specific_step()
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     jetbrains_font()
+    zsh_autosuggestions()
     configure_nvim()
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
-# Luke's config for the Zoomer Shell
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 
 alias ll='ls -alF'
