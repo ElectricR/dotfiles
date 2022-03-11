@@ -4,3 +4,6 @@
 [submodule ".config/awesome/volume-control"]
 	path = .config/awesome/volume-control
 	url = https://github.com/deficient/volume-control.git
+[submodule ".config/awesome/rubato"]
+	path = .config/awesome/rubato
+	url = https://github.com/andOrlando/rubato
