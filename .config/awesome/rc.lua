@@ -1,3 +1,6 @@
+local helpers = require "helpers"
+local bar = require "bar"
+----------------------------------------------------- BELOW IS UNSORTED
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
@@ -166,12 +169,6 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
-rrect = function(radius)
-    return function(cr, width, height)
-        gears.shape.rounded_rect(cr, width, height, radius)
-    end
-end
-
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
@@ -193,25 +190,22 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist = awful.widget.taglist {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
+        buttons = taglist_buttons,
+        --widget_template = widgets.taglist_template,
     }
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
+    --s.mytasklist = awful.widget.tasklist {
+    --    screen  = s,
+    --    filter  = awful.widget.tasklist.filter.currenttags,
+    --    buttons = tasklist_buttons
+    --}
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, bg = "#00", border_width = 10 })
-
-    -- Create a textclock widget
-    mytextclock = wibox.widget.textclock('<span color="#ffffff" font="Ubuntu 8"> %H %M </span>')
-
+    s.mywibox = bar.create(s)
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
+    s.mywibox:setup ({
         layout = wibox.layout.align.horizontal,
         {
             {
@@ -220,42 +214,42 @@ awful.screen.connect_for_each_screen(function(s)
                 layout = wibox.layout.align.horizontal,
             },
             bg = "#724B2D",
-            shape = rrect(24),
+            shape = helpers.rrect(24),
             widget = wibox.container.background,
         },
         {
             {
                 s.mypromptbox,
-                bg = "#00000000",
-                shape = rrect(24),
-                widget = wibox.container.background,
+                shape = helpers.rrect(24),
+                widget = wibox.layout.align.horizontal,
             },
-            halign = "center",
-            valign = "center",
-            widget = wibox.container.place
+            bg = "#00000000",
+            shape = helpers.rrect(24),
+            widget = wibox.container.background,
         },
         {
             {
-                mytextclock,
+                widgets.bluetooth,
+                widgets.battery,
+                widgets.clock,
                 --mykeyboardlayout,
-                volumecfg.widget,
+                --volumecfg.widget,
                 wibox.widget.systray(),
-                layout = wibox.layout.align.horizontal,
+                layout = wibox.layout.fixed.horizontal,
+                spacing = 8,
             },
-            bg = "#724B2D",
-            shape = rrect(24),
             widget = wibox.container.background,
         },
-    }
+    })
 end)
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+--root.buttons(gears.table.join(
+--    awful.button({ }, 3, function () mymainmenu:toggle() end),
+--    awful.button({ }, 4, awful.tag.viewnext),
+--    awful.button({ }, 5, awful.tag.viewprev)
+--))
 -- }}}
 
 -- {{{ Key bindings

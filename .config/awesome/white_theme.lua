@@ -11,9 +11,10 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.wallpaper = "~/.config/awesome/orange.png"
 
-theme.font          = "sans 8"
+theme.wallpaper = "~/.config/awesome/398870.jpg"
+
+theme.font          = "JetBrains Mono 16"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -29,7 +30,7 @@ theme.fg_minimize   = "#ffffff"
 theme.useless_gap   = dpi(6)
 theme.border_width  = dpi(2)
 theme.border_normal = "#444444"
-theme.border_focus  = "#c24e00"
+theme.border_focus  = "#ae2012"
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
