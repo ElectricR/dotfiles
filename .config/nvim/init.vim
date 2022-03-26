@@ -7,6 +7,7 @@ set tabstop=4
 set smarttab
 
 set ls=0
+set cmdheight=2
 
 " Bottom/top cursor indent
 set scrolloff=8
