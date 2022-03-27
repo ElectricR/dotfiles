@@ -186,14 +186,6 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons,
-        --widget_template = widgets.taglist_template,
-    }
-
     -- Create a tasklist widget
     --s.mytasklist = awful.widget.tasklist {
     --    screen  = s,
@@ -201,6 +193,7 @@ awful.screen.connect_for_each_screen(function(s)
     --    buttons = tasklist_buttons
     --}
 
+    s.mytaglist = widgets.create_taglist(s, tasklist_buttons)
     -- Create the wibox
     s.mywibox = bar.create(s)
 
@@ -210,28 +203,33 @@ awful.screen.connect_for_each_screen(function(s)
         {
             {
                 s.mylayoutbox,
-                s.mytaglist,
-                layout = wibox.layout.align.horizontal,
-            },
-            bg = "#724B2D",
-            shape = helpers.rrect(24),
-            widget = wibox.container.background,
-        },
-        {
-            {
                 s.mypromptbox,
-                shape = helpers.rrect(24),
-                widget = wibox.layout.align.horizontal,
+                layout = wibox.layout.align.horizontal,
             },
             bg = "#00000000",
             shape = helpers.rrect(24),
             widget = wibox.container.background,
+            forced_width = 355,
+        },
+        {
+            {
+                {
+                    s.mytaglist,
+                    widget = wibox.layout.align.horizontal,
+                },
+                bg = "#00000000",
+                shape = helpers.rrect(24),
+                widget = wibox.container.background,
+            },
+            widget = wibox.container.place,
+            halign = "center",
         },
         {
             {
                 widgets.bluetooth,
                 widgets.battery,
                 widgets.clock,
+                --widgets.taglist_template,
                 --mykeyboardlayout,
                 --volumecfg.widget,
                 wibox.widget.systray(),
