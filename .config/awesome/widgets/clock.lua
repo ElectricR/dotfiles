@@ -7,7 +7,7 @@ local palette = require "theme.palette"
 -----------------------------
 
 widgets.clock = wibox.widget {
-    bg = palette.bg,
+    bg = palette.detail,
     shape = helpers.rrect(9),
     widget = wibox.container.background,
     {
@@ -19,7 +19,7 @@ widgets.clock = wibox.widget {
         {
             widget = wibox.container.background,
             shape = helpers.rrect(9),
-            bg = "#FFFFFF",
+            bg = palette.bg,
             {
                 left = 7,
                 right = 7,

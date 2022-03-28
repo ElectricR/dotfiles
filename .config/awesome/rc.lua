@@ -199,17 +199,35 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Add widgets to the wibox
     s.mywibox:setup ({
-        layout = wibox.layout.align.horizontal,
         {
+            layout = wibox.layout.align.horizontal,
             {
-                s.mylayoutbox,
-                s.mypromptbox,
-                layout = wibox.layout.align.horizontal,
+                {
+                    s.mylayoutbox,
+                    s.mypromptbox,
+                    layout = wibox.layout.align.horizontal,
+                },
+                bg = "#00000000",
+                shape = helpers.rrect(24),
+                widget = wibox.container.background,
+                forced_width = 355,
             },
-            bg = "#00000000",
-            shape = helpers.rrect(24),
-            widget = wibox.container.background,
-            forced_width = 355,
+            nil,
+            {
+                {
+                    widgets.bluetooth,
+                    widgets.battery,
+                    widgets.clock,
+                    widgets.cpu,
+                    --widgets.taglist_template,
+                    --mykeyboardlayout,
+                    --volumecfg.widget,
+                    wibox.widget.systray(),
+                    layout = wibox.layout.fixed.horizontal,
+                    spacing = 8,
+                },
+                widget = wibox.container.background,
+            },
         },
         {
             {
@@ -224,20 +242,7 @@ awful.screen.connect_for_each_screen(function(s)
             widget = wibox.container.place,
             halign = "center",
         },
-        {
-            {
-                widgets.bluetooth,
-                widgets.battery,
-                widgets.clock,
-                --widgets.taglist_template,
-                --mykeyboardlayout,
-                --volumecfg.widget,
-                wibox.widget.systray(),
-                layout = wibox.layout.fixed.horizontal,
-                spacing = 8,
-            },
-            widget = wibox.container.background,
-        },
+        widget = wibox.layout.stack,
     })
 end)
 -- }}}

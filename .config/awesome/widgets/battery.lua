@@ -13,7 +13,7 @@ local gears = require "gears"
 -----------------------------
 
 widgets.battery = wibox.widget {
-    bg = palette.bg,
+    bg = palette.detail,
     shape = helpers.rrect(9),
     widget = wibox.container.background,
     {
@@ -25,7 +25,7 @@ widgets.battery = wibox.widget {
         {
             widget = wibox.container.background,
             shape = helpers.rrect(9),
-            bg = "#FFFFFF",
+            bg = palette.bg,
             {
                 left = 7,
                 right = 7,

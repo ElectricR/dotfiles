@@ -21,19 +21,19 @@ function widgets.wrapper()
         --------------------
         -- Draw outer circle
         --------------------
-        cr:set_source(gears.color(palette.bg))
+        cr:set_source(gears.color(palette.detail))
         gears.shape.circle(cr, width, height)
         cr:fill()
-        cr:set_source(gears.color("#FFFFFF"))
+        cr:set_source(gears.color(palette.bg))
         cr:arc(width / 2, height / 2, width * 0.45, 0, 2 * math.pi)
         cr:fill()
 
         --------------------
         -- Draw app circle
         --------------------
-        cr:set_source(gears.color(palette.bg))
-        cr:arc(width / 2, height / 2, 13, -1.5*math.pi, self.has_clients_radius*math.pi)
-        cr:set_line_width(5);
+        cr:set_source(gears.color(palette.detail))
+        cr:arc(width / 2, height / 2, 13, 0, 2 * math.pi)
+        cr:set_line_width(self.has_clients_radius);
         cr:stroke()
 
         --------------------
@@ -70,9 +70,9 @@ function widgets.create_taglist(s, taglist_buttons)
                     end,
                 }
                 self.has_clients_circle = rubato.timed {
-                    duration = 0.3,
+                    duration = 0.2,
                     intro = 0,
-                    pos = -1.5,
+                    pos = 0,
                     subscribed = function(v)
                         self.has_clients_radius = v
                         self:emit_signal("widget::redraw_needed")
@@ -86,14 +86,14 @@ function widgets.create_taglist(s, taglist_buttons)
                     self.selected_circle.target = 0
                 end
                 if helpers.table_length(c3:clients()) > 0 then
-                    self.has_clients_circle.target = 0.5
+                    self.has_clients_circle.target = 5
                 else 
-                    self.has_clients_circle.target = -1.5
+                    self.has_clients_circle.target = 0
                 end
             end,
         },
         layout = {
-            spacing = 10,
+            spacing = 7,
             layout  = wibox.layout.fixed.horizontal
         },
     }

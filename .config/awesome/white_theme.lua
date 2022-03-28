@@ -1,3 +1,4 @@
+local palette = require "theme.palette"
 ---------------------------
 -- Default awesome theme --
 ---------------------------
@@ -30,7 +31,7 @@ theme.fg_minimize   = "#ffffff"
 theme.useless_gap   = dpi(6)
 theme.border_width  = dpi(2)
 theme.border_normal = "#444444"
-theme.border_focus  = "#ae2012"
+theme.border_focus  = palette.detail
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
