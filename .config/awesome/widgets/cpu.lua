@@ -75,7 +75,7 @@ widgets.cpu = wibox.widget {
                         forced_width = 32,
                         {
                             widget = wibox.widget.textbox,
-                            point  = {x=7.5,y=5.1},
+                            point  = {x=7.6,y=5.1},
                             font = "JetBrains Mono 12",
                             markup = "<span foreground='" .. tostring(palette.cpu) .. "'></span>",
                         },

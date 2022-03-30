@@ -1,5 +1,6 @@
 local helpers = require "helpers"
 local bar = require "bar"
+local palette = require "theme.palette"
 ----------------------------------------------------- BELOW IS UNSORTED
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
@@ -177,7 +178,9 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
+    beautiful.prompt_bg = palette.detail
+    s.mypromptbox = awful.widget.prompt(
+    )
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
@@ -207,10 +210,9 @@ awful.screen.connect_for_each_screen(function(s)
                     s.mypromptbox,
                     layout = wibox.layout.align.horizontal,
                 },
-                bg = "#00000000",
+                bg = palette.detail,
                 shape = helpers.rrect(24),
                 widget = wibox.container.background,
-                forced_width = 355,
             },
             nil,
             {
