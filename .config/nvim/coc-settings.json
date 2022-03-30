@@ -8,7 +8,8 @@
         "rootPatterns": ["go.mod"],
         "filetypes": ["go"]
       }
-    }
+    },
+    "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd"
 
 
 }

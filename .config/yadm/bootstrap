@@ -15,15 +15,29 @@ def jetbrains_font():
     os.system("sudo mv tempaoeu/fonts/ttf/*.ttf /usr/share/fonts/")
     os.system("rm JetBrainsMono-2.242.zip tempaoeu -r")
 
+    os.system("wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Ubuntu.zip")
+    os.system("unzip Ubuntu.zip -d tempaoeu")
+    os.system("sudo mkdir -p /usr/share/fonts/nerd")
+    os.system("sudo mv tempaoeu/*.ttf /usr/share/fonts/nerd")
+    os.system("rm Ubuntu.zip tempaoeu -r")
+
+    os.system("wget https://github.com/be5invis/Iosevka/releases/download/v15.0.2/ttf-iosevka-15.0.2.zip")
+    os.system("unzip ttf-iosevka-15.0.2.zip -d tempaoeu")
+    os.system("sudo mkdir -p /usr/share/fonts/iosevka")
+    os.system("sudo mv tempaoeu/*.ttf /usr/share/fonts/iosevka")
+    os.system("rm ttf-iosevka-15.0.2.zip tempaoeu -r")
+
 def configure_nvim():
     os.system("sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'")
     os.system("nvim +PlugInstall +qall")
-    os.system("nvim \"+CocInstall coc-go coc-clangd coc-pyright coc-cmake\" +qall")
+    os.system("nvim \"+CocInstall coc-go coc-tabnine coc-clangd coc-pyright coc-cmake\" +qall")
     os.system("pip3 install pynvim --upgrade")
 
 def configure_shell():
     os.system("chsh -s $(which zsh)")
 
+def kubecolor():
+    os.system("go get github.com/hidetatz/kubecolor/cmd/kubecolor")
 
 def ubuntu_install():
     def awesome_install():
@@ -51,6 +65,8 @@ def ubuntu_install():
     picom_install()
     go_install()
 
+def battery_iconizer():
+    os.system("wget https://github.com/ElectricR/Battery-Iconizer/raw/master/battery_iconizer && sudo chmod +x battery_iconizer && sudo mv battery_iconizer /bin/")
 
 def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system(f"sudo {package_manager} " + ' '.join(package_to_install + distro_specific_packages))
@@ -58,6 +74,7 @@ def install(package_manager, distro_specific_packages, distro_specific_step):
     distro_specific_step()
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     jetbrains_font()
+    battery_iconizer()
     zsh_autosuggestions()
     configure_nvim()
 
