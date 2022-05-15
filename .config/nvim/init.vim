@@ -29,10 +29,16 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'lervag/vimtex'
     Plug 'sonph/onehalf', { 'rtp': 'vim' }
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzy-native.nvim'
+    Plug 'luochen1990/rainbow'
 
 call plug#end()
 
 set clipboard^=unnamed
+
+let g:rainbow_active = 1
 
 let mapleader=" "
 
@@ -41,6 +47,12 @@ let mapleader=" "
 :nmap <leader>gdb :packadd termdebug<CR>:Termdebug<CR><C-w>b<C-w><S-H><C-w>l
 :tnoremap <Esc> <C-\><C-n>
 :nmap <leader>b :Break<CR>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 "#########################################################
 " Coc-NVim
@@ -100,13 +112,13 @@ let mapleader=" "
       let col = col('.') - 1
       return !col || getline('.')[col - 1]  =~ '\s'
     endfunction
-
     inoremap <silent><expr> <Tab>
           \ pumvisible() ? "\<C-n>" :
           \ <SID>check_back_space() ? "\<Tab>" :
           \ coc#refresh()
     inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<C-H>"
     inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+    inoremap <silent><expr> <c-space> coc#refresh()
 
     " Map 'around' and 'inside' selections for functions and classes
     " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
