@@ -41,6 +41,24 @@ function widgets.wrapper()
         --------------------
         cr:arc(width / 2, height / 2, self.is_active_radius, 0, 2*math.pi)
         cr:fill()
+
+        --------------------
+        -- Draw hidden clients
+        --------------------
+        cr:set_line_width(2.5);
+        cr:move_to(width / 2, height / 2)
+        cr:line_to(width / 2 + 13 * self.has_hidden_clients, height / 2)
+        cr:move_to(width / 2, height / 2)
+        cr:line_to(width / 2 - 13 * self.has_hidden_clients, height / 2)
+        cr:move_to(width / 2, height / 2)
+        cr:line_to(width / 2 - 13 / 2 * self.has_hidden_clients, height / 2 - 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:move_to(width / 2, height / 2)
+        cr:line_to(width / 2 + 13 * self.has_hidden_clients / 2, height / 2 + 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:move_to(width / 2, height / 2)
+        cr:line_to(width / 2 + 13 * self.has_hidden_clients / 2, height / 2 - 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:move_to(width / 2, height / 2)
+        cr:line_to(width / 2 - 13 * self.has_hidden_clients / 2, height / 2 + 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:stroke()
     end
 end
 
@@ -78,6 +96,15 @@ function widgets.create_taglist(s, taglist_buttons)
                         self:emit_signal("widget::redraw_needed")
                     end,
                 }
+                self.has_hidden_clients_timed = rubato.timed {
+                    duration = 0.2,
+                    intro = 0,
+                    pos = 0,
+                    subscribed = function(v)
+                        self.has_hidden_clients = v
+                        self:emit_signal("widget::redraw_needed")
+                    end,
+                }
             end,
             update_callback = function(self, c3, index, objects)
                 if c3.selected then
@@ -90,6 +117,11 @@ function widgets.create_taglist(s, taglist_buttons)
                 else 
                     self.has_clients_circle.target = 0
                 end
+                if helpers.tag_has_minimized_clients(c3:clients()) then
+                    self.has_hidden_clients_timed.target = 1
+                else
+                    self.has_hidden_clients_timed.target = 0
+                end
             end,
         },
         layout = {
@@ -97,5 +129,4 @@ function widgets.create_taglist(s, taglist_buttons)
             layout  = wibox.layout.fixed.horizontal
         },
     }
-
 end

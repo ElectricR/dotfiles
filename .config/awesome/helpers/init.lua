@@ -20,4 +20,11 @@ function helpers.table_length(T)
   return count
 end
 
+function helpers.tag_has_minimized_clients(table)
+  for _, client in pairs(table) do 
+      if client.minimized then return true end
+  end
+  return false
+end
+
 return helpers
