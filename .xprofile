@@ -1,5 +1,7 @@
 setxkbmap -model pc104 -layout us,ru -variant dvp, -option grp:alt_shift_toggle
 xset r rate 200 50
 export PATH=$PATH:/usr/local/go/bin
-xautolock -time 10 -locker "slock" &
+xautolock -time 11 -locker "slock" &
 flameshot &
+xrandr --output HDMI-1 --mode 2560x1440 --above eDP-1
+xrdb ~/.Xresources

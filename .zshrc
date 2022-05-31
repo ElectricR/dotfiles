@@ -1,16 +1,18 @@
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+alias vpn='nmcli connection up YandexVPN'
+alias shot='flameshot gui'
 
+alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-
 # Mine
 alias s="sudo pm-suspend"
 # alias puml="java -jar /home/er/Downloads/plantuml.jar"
-# alias n='[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) = true ] && gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false || gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true'
+alias n='[ $(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled) = true ] && gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false || gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true'
 alias p="python3"
 alias pdb="python3 -m pdb"
 alias m="make"
@@ -19,10 +21,11 @@ alias mb="make build"
 alias md="make debug"
 alias mt="make test"
 alias v="nvim"
-alias tms="python3 ~/PROJECTS/TMS/TMS2.py"
+alias tms="python3 ~/projects/TMS/TMS2.py"
 alias c="clear"
 alias g="git"
 alias xclip="xclip -selection c"
+alias headphones="bluetoothctl connect 00:AD:D5:5A:5B:10"
 
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
@@ -101,5 +104,31 @@ bindkey -s '^f' 'v "$(fzf)"\n'
 #autoload edit-command-line; zle -N edit-command-line
 #bindkey '^e' edit-command-line
 
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '/home/roman-chulkov/yandex-cloud/path.bash.inc' ]; then source '/home/roman-chulkov/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/home/roman-chulkov/yandex-cloud/completion.zsh.inc' ]; then source '/home/roman-chulkov/yandex-cloud/completion.zsh.inc'; fi
+
+source <(kubectl completion zsh)
+source <(helm completion zsh)
+alias k=kubectl
+alias h=helm
+bindkey '^ ' autosuggest-accept
+alias wk="watch --color kubecolor --force-colors"
+compdef wk=kubectl
+watch_kube (){
+    prefix="wk"
+    if [ ${BUFFER%% *} = "k" ]; then
+        BUFFER="$prefix ${BUFFER#* }"
+        zle accept-line
+    fi
+}
+zle -N watch_kube
+bindkey "^w" watch_kube
+
+PATH=${PATH}:${HOME}/go/bin
+
 # Load syntax highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh 2>/dev/null
+
