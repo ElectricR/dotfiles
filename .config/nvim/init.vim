@@ -33,6 +33,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'luochen1990/rainbow'
+    Plug 'machakann/vim-sandwich'
 
 call plug#end()
 
@@ -53,6 +54,15 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 noremap <C-f> <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+"#########################################################
+" Vim Sandwich
+"#########################################################
+
+let g:operator_sandwich_no_default_key_mappings = 1
+silent! map <leader>sa <Plug>(operator-sandwich-add)
+silent! xmap <leader>sd <Plug>(operator-sandwich-delete)
+silent! xmap <leader>sr <Plug>(operator-sandwich-replace)
 
 "#########################################################
 " Coc-NVim
