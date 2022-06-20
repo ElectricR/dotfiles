@@ -3,5 +3,5 @@ xset r rate 200 50
 export PATH=$PATH:/usr/local/go/bin
 xautolock -time 11 -locker "slock" &
 flameshot &
-xrandr --output HDMI-1 --mode 2560x1440 --above eDP-1
+xrandr --output DP-3 --above eDP-1
 xrdb ~/.Xresources
