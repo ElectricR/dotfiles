@@ -2,7 +2,7 @@ local awful = require "awful"
 local wibox = require "wibox"
 local beautiful = require "beautiful"
 local helpers = require "helpers"
-local palette = require "theme.palette"
+local theme = require "theme"
 local rubato = require "rubato"
 local math = require "math"
 local string = require "string"
@@ -24,7 +24,7 @@ function widgets.cpu_arc:draw(context, cr, width, height)
     --------------------
     -- Draw outer circle
     --------------------
-    cr:set_source(gears.color(palette.cpu))
+    cr:set_source(gears.color(theme.accent))
     gears.shape.arc(cr, height, height, 4, 0.5 * math.pi, (0.5 + 2 * cpu_load_actual) * math.pi, true, true)
     cr:fill()
 end
@@ -39,7 +39,7 @@ cpu_load = rubato.timed {
 }
 
 widgets.cpu = wibox.widget {
-    bg = palette.detail,
+    bg = theme.accent,
     shape = helpers.rrect(9),
     widget = wibox.container.background,
     {
@@ -51,7 +51,7 @@ widgets.cpu = wibox.widget {
         {
             widget = wibox.container.background,
             shape = helpers.rrect(9),
-            bg = palette.bg,
+            bg = theme.widget_bg,
             {
                 left = 8,
                 right = 4,
@@ -77,7 +77,7 @@ widgets.cpu = wibox.widget {
                             widget = wibox.widget.textbox,
                             point  = {x=7.6,y=5.1},
                             font = "JetBrains Mono 12",
-                            markup = "<span foreground='" .. tostring(palette.cpu) .. "'></span>",
+                            markup = "<span foreground='" .. tostring(theme.accent) .. "'></span>",
                         },
                     },
                 },

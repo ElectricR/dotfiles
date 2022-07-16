@@ -1,7 +1,7 @@
 local awful = require "awful"
 local wibox = require "wibox"
 local helpers = require "helpers"
-local palette = require "theme.palette"
+local theme = require "theme"
 local rubato = require "rubato"
 local math = require "math"
 local string = require "string"
@@ -53,7 +53,7 @@ gears.timer{timeout = 1,
 }
 
 widgets.bluetooth = wibox.widget {
-    bg = palette.detail,
+    bg = theme.accent,
     shape = helpers.rrect(9),
     widget = wibox.container.background,
     {
@@ -65,7 +65,7 @@ widgets.bluetooth = wibox.widget {
         {
             widget = wibox.container.background,
             shape = helpers.rrect(9),
-            bg = palette.bg,
+            bg = theme.widget_bg,
             {
                 left = 7,
                 right = 7,

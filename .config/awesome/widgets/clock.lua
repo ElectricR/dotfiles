@@ -1,13 +1,13 @@
 local wibox = require "wibox"
 local helpers = require "helpers"
-local palette = require "theme.palette"
+local theme = require "theme"
 
 -----------------------------
 -- Clock
 -----------------------------
 
 widgets.clock = wibox.widget {
-    bg = palette.detail,
+    bg = theme.accent,
     shape = helpers.rrect(9),
     widget = wibox.container.background,
     {
@@ -19,7 +19,7 @@ widgets.clock = wibox.widget {
         {
             widget = wibox.container.background,
             shape = helpers.rrect(9),
-            bg = palette.bg,
+            bg = theme.widget_bg,
             {
                 left = 7,
                 right = 7,

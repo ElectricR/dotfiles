@@ -2,7 +2,7 @@ local awful = require "awful"
 local wibox = require "wibox"
 local beautiful = require "beautiful"
 local helpers = require "helpers"
-local palette = require "theme.palette"
+local theme = require "theme"
 local rubato = require "rubato"
 local math = require "math"
 local string = require "string"
@@ -13,7 +13,7 @@ local gears = require "gears"
 -----------------------------
 
 widgets.battery = wibox.widget {
-    bg = palette.detail,
+    bg = theme.accent,
     shape = helpers.rrect(9),
     widget = wibox.container.background,
     {
@@ -25,7 +25,7 @@ widgets.battery = wibox.widget {
         {
             widget = wibox.container.background,
             shape = helpers.rrect(9),
-            bg = palette.bg,
+            bg = theme.widget_bg,
             {
                 left = 7,
                 right = 7,
@@ -36,7 +36,7 @@ widgets.battery = wibox.widget {
                     widget = awful.widget.watch("sh -c \"cat /sys/class/power_supply/BAT0/capacity | awesome_iconizer --mode battery\"", 
                     30, 
                     function(widget, stdout, stderr, exitreason, exitcode)
-                      widget.markup = "<span foreground='" .. palette.green .. "'>" .. stdout .. "</span>"
+                      widget.markup = "<span foreground='" .. theme.accent .. "'>" .. stdout .. "</span>"
                       widget.font = "Iosevka 14"
                     end),
                 },
@@ -50,7 +50,7 @@ widgets.battery = wibox.widget {
 -----------------------------
 
 widgets.systray = wibox.widget {
-    bg = palette.bg,
+    bg = theme.widget_bg,
     shape = helpers.rrect(9),
     widget = wibox.container.background,
     {

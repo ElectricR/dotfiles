@@ -1,10 +1,11 @@
 local awful = require "awful"
 local wibox = require "wibox"
 local helpers = require "helpers"
-local palette = require "theme.palette"
+local theme = require "theme"
 local gears = require "gears"
 local math = require "math"
 local rubato = require "rubato"
+local dpi = require("beautiful.xresources").apply_dpi
 
 -----------------------------
 -- Taglist template
@@ -21,18 +22,18 @@ function widgets.wrapper()
         --------------------
         -- Draw outer circle
         --------------------
-        cr:set_source(gears.color(palette.detail))
+        cr:set_source(gears.color(theme.accent))
         gears.shape.circle(cr, width, height)
         cr:fill()
-        cr:set_source(gears.color(palette.bg))
+        cr:set_source(gears.color(theme.widget_bg))
         cr:arc(width / 2, height / 2, width * 0.45, 0, 2 * math.pi)
         cr:fill()
 
         --------------------
         -- Draw app circle
         --------------------
-        cr:set_source(gears.color(palette.detail))
-        cr:arc(width / 2, height / 2, 13, 0, 2 * math.pi)
+        cr:set_source(gears.color(theme.accent))
+        cr:arc(width / 2, height / 2, dpi(10), 0, 2 * math.pi)
         cr:set_line_width(self.has_clients_radius);
         cr:stroke()
 
@@ -45,19 +46,19 @@ function widgets.wrapper()
         --------------------
         -- Draw hidden clients
         --------------------
-        cr:set_line_width(2.5);
+        cr:set_line_width(dpi(1.8));
         cr:move_to(width / 2, height / 2)
-        cr:line_to(width / 2 + 13 * self.has_hidden_clients, height / 2)
+        cr:line_to(width / 2 + dpi(5) * self.has_hidden_clients, height / 2)
         cr:move_to(width / 2, height / 2)
-        cr:line_to(width / 2 - 13 * self.has_hidden_clients, height / 2)
+        cr:line_to(width / 2 - dpi(5) * self.has_hidden_clients, height / 2)
         cr:move_to(width / 2, height / 2)
-        cr:line_to(width / 2 - 13 / 2 * self.has_hidden_clients, height / 2 - 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:line_to(width / 2 - dpi(5) / 2 * self.has_hidden_clients, height / 2 - dpi(5) * self.has_hidden_clients * math.sqrt(3) / 2)
         cr:move_to(width / 2, height / 2)
-        cr:line_to(width / 2 + 13 * self.has_hidden_clients / 2, height / 2 + 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:line_to(width / 2 + dpi(5) * self.has_hidden_clients / 2, height / 2 + dpi(5) * self.has_hidden_clients * math.sqrt(3) / 2)
         cr:move_to(width / 2, height / 2)
-        cr:line_to(width / 2 + 13 * self.has_hidden_clients / 2, height / 2 - 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:line_to(width / 2 + dpi(5) * self.has_hidden_clients / 2, height / 2 - dpi(5) * self.has_hidden_clients * math.sqrt(3) / 2)
         cr:move_to(width / 2, height / 2)
-        cr:line_to(width / 2 - 13 * self.has_hidden_clients / 2, height / 2 + 13 * self.has_hidden_clients * math.sqrt(3) / 2)
+        cr:line_to(width / 2 - dpi(5) * self.has_hidden_clients / 2, height / 2 + dpi(5) * self.has_hidden_clients * math.sqrt(3) / 2)
         cr:stroke()
     end
 end
@@ -108,17 +109,17 @@ function widgets.create_taglist(s, taglist_buttons)
             end,
             update_callback = function(self, c3, index, objects)
                 if c3.selected then
-                    self.selected_circle.target = 6
+                    self.selected_circle.target = dpi(4.5)
                 else
                     self.selected_circle.target = 0
                 end
                 if helpers.table_length(c3:clients()) > 0 then
-                    self.has_clients_circle.target = 5
+                    self.has_clients_circle.target = dpi(3.25)
                 else 
                     self.has_clients_circle.target = 0
                 end
                 if helpers.tag_has_minimized_clients(c3:clients()) then
-                    self.has_hidden_clients_timed.target = 1
+                    self.has_hidden_clients_timed.target = dpi(0.75)
                 else
                     self.has_hidden_clients_timed.target = 0
                 end

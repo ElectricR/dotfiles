@@ -1,6 +1,10 @@
 local helpers = require "helpers"
 local bar = require "bar"
-local palette = require "theme.palette"
+local theme = require "theme"
+local beautiful = require("beautiful")
+
+beautiful.init(theme)
+
 ----------------------------------------------------- BELOW IS UNSORTED
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
@@ -13,7 +17,6 @@ require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
-local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
@@ -51,10 +54,6 @@ do
     end)
 end
 -- }}}
-
--- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
-beautiful.init("~/.config/awesome/white_theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -178,7 +177,7 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
-    beautiful.prompt_bg = palette.detail
+    beautiful.prompt_bg = theme.accent
     s.mypromptbox = awful.widget.prompt(
     )
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -210,7 +209,7 @@ awful.screen.connect_for_each_screen(function(s)
                     s.mypromptbox,
                     layout = wibox.layout.align.horizontal,
                 },
-                bg = palette.detail,
+                bg = theme.accent,
                 shape = helpers.rrect(24),
                 widget = wibox.container.background,
             },
@@ -238,7 +237,7 @@ awful.screen.connect_for_each_screen(function(s)
                     widget = wibox.layout.align.horizontal,
                 },
                 bg = "#00000000",
-                shape = helpers.rrect(24),
+                -- shape = helpers.rrect(24),
                 widget = wibox.container.background,
             },
             widget = wibox.container.place,
@@ -633,9 +632,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
--- AutoStart
-awful.spawn.with_shell("compton")
 
 -- Round corners
 function manage_corners (c)
