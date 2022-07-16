@@ -3,6 +3,5 @@ xset r rate 200 50
 export PATH=$PATH:/usr/local/go/bin
 xautolock -time 11 -locker "slock" &
 flameshot &
-#xrandr --output DP-3 --above eDP-1
 xrdb ~/.Xresources
 picom --experimental-backend &
