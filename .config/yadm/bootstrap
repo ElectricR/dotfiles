@@ -37,7 +37,7 @@ def ubuntu_install():
 
 # Packages
 
-arch_packages = ["zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
+arch_packages = ["zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
 
 # Custom targets
 
@@ -68,6 +68,10 @@ def fonts():
 def battery_iconizer():
     os.system("wget https://github.com/ElectricR/Battery-Iconizer/raw/master/battery_iconizer && sudo chmod +x battery_iconizer && sudo mv battery_iconizer /bin/")
 
+def zsh_bd():
+    os.system("mkdir -p /usr/share/zsh/plugins/bd")
+    os.system("curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh > /usr/share/zsh/plugins/bd/bd.zsh")
+
 def zsh_autosuggestions():
     os.system("git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions")
 
@@ -86,7 +90,8 @@ def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     fonts()
     battery_iconizer()
-    zsh_autosuggestions()
+    #zsh_autosuggestions()
+    zsh_bd()
     configure_nvim()
 
 if __name__ == "__main__":
