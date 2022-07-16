@@ -65,8 +65,8 @@ def fonts():
     os.system("sudo mv tempaoeu/*.ttf /usr/share/fonts/iosevka")
     os.system("rm ttf-iosevka-15.0.2.zip tempaoeu -r")
 
-def battery_iconizer():
-    os.system("wget https://github.com/ElectricR/Battery-Iconizer/raw/master/battery_iconizer && sudo chmod +x battery_iconizer && sudo mv battery_iconizer /bin/")
+def awesome_iconizer():
+    os.system("wget https://github.com/ElectricR/Awesome-Iconizer/raw/master/awesome_iconizer && sudo chmod +x awesome_iconizer && sudo mv awesome_iconizer /bin/")
 
 def zsh_bd():
     os.system("sudo mkdir -p /usr/share/zsh/plugins/bd")
@@ -89,7 +89,7 @@ def install(package_manager, distro_specific_packages, distro_specific_step):
     distro_specific_step()
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
     fonts()
-    battery_iconizer()
+    awesome_iconizer()
     #zsh_autosuggestions()
     zsh_bd()
     configure_nvim()
