@@ -4,7 +4,7 @@
 
     "languageserver": {
       "golang": {
-        "command": "/home/roman-chulkov/go/bin/gopls",
+        "command": "/home/er/go/bin/gopls",
         "rootPatterns": ["go.mod"],
         "filetypes": ["go"]
       }
