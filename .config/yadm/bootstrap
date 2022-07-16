@@ -69,8 +69,8 @@ def battery_iconizer():
     os.system("wget https://github.com/ElectricR/Battery-Iconizer/raw/master/battery_iconizer && sudo chmod +x battery_iconizer && sudo mv battery_iconizer /bin/")
 
 def zsh_bd():
-    os.system("mkdir -p /usr/share/zsh/plugins/bd")
-    os.system("curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh > /usr/share/zsh/plugins/bd/bd.zsh")
+    os.system("sudo mkdir -p /usr/share/zsh/plugins/bd")
+    os.system("sudo curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh -o /usr/share/zsh/plugins/bd/bd.zsh")
 
 def zsh_autosuggestions():
     os.system("git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions")
