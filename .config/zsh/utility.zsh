@@ -10,7 +10,7 @@ source /usr/share/zsh/plugins/bd/bd.zsh
 
 # Fast cd using fzf
 fzfcd () {
-    result=$(find | fzf --height 50% --reverse)
+    result=$(find | fzf --height 50% --reverse --border)
     if [[ -n "$result" ]]; then
         if [[ -f "$result" ]]; then
             cd $(dirname $result)
