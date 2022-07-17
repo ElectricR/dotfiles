@@ -8,3 +8,16 @@ for index ({1..100}) alias "$index"="cd +${index}"; unset index
 # bd utility
 source /usr/share/zsh/plugins/bd/bd.zsh
 
+# Fast cd using fzf
+fzfcd () {
+    result=$(find | fzf --height 50% --reverse)
+    if [[ -n "$result" ]]; then
+        if [[ -f "$result" ]]; then
+            cd $(dirname $result)
+        else
+            cd $result
+        fi
+    fi
+}
+
+bindkey -s '^f' 'fzfcd\n'
