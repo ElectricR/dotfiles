@@ -8,6 +8,12 @@ alias mr="make run"
 
 alias v="nvim"
 
+alias t="task"
+alias ta="task add"
+alias tn="task next"
+alias td="task done"
+alias tm="task mod"
+
 alias tms="python3 ~/projects/TMS/TMS2.py"
 
 alias headphones="bluetoothctl power on && bluetoothctl connect 00:AD:D5:5A:5B:10"
