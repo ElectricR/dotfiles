@@ -42,3 +42,4 @@ data.location=/home/er/.task
 news.version=2.6.0
 
 urgency.uda.priority.L.coefficient=-2
+urgency.blocking.coefficient=0
