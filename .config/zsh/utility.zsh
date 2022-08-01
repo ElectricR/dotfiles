@@ -9,15 +9,18 @@ for index ({1..100}) alias "$index"="cd +${index}"; unset index
 source /usr/share/zsh/plugins/bd/bd.zsh
 
 # Fast cd using fzf
+export FZF_DEFAULT_OPTS='--height 50% --reverse --border'
 fzfcd () {
-    result=$(find | fzf --height 50% --reverse --border)
+    result=$(find | fzf)
     if [[ -n "$result" ]]; then
-        if [[ -f "$result" ]]; then
-            cd $(dirname $result)
-        else
+        if [[ -d "$result" ]]; then
             cd $result
+        else
+            cd $(dirname $result)
         fi
     fi
 }
-
 bindkey -s '^f' 'fzfcd\n'
+
+# CTRL-T and CTRL-R shortcuts for fzf
+source /usr/share/fzf/key-bindings.zsh
