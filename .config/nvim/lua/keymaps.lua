@@ -40,8 +40,8 @@ vim.keymap.set('n', '<C-f>', require('telescope.builtin').live_grep, default_opt
 --vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, default_opts)
 
 -- Sandwich bindings
-vim.keymap.set('n', '<leader>sa', '<Plug>(operator-sandwich-add)', default_opts)
-vim.keymap.set('n', '<leader>sd', '<Plug>(operator-sandwich-delete) ', default_opts)
-vim.keymap.set('n', '<leader>sr', '<Plug>(operator-sandwich-replace)', default_opts)
+vim.keymap.set({'n', 'v'}, '<leader>sa', '<Plug>(operator-sandwich-add)', default_opts)
+vim.keymap.set({'n', 'v'}, '<leader>sd', '<Plug>(operator-sandwich-delete)', default_opts)
+vim.keymap.set({'n', 'v'}, '<leader>sr', '<Plug>(operator-sandwich-replace)', default_opts)
 
 return keys
