@@ -44,4 +44,28 @@ vim.keymap.set({'n', 'v'}, '<leader>sa', '<Plug>(operator-sandwich-add)', defaul
 vim.keymap.set({'n', 'v'}, '<leader>sd', '<Plug>(operator-sandwich-delete)', default_opts)
 vim.keymap.set({'n', 'v'}, '<leader>sr', '<Plug>(operator-sandwich-replace)', default_opts)
 
+
+-- Hop bindings
+vim.keymap.set('', 'f', function() 
+    require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true })
+end, default_opts)
+vim.keymap.set('', 'F', function() 
+    require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })
+end, default_opts)
+vim.keymap.set('', 't', function()
+    require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+end, default_opts)
+vim.keymap.set('', 'T', function()
+    require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+end, default_opts)
+vim.keymap.set('', '<leader>hl', function()
+    require('hop').hint_lines_skip_whitespace()
+end, default_opts)
+vim.keymap.set('', '<leader>hc', function()
+    require('hop').hint_char2()
+end, default_opts)
+vim.keymap.set('', '<leader>hw', function()
+    require('hop').hint_words()
+end, default_opts)
+
 return keys

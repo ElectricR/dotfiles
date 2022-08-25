@@ -3,6 +3,7 @@ require("treesitter")
 require("rainbow")
 require("nvim-colorizer")
 require("sandwich")
+require("nvim-hop")
 
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -24,6 +25,7 @@ require('packer').startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/cmp-nvim-lua'
+    use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -46,6 +48,11 @@ require('packer').startup(function(use)
     use 'kyazdani42/nvim-web-devicons'
 
     use 'machakann/vim-sandwich'
+
+    use {
+        'phaazon/hop.nvim',
+        branch = 'v2',
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
