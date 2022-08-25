@@ -47,11 +47,15 @@ require('packer').startup(function(use)
     use 'nvim-telescope/telescope-fzy-native.nvim'
     use 'kyazdani42/nvim-web-devicons'
 
+    -- Misc
     use 'machakann/vim-sandwich'
-
     use {
         'phaazon/hop.nvim',
         branch = 'v2',
+    }
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
     }
 
     -- Automatically set up your configuration after cloning packer.nvim
