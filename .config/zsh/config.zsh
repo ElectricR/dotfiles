@@ -1,5 +1,3 @@
-EDITOR="nvim"
-
 # Load colors
 autoload -U colors && colors
 
