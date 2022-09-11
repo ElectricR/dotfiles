@@ -13,7 +13,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-vim.cmd('colorscheme monokai_soda')
 --vim.cmd(':hi Normal guibg=none')
 --vim.cmd(':hi LineNr guibg=none')
 --vim.cmd(':hi SignColumn guibg=none')

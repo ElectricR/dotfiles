@@ -32,9 +32,6 @@ require('packer').startup(function(use)
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
     }
 
-    -- Colorscheme
-    use 'tanvirtin/nvim-monokai'
-
     use 'luochen1990/rainbow'
     use 'norcalli/nvim-colorizer.lua'
 

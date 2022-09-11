@@ -27,7 +27,7 @@ keys.lsp_on_attach_mappings = function(bufnr)
   --vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
   --vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  --vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  --vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, bufopts)
   --vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
 end
 
