@@ -693,6 +693,9 @@ M.load_plugin_syntax = function(palette)
 
     -- ray-x/lsp_signature.nvim
     LspSignatureActiveParameter = { fg = palette.orange },
+    LspReferenceText = { bg = palette.red },
+    LspReferenceRead = { bg = palette.base5 },
+    LspReferenceWrite= { bg = palette.base4 },
   }
 end
 
