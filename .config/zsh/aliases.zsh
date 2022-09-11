@@ -10,9 +10,11 @@ alias v="nvim"
 
 alias t="task"
 alias ta="task add"
-alias tn="task next"
+alias tl="task list"
 alias td="task done"
 alias tm="task mod"
+alias tw="task work"
+alias te="task education"
 
 alias tms="python3 ~/projects/TMS/TMS2.py"
 
