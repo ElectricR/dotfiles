@@ -1,4 +1,5 @@
 require('monokai').setup { palette = require('monokai').soda }
+-- Time that takes for CursorHold highlighting to appear
 vim.cmd('set updatetime=300')
 vim.cmd('autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()')
 vim.cmd('autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()')
