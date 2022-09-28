@@ -1,4 +1,5 @@
 alias ls='ls --color=auto'
+alias tree="tree -C"
 
 alias p="python3"
 alias pdb="python3 -m pdb"
