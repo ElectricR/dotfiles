@@ -4,6 +4,7 @@ require("rainbow")
 require("nvim-colorizer")
 require("sandwich")
 require("nvim-hop")
+require("nvim-lspsaga")
 
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -54,6 +55,10 @@ require('packer').startup(function(use)
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
+    use {
+       "glepnir/lspsaga.nvim",
+        branch = "main",
+    } 
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
@@ -61,4 +66,3 @@ require('packer').startup(function(use)
         require('packer').sync()
     end
 end)
-
