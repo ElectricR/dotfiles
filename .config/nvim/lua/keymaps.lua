@@ -29,6 +29,8 @@ keys.lsp_on_attach_mappings = function(bufnr)
     vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
     vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, bufopts)
     --vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+    vim.keymap.set('n', '<leader>ga', '<cmd>Lspsaga lsp_finder<CR>', bufopts)
+    vim.keymap.set('n', '<leader>dl', '<cmd>Lspsaga show_line_diagnostics<CR>', bufopts)
 end
 
 

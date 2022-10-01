@@ -5,5 +5,10 @@ require("lspsaga").init_lsp_saga {
     },
     definition_action_keys = {
         tabe = '<C-t>',
+        quit = '<C-c>',
+    },
+    finder_action_keys = {
+        tabe = '<C-t>',
+        quit = '<C-c>',
     },
 }
