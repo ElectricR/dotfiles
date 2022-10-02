@@ -35,7 +35,9 @@ require('packer').startup(function(use)
     }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
 
+    -- Style
     use 'norcalli/nvim-colorizer.lua'
+    use 'onsails/lspkind.nvim'
     -- Lua
     use {
         "folke/twilight.nvim",
