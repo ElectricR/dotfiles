@@ -37,7 +37,7 @@ def ubuntu_install():
 
 # Packages
 
-arch_packages = ["rust-analyzer", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
+arch_packages = ["rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
 
 # Custom targets
 
@@ -46,6 +46,10 @@ def configure_shell():
 
 def arch_bootstrap():
     os.system("systemctl --user start pipewire-pulse")
+
+def rust_install():
+    os.system("rustup +nightly component add rust-analyzer-preview")
+    os.system('sudo mv ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer /usr/bin' )
 
 def fonts():
     os.system("wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip")
@@ -85,6 +89,7 @@ def configure_nvim():
 def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system(f"sudo {package_manager} " + ' '.join(distro_specific_packages))
     configure_shell()
+    rust_install()
     os.system("yadm submodule update --init --recursive")
     distro_specific_step()
     os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
