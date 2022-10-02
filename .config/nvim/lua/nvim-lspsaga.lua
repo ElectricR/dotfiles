@@ -11,4 +11,10 @@ require("lspsaga").init_lsp_saga {
         tabe = '<C-t>',
         quit = '<C-c>',
     },
+    code_action_keys = {
+        quit = "<C-c>",
+    },
+    symbol_in_winbar = {
+        enable = false,
+    },
 }

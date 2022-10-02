@@ -32,8 +32,8 @@ require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
     }
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
 
-    use 'luochen1990/rainbow'
     use 'norcalli/nvim-colorizer.lua'
 
     -- Toggle line number behavior when window gets out of focus
