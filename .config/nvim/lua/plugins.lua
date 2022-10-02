@@ -25,6 +25,7 @@ require('packer').startup(function(use)
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
+    use 'ray-x/cmp-treesitter'
     use 'hrsh7th/cmp-nvim-lua'
     use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
@@ -35,6 +36,11 @@ require('packer').startup(function(use)
     use 'nvim-treesitter/nvim-treesitter-textobjects'
 
     use 'norcalli/nvim-colorizer.lua'
+    -- Lua
+    use {
+        "folke/twilight.nvim",
+        config = function() require("twilight").setup {} end
+    }
 
     -- Toggle line number behavior when window gets out of focus
     use 'jeffkreeftmeijer/vim-numbertoggle'

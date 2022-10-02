@@ -59,6 +59,7 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = 'cmp_tabnine' },
+        { name = 'treesitter' },
         { name = 'vsnip' }, 
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
