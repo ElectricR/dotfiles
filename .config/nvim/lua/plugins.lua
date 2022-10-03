@@ -38,7 +38,6 @@ require('packer').startup(function(use)
     -- Style
     use 'norcalli/nvim-colorizer.lua'
     use 'onsails/lspkind.nvim'
-    -- Lua
     use {
         "folke/twilight.nvim",
         config = function() require("twilight").setup {} end
