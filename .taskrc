@@ -39,6 +39,8 @@ data.location=/home/er/.task
 #include solarized-light-256.theme
 #include no-color.theme
 
+color.tagged=none
+
 news.version=2.6.0
 
 urgency.uda.priority.L.coefficient=-2
