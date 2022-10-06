@@ -20,10 +20,14 @@ local on_attach = function(client, bufnr)
     keys.lsp_on_attach_mappings(bufnr)
 end
 
+require("luasnip.loaders.from_vscode").lazy_load()
+
+local luasnip = require("luasnip")
+
 cmp.setup({
     snippet = {
         expand = function(args)
-          require'luasnip'.lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end
     },
     window = {
@@ -39,28 +43,26 @@ cmp.setup({
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif vim.fn["vsnip#available"](1) == 1 then
-                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
             else
                 fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
         end, { "i", "s" }),
-
         ["<S-Tab>"] = cmp.mapping(function()
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-                feedkey("<Plug>(vsnip-jump-prev)", "")
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             end
         end, { "i", "s" }),
-
     }),
     sources = cmp.config.sources({
+        { name = 'luasnip' }, 
         { name = 'cmp_tabnine' },
         { name = 'treesitter' },
-        { name = 'luasnip' }, 
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
         { name = 'path' }, 
