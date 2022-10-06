@@ -20,8 +20,8 @@ require('packer').startup(function(use)
     -- Completion stuff
     use 'hrsh7th/nvim-cmp' -- Core plugin
     use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-vsnip'
-    use 'hrsh7th/vim-vsnip'
+    --use 'hrsh7th/cmp-vsnip'
+    --use 'hrsh7th/vim-vsnip'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
@@ -45,6 +45,10 @@ require('packer').startup(function(use)
 
     -- Toggle line number behavior when window gets out of focus
     use 'jeffkreeftmeijer/vim-numbertoggle'
+
+    -- Snippet
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
 
     -- Telescope stuff
     use 'nvim-lua/plenary.nvim'

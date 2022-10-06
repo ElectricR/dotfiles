@@ -23,8 +23,8 @@ end
 cmp.setup({
     snippet = {
         expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
+          require'luasnip'.lsp_expand(args.body)
+        end
     },
     window = {
         completion = cmp.config.window.bordered(),
@@ -60,7 +60,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'cmp_tabnine' },
         { name = 'treesitter' },
-        { name = 'vsnip' }, 
+        { name = 'luasnip' }, 
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
         { name = 'path' }, 
@@ -70,9 +70,18 @@ cmp.setup({
     }),
     formatting = {
         format = require('lspkind').cmp_format {
-            mode = 'symbol', -- show only symbol annotations
+            mode = 'symbol_text', -- show only symbol annotations
             maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
             ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            menu = ({
+                buffer = "[Buf]",
+                nvim_lsp = "[LSP]",
+                luasnip = "[Snip]",
+                nvim_lua = "[NLua]",
+                cmp_tabnine = "[Tab]",
+                treesitter = "[Tree]",
+                path = "[Path]",
+            }),
         } 
     },
     experimental = { ghost_text = true },
