@@ -4,7 +4,7 @@ require("lspsaga").init_lsp_saga {
         sign = false,
     },
     definition_action_keys = {
-        edit = '<C-o>',
+        edit = '<C-e>',
         tabe = '<C-t>',
         vsplit = '<kRight>',
         split = '<kLeft>',
