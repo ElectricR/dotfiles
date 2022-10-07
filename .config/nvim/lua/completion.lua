@@ -13,7 +13,7 @@ end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- WHAT IS THIS?
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -60,15 +60,16 @@ cmp.setup({
         end, { "i", "s" }),
     }),
     sources = cmp.config.sources({
-        { name = 'luasnip' }, 
+        { name = 'luasnip' },
         { name = 'cmp_tabnine' },
         { name = 'treesitter' },
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
-        { name = 'path' }, 
+        { name = 'path' },
+        { name = 'emoji' },
     },
-    { 
-        { name = 'buffer' }, 
+    {
+        { name = 'buffer' },
     }),
     formatting = {
         format = require('lspkind').cmp_format {
@@ -83,8 +84,9 @@ cmp.setup({
                 cmp_tabnine = "[Tab]",
                 treesitter = "[Tree]",
                 path = "[Path]",
+                emoji = "[Emoji]",
             }),
-        } 
+        }
     },
     experimental = { ghost_text = true },
 })
@@ -109,8 +111,38 @@ require('lspconfig')['pyright'].setup{
 require('lspconfig')['gopls'].setup{
     on_attach = on_attach,
     capabilities = capabilities,
+    settings = {
+        gopls = {
+            allExperiments = true,
+            expandWorkspaceToModule = false,
+            directoryFilters = { 
+                "-",
+                "+cloud/mdb/mdb-internal-api",
+            },
+        },
+    },
 }
 require('lspconfig').rust_analyzer.setup{
     on_attach=on_attach,
     capabilities = capabilities,
+}
+require('lspconfig').sumneko_lua.setup {
+    on_attach=on_attach,
+    capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+    },
+  },
 }
