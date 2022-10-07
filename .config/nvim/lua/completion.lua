@@ -111,10 +111,15 @@ require('lspconfig')['pyright'].setup{
 require('lspconfig')['gopls'].setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    root_dir = require('lspconfig.util').root_pattern("ya.make", "go.work", "go.mod", ".git"),
     settings = {
         gopls = {
+            expandWorkspaceToModule = false,
             directoryFilters = {
-                "-",
+                "-library/python",
+                "-library/cpp",
+                "-contrib",
+                "+contrib/go",
                 "+cloud/mdb",
             },
         },
