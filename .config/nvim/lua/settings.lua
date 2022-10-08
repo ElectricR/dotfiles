@@ -8,7 +8,7 @@ vim.opt.laststatus = 0 -- Remove status line
 vim.opt.expandtab = true -- Place spaces instead of tabs
 vim.opt.shiftwidth = 4 -- Number of spaces to place
 vim.opt.tabstop = 4 -- Number of characters tab will be showed as
-vim.opt.smarttab = true 
+vim.opt.smarttab = true
 
 vim.opt.scrolloff = 8 -- Top/bottom scroll offset
 
