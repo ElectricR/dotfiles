@@ -57,7 +57,6 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = 'luasnip' },
-        { name = 'cmp_tabnine' },
         { name = 'treesitter' },
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
@@ -77,7 +76,6 @@ cmp.setup({
                 nvim_lsp = "[LSP]",
                 luasnip = "[Snip]",
                 nvim_lua = "[NLua]",
-                cmp_tabnine = "[Tab]",
                 treesitter = "[Tree]",
                 path = "[Path]",
                 emoji = "[Emoji]",
@@ -107,16 +105,14 @@ require('lspconfig')['pyright'].setup{
 require('lspconfig')['gopls'].setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    root_dir = require('lspconfig.util').root_pattern("ya.make", "go.work", "go.mod", ".git"),
+    --root_dir = require('lspconfig.util').root_pattern("ya.make", "go.work", "go.mod", ".git"),
     settings = {
         gopls = {
             expandWorkspaceToModule = false,
             directoryFilters = {
-                "-library/python",
-                "-library/cpp",
-                "-contrib",
-                "+contrib/go",
-                "+cloud/mdb",
+                "-",
+                "+cloud/mdb/mdb-internal-api",
+                "+cloud/mdb/rdsync",
             },
         },
     },
