@@ -44,6 +44,8 @@ color.tagged=none
 news.version=2.6.0
 
 urgency.uda.priority.L.coefficient=-2
+urgency.due.coefficient=3
+urgency.project.coefficient=0
 urgency.blocking.coefficient=0
 urgency.annotations.coefficient=0
 urgency.tags.coefficient=0
