@@ -106,11 +106,18 @@ require('lspconfig')['gopls'].setup {
     on_attach = on_attach,
     capabilities = capabilities,
     --root_dir = require('lspconfig.util').root_pattern("ya.make", "go.work", "go.mod", ".git"),
+    root_dir = require('lspconfig.util').root_pattern("mdb-internal-api"),
     settings = {
         gopls = {
             expandWorkspaceToModule = false,
             directoryFilters = {
-                "-",
+                "-library/python",
+                "-library/cpp",
+                "-contrib",
+                "+contrib/go",
+                "-sandbox",
+                "-kikimr/public/sdk/python",
+                "-ydb/public/sdk/python",
                 "+cloud/mdb/mdb-internal-api",
                 "+cloud/mdb/rdsync",
             },
