@@ -17,6 +17,7 @@ vim.opt.relativenumber = true
 
 
 vim.o.clipboard = "unnamed" -- Use '*' register for clipboard to making it possible to share clipboard between neovim instances
+vim.o.mouse = ""
 
 vim.cmd('set updatetime=300')
 vim.api.nvim_create_autocmd({'CursorHoldI', 'CursorHold'}, {
