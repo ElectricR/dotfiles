@@ -18,16 +18,16 @@ require('nvim-treesitter.configs').setup {
       lookahead = true,
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-        ["al"] = "@loop.outer",
-        ["il"] = "@loop.inner",
-        ["aq"] = "@conditional.outer",
-        ["iq"] = "@conditional.inner",
+        [keys.treesitter.textobj.outer.func] = "@function.outer",
+        [keys.treesitter.textobj.inner.func] = "@function.inner",
+        [keys.treesitter.textobj.outer.class] = "@class.outer",
+        [keys.treesitter.textobj.inner.class] = "@class.inner",
+        [keys.treesitter.textobj.outer.param] = "@parameter.outer",
+        [keys.treesitter.textobj.inner.param] = "@parameter.inner",
+        [keys.treesitter.textobj.outer.loop] = "@loop.outer",
+        [keys.treesitter.textobj.inner.loop] = "@loop.inner",
+        [keys.treesitter.textobj.outer.cond] = "@conditional.outer",
+        [keys.treesitter.textobj.inner.cond] = "@conditional.inner",
       },
       -- You can choose the select mode (default is charwise 'v')
       selection_modes = {
@@ -40,14 +40,14 @@ require('nvim-treesitter.configs').setup {
     swap = {
       enable = true,
       swap_next = {
-        ["<leader>mf"] = "@function.outer",
-        ["<leader>mc"] = "@class.outer",
-        ["<leader>ma"] = "@parameter.inner",
+        [keys.treesitter.swap_next.func] = "@function.outer",
+        [keys.treesitter.swap_next.class] = "@class.outer",
+        [keys.treesitter.swap_next.param] = "@parameter.inner",
       },
       swap_previous = {
-        ["<leader>mF"] = "@function.outer",
-        ["<leader>mC"] = "@class.outer",
-        ["<leader>mA"] = "@parameter.inner",
+        [keys.treesitter.swap_prev.func] = "@function.outer",
+        [keys.treesitter.swap_prev.class] = "@class.outer",
+        [keys.treesitter.swap_prev.param] = "@parameter.inner",
       },
     },
   },

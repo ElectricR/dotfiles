@@ -26,3 +26,6 @@ vim.api.nvim_create_autocmd({'CursorHoldI', 'CursorHold'}, {
 vim.api.nvim_create_autocmd({'CursorMoved', 'CursorMovedI'}, {
     callback = vim.lsp.buf.clear_references,
 })
+vim.api.nvim_create_autocmd({'BufWinEnter'}, {
+    command = ':TwilightEnable',
+})

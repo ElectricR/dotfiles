@@ -1,5 +1,56 @@
 local keys = {}
 
+keys.lspsaga = {
+    quit = '<C-c>',
+    edit = '<C-e>',
+    tabe = '<C-t>',
+    vsplit = '<kRight>',
+    split = '<kLeft>',
+}
+
+keys.cmp = {
+    scroll_docs_down = '<C-b>',
+    scroll_docs_up = '<C-f>',
+    complete = '<C-Space>',
+    abort = '<C-c>',
+    confirm = '<CR>',
+    tab = '<Tab>',
+    stab = '<S-Tab>',
+}
+
+keys.treesitter = {
+    textobj = {
+        inner = {
+            func = "if",
+            class = "ic",
+            param = "ia",
+            loop = "il",
+            cond = "iq",
+        },
+        outer = {
+            func = "af",
+            class = "ac",
+            param = "aa",
+            loop = "al",
+            cond = "aq",
+        }
+    },
+    swap_next = {
+        func = '<leader>mf',
+        class = '<leader>mc',
+        param = '<leader>ma',
+    },
+    swap_prev = {
+        func = '<leader>mF',
+        class = '<leader>mC',
+        param = '<leader>mA',
+    },
+}
+
+keys.telescope = {
+    which_key = '<C-h>'
+}
+
 local default_opts = {noremap = true, silent = true}
 
 vim.keymap.set('n', '<leader>t', '<cmd>Twilight<CR>')
@@ -30,8 +81,10 @@ end
 -- Telescope bindings
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, default_opts)
 vim.keymap.set('n', '<C-f>', require('telescope.builtin').live_grep, default_opts)
---vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, default_opts)
---vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, default_opts)
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, default_opts)
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, default_opts)
+vim.keymap.set('n', '<leader>fr', require('telescope.builtin').registers, default_opts)
+vim.keymap.set('n', '<leader>ft', require('telescope.builtin').treesitter, default_opts)
 
 -- Sandwich bindings
 vim.keymap.set({'n', 'v'}, '<leader>sa', '<Plug>(operator-sandwich-add)', default_opts)

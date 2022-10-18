@@ -4,18 +4,18 @@ require("lspsaga").init_lsp_saga {
         sign = false,
     },
     definition_action_keys = {
-        edit = '<C-e>',
-        tabe = '<C-t>',
-        vsplit = '<kRight>',
-        split = '<kLeft>',
-        quit = '<C-c>',
+        edit = keys.lspsaga.edit,
+        tabe = keys.lspsaga.tabe,
+        vsplit = keys.lspsaga.vsplit,
+        split = keys.lspsaga.split,
+        quit = keys.lspsaga.quit,
     },
     finder_action_keys = {
-        tabe = '<C-t>',
-        quit = '<C-c>',
+        tabe = keys.lspsaga.tabe,
+        quit = keys.lspsaga.quit,
     },
     code_action_keys = {
-        quit = "<C-c>",
+        quit = keys.lspsaga.quit,
     },
     symbol_in_winbar = {
         enable = false,
