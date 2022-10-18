@@ -57,10 +57,10 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = 'luasnip' },
-        { name = 'treesitter' },
         { name = 'nvim_lua' },
         { name = 'nvim_lsp' },
         { name = 'path' },
+        { name = 'treesitter' },
         { name = 'emoji' },
     },
     {
