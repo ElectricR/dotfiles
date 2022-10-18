@@ -20,4 +20,5 @@ require("lspsaga").init_lsp_saga {
     symbol_in_winbar = {
         enable = false,
     },
+    finder_request_timeout = 7500,
 }

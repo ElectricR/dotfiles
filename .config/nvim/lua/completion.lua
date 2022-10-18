@@ -35,7 +35,7 @@ cmp.setup({
         [keys.cmp.scroll_docs_down] = cmp.mapping.scroll_docs(4),
         [keys.cmp.complete] = cmp.mapping.complete(), -- Trigger opening completion window
         [keys.cmp.abort] = cmp.mapping.abort(),
-        [keys.cmp.complete] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        [keys.cmp.confirm] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         [keys.cmp.tab] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
