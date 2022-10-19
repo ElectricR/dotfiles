@@ -101,6 +101,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 require('lspconfig')['pyright'].setup{
     on_attach = on_attach,
     capabilities = capabilities,
+    root_dir = require('lspconfig.util').root_pattern("ya.make", "go.work", "go.mod", ".git"),
 }
 require('lspconfig')['gopls'].setup {
     on_attach = on_attach,
