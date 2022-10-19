@@ -48,7 +48,8 @@ keys.treesitter = {
 }
 
 keys.telescope = {
-    which_key = '<C-h>'
+    which_key = '<C-h>',
+    tab = '<C-t>',
 }
 
 local default_opts = {noremap = true, silent = true}
