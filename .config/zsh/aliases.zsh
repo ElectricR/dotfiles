@@ -1,5 +1,6 @@
 alias ls='ls --color=auto'
 alias tree="tree -C"
+alias cat='bat --style plain --paging never'
 
 alias p="python3"
 alias pdb="python3 -m pdb"
