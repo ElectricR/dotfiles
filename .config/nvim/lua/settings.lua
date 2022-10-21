@@ -29,3 +29,7 @@ vim.api.nvim_create_autocmd({'CursorMoved', 'CursorMovedI'}, {
 vim.api.nvim_create_autocmd({'BufWinEnter'}, {
     command = ':TwilightEnable',
 })
+
+vim.cmd("set undofile")
+vim.cmd("set undodir=~/.vim/undo")
+vim.cmd("set undolevels=10000") -- number of undo saved
