@@ -237,10 +237,11 @@ M.load_syntax = function(palette)
       fg = palette.grey,
       bg = palette.base3,
     },
-    Tabline = {},
+    Tabline = {
+      bg = palette.base4,
+    },
     TabLineFill = {},
     TabLineSel = {
-      bg = palette.base4,
     },
     SpellBad = {
       fg = palette.red,
