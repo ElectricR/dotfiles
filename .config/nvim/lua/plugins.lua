@@ -26,6 +26,7 @@ require('packer').startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/cmp-emoji'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'ray-x/cmp-treesitter'
     use 'hrsh7th/cmp-nvim-lua'
 
