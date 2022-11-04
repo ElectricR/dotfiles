@@ -94,16 +94,16 @@ vim.keymap.set({'n', 'v'}, '<leader>sr', '<Plug>(operator-sandwich-replace)', de
 
 
 -- Hop bindings
-vim.keymap.set('', 'f', function() 
+vim.keymap.set('n', 'f', function()
     require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true })
 end, default_opts)
-vim.keymap.set('', 'F', function() 
+vim.keymap.set('n', 'F', function()
     require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })
 end, default_opts)
-vim.keymap.set('', 't', function()
+vim.keymap.set('n', 't', function()
     require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
 end, default_opts)
-vim.keymap.set('', 'T', function()
+vim.keymap.set('n', 'T', function()
     require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
 end, default_opts)
 vim.keymap.set('', '<leader>hl', function()
