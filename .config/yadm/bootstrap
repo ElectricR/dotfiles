@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import os.path
 
 
 
@@ -55,8 +56,10 @@ def fonts_install():
     return 1 if retcode else 0
 
 def tmux_plugin():
-    retcode = os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
-    return 1 if retcode else 0
+    if not os.path.exists("~/.tmux/plugins/tpm"):
+        retcode = os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
+        return 1 if retcode else 0
+    return 0
 
 #####################
 # Main
