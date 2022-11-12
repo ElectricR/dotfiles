@@ -75,6 +75,7 @@ def bootstrap():
                 print(f"Step {step.__name__} didn't finish successfully")
             case 2:
                 print(f"Step {step.__name__} didn't finish successfully. Aborting.")
+    print("Successfull bootstrap!")
 
 
 if __name__ == "__main__":
