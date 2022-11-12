@@ -66,5 +66,5 @@ report.education.filter=project:Education and status:pending -WAITING
 report.education.sort=start-,due+,project+,urgency-
 
 # Modify default listing
-report.list.filter=project.not:Yandex and status:pending -WAITING
+report.list.filter=project.not:Yandex and project.not:Education.SHAD and status:pending -WAITING
 report.list.sort=urgency+
