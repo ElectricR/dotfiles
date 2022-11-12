@@ -38,6 +38,7 @@ def ubuntu_install():
 # Packages
 
 arch_packages = ["fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
+yay_packages = ["ly"]
 
 # Custom targets
 
@@ -46,6 +47,11 @@ def configure_shell():
 
 def arch_bootstrap():
     os.system("systemctl --user start pipewire-pulse")
+
+def yay_install():
+    os.system("mkdir ~/projects/aur -p")
+    os.system("cd ~/projects/aur; git clone https://aur.archlinux.org/yay-bin.git")
+    os.system("cd ~/projects/aur/yay-bin; makepkg -si")
 
 def rust_install():
     os.system("rustup +nightly component add rust-analyzer-preview")
@@ -88,6 +94,8 @@ def configure_nvim():
 
 def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system(f"sudo {package_manager} " + ' '.join(distro_specific_packages))
+    yay_install()
+    os.system(f"yay -Suy " + ' '.join(yay_packages))
     configure_shell()
     rust_install()
     os.system("yadm submodule update --init --recursive")
