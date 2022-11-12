@@ -1,7 +1,105 @@
 #!/usr/bin/env python3
 import os
 
-# LEGACY
+
+
+#####################
+# Steps
+#####################
+ARCH_PACKAGES = ["wget", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
+def install_packages() -> int:
+    package_manager = "pacman -Suy"
+    distro_specific_packages = ARCH_PACKAGES
+    retcode = os.system(f"sudo {package_manager} " + ' '.join(distro_specific_packages))
+    return 2 if retcode else 0
+
+
+def init_submodules():
+    retcode = os.system("yadm submodule update --init --recursive")
+    return 2 if retcode else 0
+
+
+def yay_install():
+    retcode = os.system("mkdir ~/projects/aur -p && cd ~/projects/aur && git clone https://aur.archlinux.org/yay-bin.git && cd ~/projects/aur/yay-bin && makepkg -si")
+    return 1 if retcode else 0
+
+
+def bootstrap_pipewire():
+    retcode = os.system("systemctl --user start pipewire-pulse")
+    return 1 if retcode else 0
+
+
+def configure_shell():
+    retcode = os.system("chsh -s $(which zsh)")
+    return 1 if retcode else 0
+
+
+def zsh_bd():
+    retcode = os.system("sudo mkdir -p /usr/share/zsh/plugins/bd && sudo curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh -o /usr/share/zsh/plugins/bd/bd.zsh")
+    return 1 if retcode else 0
+
+
+def rust_install():
+    retcode = os.system("rustup +nightly component add rust-analyzer-preview && sudo mv ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer /usr/bin" )
+    return 1 if retcode else 0
+
+
+def fonts_install():
+    retcode = os.system("wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip && unzip JetBrainsMono-2.242.zip -d tempaoeu && sudo mv tempaoeu/fonts/ttf/*.ttf /usr/share/fonts/ && rm JetBrainsMono-2.242.zip tempaoeu -r")
+    if retcode: return 1
+
+    os.system("wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Ubuntu.zip && unzip Ubuntu.zip -d tempaoeu && sudo mkdir -p /usr/share/fonts/nerd && sudo mv tempaoeu/*.ttf /usr/share/fonts/nerd && rm Ubuntu.zip tempaoeu -r")
+    if retcode: return 1
+
+    os.system("wget https://github.com/be5invis/Iosevka/releases/download/v15.0.2/ttf-iosevka-15.0.2.zip && unzip ttf-iosevka-15.0.2.zip -d tempaoeu && sudo mkdir -p /usr/share/fonts/iosevka && sudo mv tempaoeu/*.ttf /usr/share/fonts/iosevka && rm ttf-iosevka-15.0.2.zip tempaoeu -r")
+    return 1 if retcode else 0
+
+def tmux_plugin():
+    retcode = os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
+    return 1 if retcode else 0
+
+#####################
+# Main
+#####################
+def bootstrap():
+    steps = [install_packages, init_submodules, yay_install, bootstrap_pipewire, configure_shell, zsh_bd, rust_install, fonts_install, tmux_plugin]
+    for step in steps:
+        exit_code = step()
+        match exit_code:
+            case 1:
+                print(f"Step {step.__name__} didn't finish successfully")
+            case 2:
+                print(f"Step {step.__name__} didn't finish successfully. Aborting.")
+
+
+if __name__ == "__main__":
+    match = input("Distro?:\n\t")
+    if match == "Arch":
+        bootstrap()
+    else:
+        print("Aborted")
+
+
+
+
+
+
+
+
+
+
+
+#####################
+# Legacy
+#####################
+def configure_nvim():
+    os.system("sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'")
+    os.system("nvim +PlugInstall +qall")
+    os.system("nvim \"+CocInstall coc-go coc-tabnine coc-clangd coc-pyright coc-cmake\" +qall")
+    os.system("pip3 install pynvim --upgrade")
+    os.system("nvim +UpdateRemotePlugins +qall")
+YAY_PACKAGES = ["ly"]
+    #os.system(f"yay -Suy " + ' '.join(YAY_PACKAGES))
 
 package_to_install_void_specific = ["picom", "kitty"]
 package_to_install_ubuntu_specific = ["libxcb-xfixes0-dev", "lua5.2", "redshift"]
@@ -34,83 +132,7 @@ def ubuntu_install():
     awesome_install()
     picom_install()
     go_install()
-
-# Packages
-
-arch_packages = ["fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
-yay_packages = ["ly"]
-
-# Custom targets
-
-def configure_shell():
-    os.system("chsh -s $(which zsh)")
-
-def arch_bootstrap():
-    os.system("systemctl --user start pipewire-pulse")
-
-def yay_install():
-    os.system("mkdir ~/projects/aur -p")
-    os.system("cd ~/projects/aur; git clone https://aur.archlinux.org/yay-bin.git")
-    os.system("cd ~/projects/aur/yay-bin; makepkg -si")
-
-def rust_install():
-    os.system("rustup +nightly component add rust-analyzer-preview")
-    os.system('sudo mv ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer /usr/bin' )
-
-def fonts():
-    os.system("wget https://download.jetbrains.com/fonts/JetBrainsMono-2.242.zip")
-    os.system("unzip JetBrainsMono-2.242.zip -d tempaoeu")
-    os.system("sudo mv tempaoeu/fonts/ttf/*.ttf /usr/share/fonts/")
-    os.system("rm JetBrainsMono-2.242.zip tempaoeu -r")
-
-    os.system("wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Ubuntu.zip")
-    os.system("unzip Ubuntu.zip -d tempaoeu")
-    os.system("sudo mkdir -p /usr/share/fonts/nerd")
-    os.system("sudo mv tempaoeu/*.ttf /usr/share/fonts/nerd")
-    os.system("rm Ubuntu.zip tempaoeu -r")
-
-    os.system("wget https://github.com/be5invis/Iosevka/releases/download/v15.0.2/ttf-iosevka-15.0.2.zip")
-    os.system("unzip ttf-iosevka-15.0.2.zip -d tempaoeu")
-    os.system("sudo mkdir -p /usr/share/fonts/iosevka")
-    os.system("sudo mv tempaoeu/*.ttf /usr/share/fonts/iosevka")
-    os.system("rm ttf-iosevka-15.0.2.zip tempaoeu -r")
-
 def awesome_iconizer():
     os.system("wget https://github.com/ElectricR/Awesome-Iconizer/raw/master/awesome_iconizer && sudo chmod +x awesome_iconizer && sudo mv awesome_iconizer /bin/")
-
-def zsh_bd():
-    os.system("sudo mkdir -p /usr/share/zsh/plugins/bd")
-    os.system("sudo curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh -o /usr/share/zsh/plugins/bd/bd.zsh")
-
 def zsh_autosuggestions():
     os.system("git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions")
-
-def configure_nvim():
-    os.system("sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'")
-    os.system("nvim +PlugInstall +qall")
-    os.system("nvim \"+CocInstall coc-go coc-tabnine coc-clangd coc-pyright coc-cmake\" +qall")
-    os.system("pip3 install pynvim --upgrade")
-    os.system("nvim +UpdateRemotePlugins +qall")
-
-def install(package_manager, distro_specific_packages, distro_specific_step):
-    os.system(f"sudo {package_manager} " + ' '.join(distro_specific_packages))
-    yay_install()
-    #os.system(f"yay -Suy " + ' '.join(yay_packages))
-    configure_shell()
-    rust_install()
-    os.system("yadm submodule update --init --recursive")
-    distro_specific_step()
-    os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
-    fonts()
-    awesome_iconizer()
-    #zsh_autosuggestions()
-    zsh_bd()
-    #configure_nvim()
-
-if __name__ == "__main__":
-    match = input("Distro?:\n\t")
-    if match == "Arch":
-        install("pacman -Suy", arch_packages, arch_bootstrap)
-    else:
-        print("Aborted")
-
