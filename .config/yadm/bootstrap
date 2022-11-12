@@ -55,11 +55,13 @@ def fonts_install():
     os.system("wget https://github.com/be5invis/Iosevka/releases/download/v15.0.2/ttf-iosevka-15.0.2.zip && unzip ttf-iosevka-15.0.2.zip -d tempaoeu && sudo mkdir -p /usr/share/fonts/iosevka && sudo mv tempaoeu/*.ttf /usr/share/fonts/iosevka && rm ttf-iosevka-15.0.2.zip tempaoeu -r")
     return 1 if retcode else 0
 
+
 def tmux_plugin():
-    if not os.path.exists("~/.tmux/plugins/tpm"):
+    if not os.path.exists("/home/er/.tmux/plugins/tpm"):
         retcode = os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
         return 1 if retcode else 0
     return 0
+
 
 #####################
 # Main
