@@ -95,7 +95,7 @@ def configure_nvim():
 def install(package_manager, distro_specific_packages, distro_specific_step):
     os.system(f"sudo {package_manager} " + ' '.join(distro_specific_packages))
     yay_install()
-    os.system(f"yay -Suy " + ' '.join(yay_packages))
+    #os.system(f"yay -Suy " + ' '.join(yay_packages))
     configure_shell()
     rust_install()
     os.system("yadm submodule update --init --recursive")
@@ -105,7 +105,7 @@ def install(package_manager, distro_specific_packages, distro_specific_step):
     awesome_iconizer()
     #zsh_autosuggestions()
     zsh_bd()
-    configure_nvim()
+    #configure_nvim()
 
 if __name__ == "__main__":
     match = input("Distro?:\n\t")
