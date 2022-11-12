@@ -7,7 +7,7 @@
 [credential]
 	helper = store
 [user]
-    email = chulkovroma@mail.ru
-    name = ElectricR
+	email = chulkovroma@mail.ru
+	name = ElectricR
 [url "ssh://git@bb.yandex-team.ru/"]
   insteadOf = https://bb.yandex-team.ru/scm/
