@@ -40,6 +40,11 @@ def zsh_bd():
     return 1 if retcode else 0
 
 
+def zsh_external_placeholder():
+    retcode = os.system("touch ~/.config/zsh/external.zsh")
+    return 1 if retcode else 0
+
+
 def rust_install():
     retcode = os.system("rustup +nightly component add rust-analyzer-preview && sudo mv ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer /usr/bin" )
     return 1 if retcode else 0
@@ -67,7 +72,7 @@ def tmux_plugin():
 # Main
 #####################
 def bootstrap():
-    steps = [install_packages, init_submodules, yay_install, bootstrap_pipewire, configure_shell, zsh_bd, rust_install, fonts_install, tmux_plugin]
+    steps = [install_packages, init_submodules, yay_install, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin]
     for step in steps:
         exit_code = step()
         match exit_code:
