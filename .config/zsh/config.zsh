@@ -9,7 +9,25 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # Prompt
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%} %{$fg[blue]%}% %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+setopt PROMPT_SUBST
+PROMPT_LEFT_BRACKET="%B%(?.%F{yellow}.%F{red})["
+PROMPT_RIGHT_BRACKET="%B%(?.%F{yellow}.%F{red})]"
+PROMPT_ICON="%(?.%B%F{blue} .%B%F{red} )"
+PROMPT_EXIT="%F{white}%B -> "
+PROMPT_PATH="%F{magenta}%~"
+PROMPT="$PROMPT_LEFT_BRACKET%F{blue}$PROMPT_ICON $PROMPT_PATH$PROMPT_RIGHT_BRACKET$PROMPT_EXIT%f%b"
+PROMPT_TIME="$PROMPT_LEFT_BRACKET%B%F{blue}%*$PROMPT_RIGHT_BRACKET"
+
+precmd () {
+    read NO_JOBS <<< $(jobs -p);
+    if [ -z "$NO_JOBS" ]; then
+        PROMPT_JOBS=""
+    else
+        PROMPT_JOBS="%B%F{red}  "
+    fi
+    unset NO_JOBS
+    RPROMPT="$PROMPT_JOBS$PROMPT_TIME%b%f"
+}
 
 # History
 HISTSIZE=10000000
