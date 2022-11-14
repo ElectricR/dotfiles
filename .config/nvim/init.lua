@@ -1,4 +1,4 @@
 require('monokai').setup { palette = require('monokai').soda }
 require("settings")
-keys = require("keymaps")
+ok, keys = pcall(require, "keymaps")
 require("plugins")

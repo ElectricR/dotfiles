@@ -7,7 +7,11 @@ import os.path
 #####################
 # Steps
 #####################
-ARCH_PACKAGES = ["wget", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
+
+# fakeroot is requirement for yay
+ARCH_PACKAGES = ["clang", "gopls", "pyright", "fakeroot", "wget", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
+YAY_PACKAGES = ["nvim-packer-git"]
+
 def install_packages() -> int:
     package_manager = "pacman -Suy"
     distro_specific_packages = ARCH_PACKAGES
@@ -22,6 +26,11 @@ def init_submodules():
 
 def yay_install():
     retcode = os.system("mkdir ~/projects/aur -p && cd ~/projects/aur && git clone https://aur.archlinux.org/yay-bin.git && cd ~/projects/aur/yay-bin && makepkg -si")
+    return 1 if retcode else 0
+
+
+def install_yay_packages():
+    retcode = os.system(f"yay -Suy " + ' '.join(YAY_PACKAGES))
     return 1 if retcode else 0
 
 
@@ -68,11 +77,15 @@ def tmux_plugin():
     return 0
 
 
+def bootstrap_nvim():
+    retcode = os.system("nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'")
+    return 1 if retcode else 0
+
 #####################
 # Main
 #####################
 def bootstrap():
-    steps = [install_packages, init_submodules, yay_install, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin]
+    steps = [install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim]
     for step in steps:
         exit_code = step()
         match exit_code:
@@ -109,8 +122,6 @@ def configure_nvim():
     os.system("nvim \"+CocInstall coc-go coc-tabnine coc-clangd coc-pyright coc-cmake\" +qall")
     os.system("pip3 install pynvim --upgrade")
     os.system("nvim +UpdateRemotePlugins +qall")
-YAY_PACKAGES = ["ly"]
-    #os.system(f"yay -Suy " + ' '.join(YAY_PACKAGES))
 
 package_to_install_void_specific = ["picom", "kitty"]
 package_to_install_ubuntu_specific = ["libxcb-xfixes0-dev", "lua5.2", "redshift"]

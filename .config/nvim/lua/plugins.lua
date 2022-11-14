@@ -1,16 +1,3 @@
-require("completion")
-require("treesitter")
-require("nvim-colorizer")
-require("sandwich")
-require("nvim-hop")
-require("nvim-lspsaga")
-require("nvim-telescope")
-
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-end
-
 require('packer').startup(function(use)
     -- Don't forget to run PackerCompile after a change
 
@@ -20,8 +7,6 @@ require('packer').startup(function(use)
     -- Completion stuff
     use 'hrsh7th/nvim-cmp' -- Core plugin
     use 'hrsh7th/cmp-nvim-lsp'
-    --use 'hrsh7th/cmp-vsnip'
-    --use 'hrsh7th/vim-vsnip'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
@@ -72,10 +57,12 @@ require('packer').startup(function(use)
        "glepnir/lspsaga.nvim",
         branch = "main",
     } 
-
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if packer_bootstrap then
-        require('packer').sync()
-    end
 end)
+
+require("completion")
+require("treesitter")
+require("nvim-colorizer")
+require("sandwich")
+require("nvim-hop")
+require("nvim-lspsaga")
+require("nvim-telescope")
