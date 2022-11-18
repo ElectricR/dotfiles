@@ -81,11 +81,58 @@ def bootstrap_nvim():
     retcode = os.system("nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'")
     return 1 if retcode else 0
 
+
+HOME_PC_HYPR_EXTERNAL = """monitor=eDP-1,3840x2160@60,0x0,2
+
+decoration {
+    rounding=10
+    multisample_edges=true
+    blur=1
+    blur_size=5 # minimum 1
+    blur_passes=2 # minimum 1, more passes = more resource intensive.
+    # Your blur "amount" is blur_size * blur_passes, but high blur_size (over around 5-ish) will produce artifacts.
+    # if you want heavy blur, you need to up the blur_passes.
+    # the more passes, the more you can up the blur_size without noticing artifacts.
+}
+"""
+
+LAPTOP_HYPR_EXTERNAL = """
+monitor=HDMI-A-1,1920x1080@144,0x0,1
+monitor=DB-1,1920x1080@144,1920x0,1
+monitor=DB-2,1920x1080@144,3840,1
+
+decoration {
+    rounding=10
+    multisample_edges=true
+    blur=1
+    blur_size=2 # minimum 1
+    blur_passes=1 # minimum 1, more passes = more resource intensive.
+    # Your blur "amount" is blur_size * blur_passes, but high blur_size (over around 5-ish) will produce artifacts.
+    # if you want heavy blur, you need to up the blur_passes.
+    # the more passes, the more you can up the blur_size without noticing artifacts.
+}
+"""
+
+pc_name = ''
+
+def pc_specific_configs():
+    match pc_name:
+        case 'Home PC':
+            hypr_external = HOME_PC_HYPR_EXTERNAL
+        case 'Laptop':
+            hypr_external = LAPTOP_HYPR_EXTERNAL
+        case _:
+            return
+    retcode = os.system('mkdir -p ~/.config/hypr')
+    if retcode: return 1
+    with open('~/.config/hypr/hyprland_external.conf', 'w') as f:
+        f.write(hypr_external)
+
 #####################
 # Main
 #####################
 def bootstrap():
-    steps = [install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim]
+    steps = [pc_specific_configs, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim]
     for step in steps:
         exit_code = step()
         match exit_code:
@@ -97,6 +144,7 @@ def bootstrap():
 
 
 if __name__ == "__main__":
+    pc_name = input('Home PC/Laptop?')
     match = input("Distro?:\n\t")
     if match == "Arch":
         bootstrap()
@@ -116,14 +164,7 @@ if __name__ == "__main__":
 #####################
 # Legacy
 #####################
-def configure_nvim():
-    os.system("sh -c 'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'")
-    os.system("nvim +PlugInstall +qall")
-    os.system("nvim \"+CocInstall coc-go coc-tabnine coc-clangd coc-pyright coc-cmake\" +qall")
-    os.system("pip3 install pynvim --upgrade")
-    os.system("nvim +UpdateRemotePlugins +qall")
 
-package_to_install_void_specific = ["picom", "kitty"]
 package_to_install_ubuntu_specific = ["libxcb-xfixes0-dev", "lua5.2", "redshift"]
 
 def kubecolor():
