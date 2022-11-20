@@ -4,7 +4,7 @@
   :wm-ignore true
   :geometry (geometry
               :width "100%"
-              :height "100%")
+              :height "10%")
   (powermenu_layout))
 
 (defwidget powermenu_layout []
