@@ -9,8 +9,8 @@ import os.path
 #####################
 
 # fakeroot is requirement for yay
-ARCH_PACKAGES = ["clang", "gopls", "pyright", "fakeroot", "wget", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
-YAY_PACKAGES = ["nvim-packer-git"]
+ARCH_PACKAGES = ["clang", "gopls", "pyright", "fakeroot", "wget", "make", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
+YAY_PACKAGES = ["nvim-packer-git", "hyprland-bin", "hyprpaper-git"]
 
 def install_packages() -> int:
     package_manager = "pacman -Suy"
