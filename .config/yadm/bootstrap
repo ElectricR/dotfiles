@@ -93,6 +93,7 @@ decoration {
     # Your blur "amount" is blur_size * blur_passes, but high blur_size (over around 5-ish) will produce artifacts.
     # if you want heavy blur, you need to up the blur_passes.
     # the more passes, the more you can up the blur_size without noticing artifacts.
+    blur_new_optimizations=true
 }
 """
 
@@ -110,6 +111,7 @@ decoration {
     # Your blur "amount" is blur_size * blur_passes, but high blur_size (over around 5-ish) will produce artifacts.
     # if you want heavy blur, you need to up the blur_passes.
     # the more passes, the more you can up the blur_size without noticing artifacts.
+    blur_new_optimizations=true
 }
 """
 
