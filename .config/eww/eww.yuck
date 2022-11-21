@@ -3,12 +3,10 @@
   :geometry (geometry :width "100%" :anchor "top center")
   :stacking "bottom"
   :exclusive true
-  :class main_box
   (main)
 )
 
 (defpoll vtime :interval "5s"
-  :initial `date +'{"hour":"%H","min":"%M"}'`
   `date +'{"hour":"%H","min":"%M"}'`)
     
 (defwidget wtime [] 
@@ -17,13 +15,27 @@
   :text "${vtime.hour}:${vtime.min}")
 )
 
+(defwidget wright_box []
+    (box 
+      :halign "end"
+      :class "cmain_box"
+      (wtime)
+    )
+)
+
+(defwidget wleft_box []
+    (box 
+      :halign "start"
+      :class "cmain_box"
+      (wtime)
+    )
+)
+
 
 (defwidget main []
-(box 
-:class "cmain_box"
-(box 
-  (wtime)
-)
-)
+    (box 
+        (wleft_box)
+        (wright_box)
+    )
 )
 
