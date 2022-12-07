@@ -55,10 +55,10 @@ keys.telescope = {
 local default_opts = {noremap = true, silent = true}
 
 vim.keymap.set('n', '<leader>t', '<cmd>Twilight<CR>')
+vim.keymap.set('v', '<leader>c', ":'<,'>!column -t -s= -o=<CR><CR>", {silent=true, noremap=true})
 
 vim.keymap.set('n', 'g]', '<cmd>Lspsaga diagnostic_jump_next<CR>', opts)
 vim.keymap.set('n', 'g[', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
-
 
 -- LSP mappings
 keys.lsp_on_attach_mappings = function(bufnr)
