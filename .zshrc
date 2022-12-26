@@ -1,1 +1,1 @@
-source $HOME/.config/zsh/init.zsh
+source ~/.config/zsh/init.zsh
