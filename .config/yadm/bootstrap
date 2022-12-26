@@ -9,8 +9,8 @@ import os.path
 #####################
 
 # fakeroot is requirement for yay
-ARCH_PACKAGES = ["clang", "gopls", "pyright", "fakeroot", "wget", "make", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome"]
-YAY_PACKAGES = ["nvim-packer-git", "hyprland-bin", "hyprpaper-git"]
+ARCH_PACKAGES = ["openssh", "clang", "gopls", "pyright", "fakeroot", "wget", "make", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome", "pkgconf"]
+YAY_PACKAGES = ["nvim-packer-git", "hyprland-bin", "hyprpaper-git", "ly"]
 
 def install_packages() -> int:
     package_manager = "pacman -Suy"
@@ -25,6 +25,7 @@ def init_submodules():
 
 
 def yay_install():
+    os.system("rm -rf ~/projects/aur/yay-bin")
     retcode = os.system("mkdir ~/projects/aur -p && cd ~/projects/aur && git clone https://aur.archlinux.org/yay-bin.git && cd ~/projects/aur/yay-bin && makepkg -si")
     return 1 if retcode else 0
 
@@ -40,7 +41,7 @@ def bootstrap_pipewire():
 
 
 def configure_shell():
-    retcode = os.system("chsh -s $(which zsh)")
+    retcode = os.system("sudo chsh -s /bin/zsh er")
     return 1 if retcode else 0
 
 
@@ -55,7 +56,7 @@ def zsh_external_placeholder():
 
 
 def rust_install():
-    retcode = os.system("rustup +nightly component add rust-analyzer-preview && sudo mv ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer /usr/bin" )
+    retcode = os.system("rustup +nightly component add rust-analyzer-preview && sudo cp ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer /usr/bin && rustup default nightly" )
     return 1 if retcode else 0
 
 
@@ -82,7 +83,12 @@ def bootstrap_nvim():
     return 1 if retcode else 0
 
 
-HOME_PC_HYPR_EXTERNAL = """monitor=eDP-1,3840x2160@60,0x0,2
+def enable_ly():
+    retcode = os.system("sudo systemctl enable --now ly")
+    return 1 if retcode else 0
+
+
+LAPTOP_HYPR_EXTERNAL = """monitor=eDP-1,1920x1080@60,0x0,1
 
 decoration {
     rounding=10
@@ -97,7 +103,7 @@ decoration {
 }
 """
 
-LAPTOP_HYPR_EXTERNAL = """
+HOME_PC_HYPR_EXTERNAL = """
 monitor=HDMI-A-1,1920x1080@144,0x0,1
 monitor=DB-1,1920x1080@144,1920x0,1
 monitor=DB-2,1920x1080@144,3840,1
@@ -127,29 +133,44 @@ def pc_specific_configs():
             return
     retcode = os.system('mkdir -p ~/.config/hypr')
     if retcode: return 1
-    with open('~/.config/hypr/hyprland_external.conf', 'w') as f:
+    with open('/home/er/.config/hypr/hyprland_external.conf', 'w') as f:
         f.write(hypr_external)
+
+
+def end(failed_steps):
+    if not len(failed_steps):
+        print("Successfull bootstrap!")
+        exit(0)
+    for step in failed_steps:
+        print(f"Step {step} didn't finish successfully")
+    exit(1)
 
 #####################
 # Main
 #####################
 def bootstrap():
-    steps = [pc_specific_configs, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim]
+    steps = [pc_specific_configs, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly]
+    failed_steps = []
     for step in steps:
         exit_code = step()
         match exit_code:
             case 1:
-                print(f"Step {step.__name__} didn't finish successfully")
+                failed_steps.append(step.__name__)
             case 2:
-                print(f"Step {step.__name__} didn't finish successfully. Aborting.")
-    print("Successfull bootstrap!")
+                failed_steps.append(step.__name__)
+                break
+    end(failed_steps)
 
 
 if __name__ == "__main__":
-    pc_name = input('Home PC/Laptop?')
+    pc_name = input('Home PC/Laptop?\n\t')
     match = input("Distro?:\n\t")
     if match == "Arch":
-        bootstrap()
+        step = input("Step? (default=all):\n\t")
+        if step.strip() == '':
+            bootstrap()
+        else:
+            exec(f"{step.strip()}()")
     else:
         print("Aborted")
 
