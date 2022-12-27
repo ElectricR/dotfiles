@@ -2,7 +2,7 @@ import common
 import os
 import os.path
 
-ANDROID_PACKAGES = ["wget", "tmux", "taskwarrior", "tree"]
+ANDROID_PACKAGES = ["wget", "tmux", "taskwarrior", "tree", "zsh"]
 
 #####################
 # Steps
@@ -18,5 +18,5 @@ def install_packages() -> int:
 # Main
 #####################
 def bootstrap():
-    steps = [install_packages]
+    steps = [install_packages, common.zsh_bd]
     common.bootstrap(steps)

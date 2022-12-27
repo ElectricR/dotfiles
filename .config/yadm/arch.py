@@ -42,11 +42,6 @@ def configure_shell():
     return 1 if retcode else 0
 
 
-def zsh_bd():
-    retcode = os.system("sudo mkdir -p /usr/share/zsh/plugins/bd && sudo curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh -o /usr/share/zsh/plugins/bd/bd.zsh")
-    return 1 if retcode else 0
-
-
 def zsh_external_placeholder():
     retcode = os.system("touch ~/.config/zsh/external.zsh")
     return 1 if retcode else 0
@@ -139,5 +134,5 @@ def bootstrap(pc_name_in):
     def pc_specific_configs_wrapper():
         pc_specific_configs(pc_name_in)
 
-    steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly]
+    steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly]
     common.bootstrap(steps)

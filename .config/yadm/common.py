@@ -1,3 +1,19 @@
+import os
+
+#####################
+# Steps
+#####################
+
+def zsh_bd():
+    retcode = os.system("mkdir -p ~/.config/zsh/plugins/bd && curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh -o ~/.config/zsh/plugins/bd/bd.zsh")
+    return 1 if retcode else 0
+
+
+#####################
+# Misc
+#####################
+
+
 def end(failed_steps):
     if not len(failed_steps):
         print("Successfull bootstrap!")

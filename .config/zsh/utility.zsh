@@ -6,7 +6,7 @@ alias d='dirs -v'
 for index ({1..100}) alias "$index"="cd +${index}"; unset index
 
 # bd utility
-source /usr/share/zsh/plugins/bd/bd.zsh
+source $HOME/.config/zsh/plugins/bd/bd.zsh
 
 # Fast cd using fzf
 export FZF_DEFAULT_OPTS='--height 50% --reverse --border'
