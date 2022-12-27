@@ -8,7 +8,6 @@ import os.path
 # Steps
 #####################
 
-# fakeroot is requirement for yay
 ARCH_PACKAGES = ["openssh", "clang", "gopls", "pyright", "fakeroot", "wget", "make", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome", "pkgconf"]
 YAY_PACKAGES = ["nvim-packer-git", "hyprland-bin", "hyprpaper-git", "ly"]
 
@@ -173,52 +172,3 @@ if __name__ == "__main__":
             exec(f"{step.strip()}()")
     else:
         print("Aborted")
-
-
-
-
-
-
-
-
-
-
-
-#####################
-# Legacy
-#####################
-
-package_to_install_ubuntu_specific = ["libxcb-xfixes0-dev", "lua5.2", "redshift"]
-
-def kubecolor():
-    os.system("go get github.com/hidetatz/kubecolor/cmd/kubecolor")
-
-def ubuntu_install():
-    def awesome_install():
-        os.system("git clone https://github.com/awesomeWM/awesome")
-        os.system("cd awesome; sudo apt build-dep awesome; make package;")
-        os.system("cd awesome/build; sudo dpkg -i *.deb")
-        os.system("rm awesome -rf")
-
-    def picom_install():
-        picom_deps = "libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson"
-        os.system("git clone https://github.com/yshui/picom")
-        os.system(f"sudo apt install -y {picom_deps}")
-        os.system("cd picom; git submodule update --init --recursive; meson --buildtype=release . build; ninja -C build ")
-        os.system("sudo ninja -C build install")
-        os.system("rm picom -rf")
-
-    def go_install():
-        os.system("wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz")
-        os.system("sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.17.5.linux-amd64.tar.gz")
-
-    os.system("curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin")
-    os.system("sudo ln -s ~/.local/kitty.app/bin/kitty /usr/bin/kitty")
-
-    awesome_install()
-    picom_install()
-    go_install()
-def awesome_iconizer():
-    os.system("wget https://github.com/ElectricR/Awesome-Iconizer/raw/master/awesome_iconizer && sudo chmod +x awesome_iconizer && sudo mv awesome_iconizer /bin/")
-def zsh_autosuggestions():
-    os.system("git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions")
