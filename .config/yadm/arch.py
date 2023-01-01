@@ -1,4 +1,5 @@
 import common
+import subprocess
 import os
 import os.path
 
@@ -133,6 +134,8 @@ def pc_specific_configs(pc_name):
 def bootstrap(pc_name_in):
     def pc_specific_configs_wrapper():
         pc_specific_configs(pc_name_in)
-
+    if subprocess.run(["whoami"], stdout=subprocess.PIPE).stdout.decode().strip() != "er":
+        print("User is not ER")
+        exit(42)
     steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly]
     common.bootstrap(steps)
