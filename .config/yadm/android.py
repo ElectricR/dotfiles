@@ -18,5 +18,7 @@ def install_packages() -> int:
 # Main
 #####################
 def bootstrap():
-    steps = [install_packages, common.zsh_bd]
+    def zsh_prompt_icon():
+        return common.zsh_prompt_icon('PROMPT_HOST_SPECIFIC_ICON="A "')
+    steps = [install_packages, common.zsh_bd, zsh_prompt_icon]
     common.bootstrap(steps)

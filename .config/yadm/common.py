@@ -9,6 +9,16 @@ def zsh_bd():
     return 1 if retcode else 0
 
 
+def zsh_prompt_icon(content):
+    try:
+        with open(f"{os.environ['HOME']}/.config/zsh/host_specific.zsh", "w") as f:
+            f.write(content)
+        return 0
+    except Exception as e:
+        print(e)
+        return 2
+
+
 #####################
 # Misc
 #####################
