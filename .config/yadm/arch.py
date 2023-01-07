@@ -6,6 +6,9 @@ import os.path
 ARCH_PACKAGES = ["openssh", "clang", "gopls", "pyright", "fakeroot", "wget", "make", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome", "pkgconf", "wireplumber"]
 YAY_PACKAGES = ["nvim-packer-git", "hyprland-git", "hyprpaper-git", "ly"]
 
+# Remove after flameshot fix his stuff
+ARCH_PACKAGES += ["wl-clipboard", "grim", "slurp"]
+
 #####################
 # Steps
 #####################
@@ -139,5 +142,9 @@ def bootstrap(pc_name_in):
     if subprocess.run(["whoami"], stdout=subprocess.PIPE).stdout.decode().strip() != "er":
         print("User is not ER")
         exit(42)
-    steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, zsh_prompt_icon, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly]
-    common.bootstrap(steps)
+    step = input("Step? (default=all):\n\t")
+    if step.strip() == '':
+        steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, zsh_prompt_icon, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly]
+        common.bootstrap(steps)
+    else:
+        exec(f"{step.strip()}()")

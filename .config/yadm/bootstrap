@@ -13,10 +13,6 @@ if __name__ == "__main__":
         match = input("Distro?:\n\t")
         if match == "Arch":
             from arch import bootstrap
-            step = input("Step? (default=all):\n\t")
-            if step.strip() == '':
-                bootstrap(pc_name)
-            else:
-                exec(f"{step.strip()}()")
+            bootstrap(pc_name)
         else:
             print("Aborted")
