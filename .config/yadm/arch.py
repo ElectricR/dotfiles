@@ -123,6 +123,8 @@ decoration {
 """
 
 def pc_specific_configs(pc_name):
+    def configure_lid_close_behavior():
+        return os.system("sudo sed -i 's/#HandleLidSwitch=.*/HandleLidSwitch=suspend/' /etc/systemd/logind.conf")
     match pc_name:
         case 'Home PC':
             hypr_external = HOME_PC_HYPR_EXTERNAL
@@ -135,6 +137,9 @@ def pc_specific_configs(pc_name):
     if retcode: return 1
     with open('/home/er/.config/hypr/hyprland_external.conf', 'w') as f:
         f.write(hypr_external)
+    if pc_name == 'Laptop':
+        retcode = configure_lid_close_behavior()
+        if retcode: return 1
 
 #####################
 # Main
