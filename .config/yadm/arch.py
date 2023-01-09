@@ -83,6 +83,12 @@ def enable_ly():
     retcode = os.system("sudo systemctl enable --now ly")
     return 1 if retcode else 0
 
+
+def enable_bluetooth():
+    retcode = os.system("sudo systemctl enable --now bluetooth")
+    return 1 if retcode else 0
+
+
 LAPTOP_HYPR_EXTERNAL = """monitor=eDP-1,1920x1080@60,0x0,1
 
 decoration {
@@ -144,7 +150,7 @@ def bootstrap(pc_name_in):
         exit(42)
     step = input("Step? (default=all):\n\t")
     if step.strip() == '':
-        steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, zsh_prompt_icon, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly]
+        steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, zsh_prompt_icon, rust_install, fonts_install, tmux_plugin, bootstrap_nvim, enable_ly, enable_bluetooth]
         common.bootstrap(steps)
     else:
         exec(f"{step.strip()}()")
