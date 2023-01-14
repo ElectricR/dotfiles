@@ -19,11 +19,15 @@ def install_packages() -> int:
     return 2 if retcode else 0
 
 
+def nvim_packer_install():
+    retcode = os.system("git clone --depth 1 https://github.com/wbthomason/packer.nvim $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim")
+    return 2 if retcode else 0
+
 #####################
 # Main
 #####################
 def bootstrap():
     def zsh_prompt_icon():
         return common.zsh_prompt_icon('PROMPT_HOST_SPECIFIC_ICON="A "')
-    steps = [install_packages, configure_shell, common.zsh_bd, zsh_prompt_icon]
+    steps = [install_packages, configure_shell, common.zsh_bd, zsh_prompt_icon, nvim_packer_install, common.bootstrap_nvim]
     common.bootstrap(steps)

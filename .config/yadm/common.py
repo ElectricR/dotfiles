@@ -19,6 +19,11 @@ def zsh_prompt_icon(content):
         return 2
 
 
+def bootstrap_nvim():
+    retcode = os.system("nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'")
+    return 1 if retcode else 0
+
+
 #####################
 # Misc
 #####################
