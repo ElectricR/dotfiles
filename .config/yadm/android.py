@@ -2,7 +2,7 @@ import common
 import os
 import os.path
 
-ANDROID_PACKAGES = ["wget", "tmux", "taskwarrior", "tree", "zsh", "golang"]
+ANDROID_PACKAGES = ["wget", "tmux", "taskwarrior", "tree", "zsh", "golang", "exa"]
 
 #####################
 # Steps

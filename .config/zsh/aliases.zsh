@@ -1,4 +1,4 @@
-alias ls='ls --color=auto'
+alias ls='exa'
 alias tree="tree -C"
 alias cat='bat --style plain --paging never'
 
