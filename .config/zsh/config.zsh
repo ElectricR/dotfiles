@@ -35,6 +35,9 @@ HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE=$HOME/.config/zsh/.zhistory
 
+# Add GO binaries
+PATH=$PATH:$HOME/go/bin/
+
 # Disable ctrl-s to freeze terminal.
 stty stop undef		
 
