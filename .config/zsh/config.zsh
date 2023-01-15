@@ -13,7 +13,7 @@ setopt PROMPT_SUBST
 PROMPT_LEFT_BRACKET="%B%(?.%F{yellow}.%F{red})["
 PROMPT_RIGHT_BRACKET="%B%(?.%F{yellow}.%F{red})]"
 source $HOME/.config/zsh/host_specific.zsh
-PROMPT_ICON="%(?.%B%F{blue}$PROMPT_HOST_SPECIFIC_ICON.%B%F{red} )"
+PROMPT_ICON="%(?.%B$PROMPT_HOST_SPECIFIC_ICON.%B%F{red} )"
 PROMPT_EXIT="%F{white}%B -> "
 PROMPT_PATH="%F{magenta}%~"
 PROMPT="$PROMPT_LEFT_BRACKET%F{blue}$PROMPT_ICON $PROMPT_PATH$PROMPT_RIGHT_BRACKET$PROMPT_EXIT%f%b"
