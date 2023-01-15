@@ -144,7 +144,14 @@ def bootstrap(pc_name_in):
     def pc_specific_configs_wrapper():
         pc_specific_configs(pc_name_in)
     def zsh_prompt_icon():
-        return common.zsh_prompt_icon('PROMPT_HOST_SPECIFIC_ICON=" "')
+        if pc_name_in == "Laptop":
+            pc_icon = "%F{blue} "
+        elif pc_name_in == "PC":
+            pc_icon = "%F{green} "
+        else:
+            print(f"Wrong PC name: {pc_name_in}")
+            return 2
+        return common.zsh_prompt_icon(f'PROMPT_HOST_SPECIFIC_ICON="{pc_icon}"')
     if subprocess.run(["whoami"], stdout=subprocess.PIPE).stdout.decode().strip() != "er":
         print("User is not ER")
         exit(42)
