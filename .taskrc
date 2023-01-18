@@ -58,13 +58,6 @@ report.work.labels=ID,Active,Age,D,P,Project,Tags,R,Sch,Due,Until,Description,Ur
 report.work.filter=project:Yandex and status:pending -WAITING
 report.work.sort=urgency-
 
-# Education report
-report.education.description=Show education-related information
-report.education.columns=id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due,until.remaining,description.count,urgency
-report.education.labels=ID,Active,Age,D,P,Project,Tags,R,Sch,Due,Until,Description,Urg
-report.education.filter=project:Education and status:pending -WAITING
-report.education.sort=start-,due+,project+,urgency-
-
 # Modify default listing
-report.list.filter=project.not:Yandex and project.not:Education.SHAD and status:pending -WAITING
+report.list.filter=project.not:Yandex and status:pending -WAITING
 report.list.sort=urgency+
