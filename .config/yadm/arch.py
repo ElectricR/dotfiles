@@ -142,7 +142,7 @@ def pc_specific_configs(pc_name):
 
 def bootstrap(pc_name_in):
     def pc_specific_configs_wrapper():
-        pc_specific_configs(pc_name_in)
+        return pc_specific_configs(pc_name_in)
     def zsh_prompt_icon():
         if pc_name_in == "Laptop":
             pc_icon = "%F{blue} "
@@ -152,12 +152,15 @@ def bootstrap(pc_name_in):
             print(f"Wrong PC name: {pc_name_in}")
             return 2
         return common.zsh_prompt_icon(f'PROMPT_HOST_SPECIFIC_ICON="{pc_icon}"')
+    def zsh_fzf_wrapper():
+        return common.zsh_fzf("/usr/share/fzf/key-bindings.zsh")
+
     if subprocess.run(["whoami"], stdout=subprocess.PIPE).stdout.decode().strip() != "er":
         print("User is not ER")
         exit(42)
     step = input("Step? (default=all):\n\t")
     if step.strip() == '':
-        steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, zsh_prompt_icon, rust_install, fonts_install, tmux_plugin, common.bootstrap_nvim, enable_ly, enable_bluetooth]
+        steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, zsh_prompt_icon, zsh_fzf_wrapper, rust_install, fonts_install, tmux_plugin, common.bootstrap_nvim, enable_ly, enable_bluetooth]
         common.bootstrap(steps)
     else:
         exec(f"{step.strip()}()")

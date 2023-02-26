@@ -23,4 +23,4 @@ fzfcd () {
 bindkey -s '^f' 'fzfcd\n'
 
 # CTRL-T and CTRL-R shortcuts for fzf
-source /usr/share/fzf/key-bindings.zsh
+source $HOME/.config/zsh/plugins/fzf/key-bindings.zsh

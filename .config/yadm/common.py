@@ -19,6 +19,11 @@ def zsh_prompt_icon(content):
         return 2
 
 
+def zsh_fzf(path):
+    retcode = os.system(f"test -f {os.environ['HOME']}/.config/zsh/plugins/fzf/key-bindings.zsh || (mkdir -p $HOME/.config/zsh/plugins/fzf && ln -s {path} {os.environ['HOME']}/.config/zsh/plugins/fzf/key-bindings.zsh)")
+    return 1 if retcode else 0
+
+
 def bootstrap_nvim():
     retcode = os.system("nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'")
     return 1 if retcode else 0
