@@ -29,6 +29,12 @@ def gopls_install():
     return 1 if retcode else 0
 
 
+def zsh_autosuggestions():
+    dir_path = "$HOME/.config/zsh/plugins"
+    retcode = os.system(f"test -d {dir_path}/zsh-autosuggestions || (cd {dir_path} && git clone https://github.com/zsh-users/zsh-autosuggestions)")
+    return 1 if retcode else 0
+
+
 def zsh_highlighting():
     dir_path = "$HOME/.config/zsh/plugins"
     retcode = os.system(f"test -d {dir_path}/zsh-syntax-highlighting || (cd {dir_path} && git clone https://github.com/zsh-users/zsh-syntax-highlighting)")
@@ -44,5 +50,5 @@ def bootstrap():
     def zsh_fzf_wrapper():
         return common.zsh_fzf("/data/data/com.termux/files/usr/share/fzf/key-bindings.zsh")
 
-    steps = [install_packages, configure_shell, common.zsh_external_placeholder, common.zsh_bd, zsh_prompt_icon, zsh_fzf_wrapper, zsh_highlighting, nvim_packer_install, gopls_install]
+    steps = [install_packages, configure_shell, common.zsh_external_placeholder, common.zsh_bd, zsh_prompt_icon, zsh_fzf_wrapper, zsh_highlighting, zsh_autosuggestions, nvim_packer_install, gopls_install]
     common.bootstrap(steps)
