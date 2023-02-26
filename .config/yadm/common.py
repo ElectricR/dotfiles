@@ -11,7 +11,7 @@ def zsh_bd():
 
 def zsh_prompt_icon(content):
     try:
-        with open(f"$HOME/.config/zsh/host_specific.zsh", "w") as f:
+        with open(f"{os.environ['HOME']}/.config/zsh/host_specific.zsh", "w") as f:
             f.write(content)
         return 0
     except Exception as e:
