@@ -46,8 +46,9 @@ def configure_shell():
     return 1 if retcode else 0
 
 
-def zsh_external_placeholder():
-    retcode = os.system("touch ~/.config/zsh/external.zsh")
+def zsh_highlighting_link():
+    dir_path = "$HOME/.config/zsh/plugins/zsh-syntax-highlighting"
+    retcode = os.system(f"test -f {dir_path} || (ln -s /usr/share/zsh/plugins/zsh-syntax-highlighting $HOME/.config/zsh/plugins/zsh-syntax-highlighting)")
     return 1 if retcode else 0
 
 
@@ -160,7 +161,7 @@ def bootstrap(pc_name_in):
         exit(42)
     step = input("Step? (default=all):\n\t")
     if step.strip() == '':
-        steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, zsh_external_placeholder, zsh_prompt_icon, zsh_fzf_wrapper, rust_install, fonts_install, tmux_plugin, common.bootstrap_nvim, enable_ly, enable_bluetooth]
+        steps = [pc_specific_configs_wrapper, install_packages, init_submodules, yay_install, install_yay_packages, bootstrap_pipewire, configure_shell, common.zsh_bd, common.zsh_external_placeholder, zsh_prompt_icon, zsh_highlighting_link, zsh_fzf_wrapper, rust_install, fonts_install, tmux_plugin, enable_ly, enable_bluetooth]
         common.bootstrap(steps)
     else:
         exec(f"{step.strip()}()")

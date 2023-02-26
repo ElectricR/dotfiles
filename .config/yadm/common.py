@@ -24,8 +24,8 @@ def zsh_fzf(path):
     return 1 if retcode else 0
 
 
-def bootstrap_nvim():
-    retcode = os.system("nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'")
+def zsh_external_placeholder():
+    retcode = os.system("touch ~/.config/zsh/external.zsh")
     return 1 if retcode else 0
 
 
