@@ -15,7 +15,6 @@ vim.opt.scrolloff = 8 -- Top/bottom scroll offset
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-
 vim.o.clipboard = "unnamed" -- Use '*' register for clipboard to making it possible to share clipboard between neovim instances
 vim.o.mouse = ""
 
