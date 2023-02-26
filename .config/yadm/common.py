@@ -11,7 +11,7 @@ def zsh_bd():
 
 def zsh_prompt_icon(content):
     try:
-        with open(f"{os.environ['HOME']}/.config/zsh/host_specific.zsh", "w") as f:
+        with open(f"$HOME/.config/zsh/host_specific.zsh", "w") as f:
             f.write(content)
         return 0
     except Exception as e:
@@ -20,7 +20,7 @@ def zsh_prompt_icon(content):
 
 
 def zsh_fzf(path):
-    retcode = os.system(f"test -f {os.environ['HOME']}/.config/zsh/plugins/fzf/key-bindings.zsh || (mkdir -p $HOME/.config/zsh/plugins/fzf && ln -s {path} {os.environ['HOME']}/.config/zsh/plugins/fzf/key-bindings.zsh)")
+    retcode = os.system(f"test -f $HOME/.config/zsh/plugins/fzf/key-bindings.zsh || (mkdir -p $HOME/.config/zsh/plugins/fzf && ln -s {path} $HOME/.config/zsh/plugins/fzf/key-bindings.zsh)")
     return 1 if retcode else 0
 
 
