@@ -1,4 +1,5 @@
 alias ls='exa'
+alias df='duf'
 alias tree="tree -C"
 alias cat='bat --style plain --paging never'
 
