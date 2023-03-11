@@ -94,3 +94,36 @@ Keys.lsp_on_attach_mappings = function(bufnr)
     vim.keymap.set('n', 'g]', '<cmd>Lspsaga diagnostic_jump_next<CR>', { noremap = true, silent = true })
     vim.keymap.set('n', 'g[', '<cmd>Lspsaga diagnostic_jump_prev<CR>', { noremap = true, silent = true })
 end
+
+vim.keymap.set({'', 's'}, Keys.hop.forward_til, function ()
+        if vim.api.nvim_get_mode().mode ~= 'S' then
+            require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+        else
+            vim.api.nvim_input("i<BS>" .. Keys.hop.forward_til)
+        end
+    end,
+    { remap = true, silent = true })
+vim.keymap.set({'', 's'}, Keys.hop.forward_on, function ()
+        if vim.api.nvim_get_mode().mode ~= 'S' then
+            require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true })
+        else
+            vim.api.nvim_input("i<BS>" .. Keys.hop.forward_on)
+        end
+    end,
+    { remap = true, silent = true })
+vim.keymap.set({'', 's'}, Keys.hop.back_til, function ()
+        if vim.api.nvim_get_mode().mode ~= 'S' then
+            require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+        else
+            vim.api.nvim_input("i<BS>" .. Keys.hop.back_til)
+        end
+    end,
+    { remap = true, silent = true })
+vim.keymap.set({'', 's'}, Keys.hop.back_on, function ()
+        if vim.api.nvim_get_mode().mode ~= 'S' then
+            require('hop').hint_char1({ direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true })
+        else
+            vim.api.nvim_input("i<BS>" .. Keys.hop.back_on)
+        end
+    end,
+    { remap = true, silent = true })
