@@ -2,7 +2,7 @@ return {
     {
         "phaazon/hop.nvim",
         opts = {
-            keys = 'hutenosapmjcridlkwvq',
+            keys = 'qvwkldircjmpasonetuh',
         },
         keys = {
             { Keys.hop.forward_til, function() require('hop').hint_char1({ direction = require('hop.hint').HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end, mode = 'n', noremap = true, silent = true },
