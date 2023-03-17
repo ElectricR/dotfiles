@@ -2,7 +2,7 @@ import common
 import os
 import os.path
 
-ANDROID_PACKAGES = ["wget", "tmux", "taskwarrior", "tree", "zsh", "golang", "exa", "bat", "fzf", "ripgrep", "duf", "lua-language-server"]
+ANDROID_PACKAGES = ["wget", "tmux", "taskwarrior", "tree", "zsh", "golang", "exa", "bat", "fzf", "ripgrep", "duf", "lua-language-server", "fd"]
 
 #####################
 # Steps
