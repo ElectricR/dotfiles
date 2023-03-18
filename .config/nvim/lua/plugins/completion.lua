@@ -40,9 +40,8 @@ return {
                 Keys.lsp_on_attach_mappings(bufnr)
             end
 
-            require("luasnip.loaders.from_vscode").lazy_load()
-
             local luasnip = require("luasnip")
+            require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.local/share/nvim/lazy/friendly-snippets" } })
 
             cmp.setup({
                 snippet = {
