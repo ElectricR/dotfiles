@@ -40,7 +40,9 @@ data.location=~/.task
 #include no-color.theme
 
 color.tagged=none
+color.overdue=none
 color.tag.Red=red
+color.tag.Blue=blue
 
 news.version=2.6.0
 
