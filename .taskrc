@@ -40,6 +40,7 @@ data.location=~/.task
 #include no-color.theme
 
 color.tagged=none
+color.tag.Red=red
 
 news.version=2.6.0
 
