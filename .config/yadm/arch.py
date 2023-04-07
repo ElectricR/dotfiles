@@ -3,7 +3,7 @@ import subprocess
 import os
 import os.path
 
-ARCH_PACKAGES = ["openssh", "clang", "gopls", "pyright", "fakeroot", "wget", "make", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome", "pkgconf", "wireplumber", "exa", "duf"]
+ARCH_PACKAGES = ["openssh", "clang", "gopls", "pyright", "fakeroot", "wget", "make", "fd", "bat", "lua-language-server", "rustup", "fzf", "tmux", "tldr", "task", "zsh-autosuggestions", "zsh-syntax-highlighting", "zathura", "zathura-pdf-mupdf", "xclip", "npm", "bluez", "bluez-utils", "pipewire", "pipewire-pulse", "firefox", "tree", "htop", "xorg", "go", "picom", "kitty", "ripgrep", "xautolock", "slock", "flameshot", "cmake", "zsh", "unzip", "neovim", "curl", "python-pip", "nodejs", "awesome", "pkgconf", "wireplumber", "exa", "duf", "dust"]
 YAY_PACKAGES = ["hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly"]
 
 # Remove after flameshot fix his stuff
