@@ -1,3 +1,5 @@
+alias mv='mv -i'
+
 alias ls='exa'
 alias df='duf'
 alias du='dust'
