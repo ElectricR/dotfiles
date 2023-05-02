@@ -1,4 +1,5 @@
 alias mv='mv -i'
+alias cal='cal -m'
 
 alias ls='exa'
 alias df='duf'
@@ -30,3 +31,6 @@ alias xclip="xclip -selection c"
 
 alias dvpon="setxkbmap -model pc104 -layout us,ru -variant dvp, -option grp:alt_shift_toggle"
 alias dvpoff="setxkbmap -model pc104 -layout us,ru -option grp:alt_shift_toggle"
+
+alias ssh="TERM=xterm ssh"
+alias pssh="TERM=xterm pssh"
