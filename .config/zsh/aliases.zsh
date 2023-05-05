@@ -20,6 +20,7 @@ alias ta="task add"
 alias tl="task list"
 alias td="task done"
 alias tm="task mod"
+alias ti="task info"
 alias tw="task work"
 alias te="task education"
 
