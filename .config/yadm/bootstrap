@@ -1,18 +1,64 @@
 #!/usr/bin/env python3
 
-#####################
-# Main
-#####################
+import uuid
+import os
+import termcolor
+import typing
+
+
+def get_installation():
+    # TODO
+    return "android"
+
+
+def validate_user(installation):
+    match installation:
+        case "android":
+            # TODO
+            if os.getenv("USER") == "er":
+                raise RuntimeError("User is er")
+            return
+        case "pc" | "laptop":
+            if os.getenv("USER") != "er":
+                raise RuntimeError("User is not er")
+    raise RuntimeError()
+
+
+def get_scenario(installation: str, log_fd: typing.TextIO) -> list:
+    match installation:
+        case "android":
+            from android_scenario import get_scenario
+
+            return get_scenario(log_fd)
+        case "pc" | "laptop":
+            from arch_scenario import get_scenario
+
+            return get_scenario(installation, log_fd)
+    raise RuntimeError()
+
+
+def get_log_file(installation: str) -> typing.TextIO:
+    match installation:
+        case "android":
+            return open("yadm_bootstrap_{}".format(uuid.uuid4()), "w")
+        case "pc" | "laptop":
+            return open("/tmp/yadm_bootstrap_{}".format(uuid.uuid4()), "w")
+    raise RuntimeError()
+
+
+def colorize_result(result: dict) -> str:
+    if not result["result"]:
+        return termcolor.colored(str(result), "red")
+    elif result["changes"]:
+        return termcolor.colored(str(result), "green")
+    return str(result)
+
 
 if __name__ == "__main__":
-    pc_name = input('Home PC/Laptop/Android?\n\t')
-    if pc_name.strip() == 'Android':
-        from android import bootstrap
-        bootstrap()
-    else:
-        match = input("Distro?:\n\t")
-        if match == "Arch":
-            from arch import bootstrap
-            bootstrap(pc_name)
-        else:
-            print("Aborted")
+    installation = get_installation()
+    validate_user(installation)
+    with get_log_file(installation) as log_fd:
+        print(log_fd.name)
+        for s in get_scenario(installation, log_fd):
+            result = s()
+            print(colorize_result(result))
