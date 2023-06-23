@@ -20,6 +20,7 @@ def pacman_packages(log_fd: typing.IO) -> typing.Callable:
             return result
         installed_packages = set(packages_call_result.stdout.decode().split())
         if ARCH_PACKAGES - installed_packages:
+            # TODO add grub config rerender
             if subprocess.run("sudo pacman -Suy --noconfirm {}".format(' '.join(ARCH_PACKAGES - installed_packages)).split(), stdout=log_fd, stderr=log_fd).returncode:
                 return result
             result['changes'].append('following pacman packages were installed: {}'.format(' '.join(ARCH_PACKAGES - installed_packages)))
@@ -167,19 +168,8 @@ def bootstrap_bluetooth(log_fd: typing.IO) -> typing.Callable:
         return result
     return run
 
-def yadm_awesome_init_submodules(log_fd: typing.IO) -> typing.Callable:
-    def run() -> dict:
-        result = default_result()
-        result['name'] = 'yadm_awesome_init_submodules'
-        if len(os.listdir("/home/er/.config/awesome/collision")) == 0:
-            if subprocess.run("yadm submodule update --init --recursive".split(), stdout=log_fd, stderr=log_fd).returncode:
-                return result
-            result['changes'].append('yadm awesome modules have been initialized')
-        result['result'] = True
-        return result
-    return run
 
-
+# TODO move to common
 def zsh_autosuggestions_link(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
@@ -193,6 +183,7 @@ def zsh_autosuggestions_link(log_fd: typing.IO) -> typing.Callable:
         return result
     return run
 
+# TODO move to common
 def zsh_highlighting_link(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
@@ -215,19 +206,6 @@ def hypr_paper(log_fd: typing.IO, installation: str) -> typing.Callable:
             if subprocess.run(f"ln -s /home/er/.config/yadm/conf/{installation}/hyprpaper.conf {linkpath}".split(), stdout=log_fd, stderr=log_fd).returncode:
                 return result
             result['changes'].append('hyprpaper config has been linked')
-        result['result'] = True
-        return result
-    return run
-
-def zsh_host_specific(log_fd: typing.IO, installation: str) -> typing.Callable:
-    def run() -> dict:
-        result = default_result()
-        result['name'] = 'zsh_host_specific'
-        linkpath = "/home/er/.config/zsh/host_specific.zsh"
-        if not os.path.islink(linkpath):
-            if subprocess.run(f"ln -s /home/er/.config/yadm/conf/{installation}/host_specific.zsh {linkpath}".split(), stdout=log_fd, stderr=log_fd).returncode:
-                return result
-            result['changes'].append('zsh host-specific config has been set up')
         result['result'] = True
         return result
     return run
