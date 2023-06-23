@@ -82,7 +82,7 @@ def tmux_plugin():
 
 
 def enable_ly():
-    retcode = os.system("sudo systemctl enable --now ly")
+    retcode = os.system("sudo systemctl enable ly")
     return 1 if retcode else 0
 
 
