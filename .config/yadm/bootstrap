@@ -8,7 +8,7 @@ import typing
 
 def get_installation():
     # TODO
-    return "android"
+    return "laptop"
 
 
 def validate_user(installation):
@@ -21,6 +21,7 @@ def validate_user(installation):
         case "pc" | "laptop":
             if os.getenv("USER") != "er":
                 raise RuntimeError("User is not er")
+            return
     raise RuntimeError()
 
 
