@@ -9,16 +9,6 @@ def zsh_bd():
     return 1 if retcode else 0
 
 
-def zsh_prompt_icon(content):
-    try:
-        with open(f"{os.environ['HOME']}/.config/zsh/host_specific.zsh", "w") as f:
-            f.write(content)
-        return 0
-    except Exception as e:
-        print(e)
-        return 2
-
-
 def zsh_fzf(path):
     retcode = os.system(f"test -f $HOME/.config/zsh/plugins/fzf/key-bindings.zsh || (mkdir -p $HOME/.config/zsh/plugins/fzf && ln -s {path} $HOME/.config/zsh/plugins/fzf/key-bindings.zsh)")
     return 1 if retcode else 0
