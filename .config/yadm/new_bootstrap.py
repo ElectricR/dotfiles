@@ -40,6 +40,9 @@ if __name__ == "__main__":
         stps.append(arch.hypr_external_config(f, "laptop"))
         stps.append(arch.rust_set_toolchain(f))
         stps.append(arch.rust_install_analyzer(f))
+        stps.append(common.zsh_fzf(f, "/usr/share/fzf"))
+        stps.append(common.zsh_bd(f))
+        stps.append(common.zsh_external(f))
 
         for s in stps:
             result = s()

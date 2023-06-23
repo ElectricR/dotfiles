@@ -5,19 +5,13 @@ import os.path
 
 
 
-def tmux_plugin():
-    if not os.path.exists("/home/er/.tmux/plugins/tpm"):
-        retcode = os.system("git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm")
-        return 1 if retcode else 0
-    return 0
-
 #####################
 # Main
 #####################
 
 def bootstrap(pc_name_in):
     def zsh_fzf_wrapper():
-        return common.zsh_fzf("/usr/share/fzf/key-bindings.zsh")
+        return common.zsh_fzf("")
 
     if subprocess.run(["whoami"], stdout=subprocess.PIPE).stdout.decode().strip() != "er":
         print("User is not ER")

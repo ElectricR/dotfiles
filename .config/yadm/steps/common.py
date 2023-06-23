@@ -28,3 +28,42 @@ def zsh_host_specific(log_fd: typing.IO, installation: str) -> typing.Callable:
         return result
     return run
 
+def zsh_fzf(log_fd: typing.IO, path: str) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result['name'] = 'zsh_fzf'
+        linkpath = f"{os.getenv('HOME')}/.config/zsh/plugins/fzf"
+        if not os.path.islink(linkpath):
+            if subprocess.run(f"ln -s {path} {linkpath}".split(), stdout=log_fd, stderr=log_fd).returncode:
+                return result
+            result['changes'].append('zsh fzf key-bindings have been set up')
+        result['result'] = True
+        return result
+    return run
+
+
+def zsh_bd(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result['name'] = 'zsh_bd'
+        filepath = f"{os.getenv('HOME')}/.config/zsh/plugins/bd.zsh"
+        if not os.path.isfile(filepath):
+            if subprocess.run(f"curl https://raw.githubusercontent.com/Tarrasch/zsh-bd/master/bd.zsh -o {filepath}".split(), stdout=log_fd, stderr=log_fd).returncode:
+                return result
+            result['changes'].append('zsh bd plugin has been set up')
+        result['result'] = True
+        return result
+    return run
+
+def zsh_external(_: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result['name'] = 'zsh_external'
+        filepath = f"{os.getenv('HOME')}/.config/zsh/external.zsh"
+        if not os.path.isfile(filepath):
+            with open(filepath, "w"):
+                pass
+            result['changes'].append('zsh bd plugin has been set up')
+        result['result'] = True
+        return result
+    return run
