@@ -8,7 +8,7 @@ import typing
 
 def get_installation():
     # TODO
-    return "laptop"
+    return "pc"
 
 
 def validate_user(installation):

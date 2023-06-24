@@ -28,6 +28,7 @@ ARCH_PACKAGES = {
     "bluez",
     "bluez-utils",
     "pipewire",
+    "pipewire-alsa",
     "pipewire-pulse",
     "firefox",
     "tree",
