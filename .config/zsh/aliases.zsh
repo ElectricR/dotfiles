@@ -33,7 +33,4 @@ alias xclip="xclip -selection c"
 alias dvpon="setxkbmap -model pc104 -layout us,ru -variant dvp, -option grp:alt_shift_toggle"
 alias dvpoff="setxkbmap -model pc104 -layout us,ru -option grp:alt_shift_toggle"
 
-alias ssh="TERM=xterm ssh"
-alias pssh="TERM=xterm pssh"
-
 alias kitty-reload='kill -SIGUSR1 $(pgrep kitty)'
