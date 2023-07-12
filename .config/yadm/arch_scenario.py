@@ -5,6 +5,7 @@ import typing
 
 def get_scenario(installation: str, f: typing.TextIO) -> list:
     stps = []
+    stps.append(arch.pacman_config(f))
     stps.append(arch.pacman_packages(f))
     stps.append(arch.yay_install(f))
     stps.append(arch.yay_packages(f))

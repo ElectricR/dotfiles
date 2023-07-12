@@ -55,6 +55,57 @@ ARCH_PACKAGES.union({"wl-clipboard", "grim", "slurp"})
 YAY_PACKAGES = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly"}
 
 
+def pacman_config(log_fd: typing.IO) -> typing.Callable:
+    def ensure_pacman_option(check, option) -> tuple[list, bool]:
+        if (
+            subprocess.run(
+                "grep {} /etc/pacman.conf".format(check).split(),
+                stdout=subprocess.DEVNULL,
+                stderr=log_fd,
+            ).returncode
+            == 0
+        ):
+            if (
+                subprocess.run(
+                    [
+                        "sudo",
+                        "sed",
+                        "-i",
+                        f"s/{check}.*/{option}/",
+                        "/etc/pacman.conf",
+                    ],
+                    stdout=subprocess.DEVNULL,
+                    stderr=log_fd,
+                ).returncode
+                == 0
+            ):
+                return ['"{}" option was added to pacman conf'.format(option)], True
+            return [], False
+        return [], True
+
+    def update_result(changes, option_result, result) -> None:
+        result["changes"].extend(changes)
+        result["result"] = result["result"] and option_result
+
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "pacman_config"
+        result["result"] = True
+
+        update_result(*ensure_pacman_option("#Color", "Color"), result)
+        update_result(
+            *ensure_pacman_option("#VerbosePkgLists", "VerbosePkgLists"), result
+        )
+        update_result(
+            *ensure_pacman_option("#ParallelDownloads", "ParallelDownloads = 10"),
+            result,
+        )
+
+        return result
+
+    return run
+
+
 def pacman_packages(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
@@ -66,7 +117,7 @@ def pacman_packages(log_fd: typing.IO) -> typing.Callable:
             return result
         installed_packages = set(packages_call_result.stdout.decode().split())
         if ARCH_PACKAGES - installed_packages:
-            # TODO add grub config rerender
+            # TODO add task to add grub config rerender
             if subprocess.run(
                 "sudo pacman -Suy --noconfirm {}".format(
                     " ".join(ARCH_PACKAGES - installed_packages)
