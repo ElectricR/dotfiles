@@ -58,13 +58,5 @@ urgency.annotations.coefficient=0
 urgency.tags.coefficient=0
 #urgency.user.tag.Skills.coefficient=4
 
-# Work report
-report.work.description=Show work-related information
-report.work.columns=id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due,until.remaining,description.count,urgency
-report.work.labels=ID,Active,Age,D,P,Project,Tags,R,Sch,Due,Until,Description,Urg
-report.work.filter=project:Yandex and status:pending -WAITING
-report.work.sort=urgency-
-
 # Modify default listing
-report.list.filter=project.not:Yandex and status:pending -WAITING
 report.list.sort=urgency+

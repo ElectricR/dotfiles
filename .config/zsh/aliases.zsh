@@ -21,7 +21,6 @@ alias tl="task list"
 alias td="task done"
 alias tm="task mod"
 alias ti="task info"
-alias tw="task work"
 alias te="task education"
 
 alias tms="python3 ~/projects/TMS/TMS2.py"
