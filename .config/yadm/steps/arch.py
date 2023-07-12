@@ -56,22 +56,19 @@ YAY_PACKAGES = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
-    def ensure_pacman_option(check, option) -> tuple[list, bool]:
-        if (
-            subprocess.run(
-                "grep {} /etc/pacman.conf".format(check).split(),
-                stdout=subprocess.DEVNULL,
-                stderr=log_fd,
-            ).returncode
-            == 0
-        ):
+    def ensure_pacman_option(check, pattern, option) -> tuple[list, bool]:
+        if subprocess.run(
+            "grep {} /etc/pacman.conf".format(check).split(),
+            stdout=subprocess.DEVNULL,
+            stderr=log_fd,
+        ).returncode:
             if (
                 subprocess.run(
                     [
                         "sudo",
                         "sed",
                         "-i",
-                        f"s/{check}.*/{option}/",
+                        f"s/{pattern}/{option}/",
                         "/etc/pacman.conf",
                     ],
                     stdout=subprocess.DEVNULL,
@@ -92,12 +89,17 @@ def pacman_config(log_fd: typing.IO) -> typing.Callable:
         result["name"] = "pacman_config"
         result["result"] = True
 
-        update_result(*ensure_pacman_option("#Color", "Color"), result)
+        update_result(*ensure_pacman_option("^Color", "#Color.*", "Color"), result)
         update_result(
-            *ensure_pacman_option("#VerbosePkgLists", "VerbosePkgLists"), result
+            *ensure_pacman_option(
+                "^VerbosePkgLists", "#VerbosePkgLists.*", "VerbosePkgLists"
+            ),
+            result,
         )
         update_result(
-            *ensure_pacman_option("#ParallelDownloads", "ParallelDownloads = 10"),
+            *ensure_pacman_option(
+                "^ParallelDownloads", "#ParallelDownloads.*", "ParallelDownloads = 10"
+            ),
             result,
         )
 
