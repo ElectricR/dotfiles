@@ -47,6 +47,8 @@ ARCH_PACKAGES = {
     "exa",
     "duf",
     "dust",
+
+    "pkg-config", # indirect for yay packages
 }
 
 # Remove after flameshot fix its stuff
