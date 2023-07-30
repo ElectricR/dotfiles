@@ -47,10 +47,12 @@ ARCH_PACKAGES = {
     "exa",
     "duf",
     "dust",
-    "sxiv",
     "pkg-config",  # indirect for yay packages
     # btrfs
     "compsize",
+    # sxiv stuff
+    "xorg-xrdb",
+    "sxiv",
 }
 
 # Remove after flameshot fix its stuff

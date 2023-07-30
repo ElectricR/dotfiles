@@ -33,3 +33,8 @@ alias dvpon="setxkbmap -model pc104 -layout us,ru -variant dvp, -option grp:alt_
 alias dvpoff="setxkbmap -model pc104 -layout us,ru -option grp:alt_shift_toggle"
 
 alias kitty-reload='kill -SIGUSR1 $(pgrep kitty)'
+
+sxiv() {
+    xrdb -merge $HOME/.config/sxiv/background
+    /usr/bin/sxiv $@
+}
