@@ -47,6 +47,7 @@ ARCH_PACKAGES = {
     "exa",
     "duf",
     "dust",
+    "sxiv",
     "pkg-config",  # indirect for yay packages
     # btrfs
     "compsize",
