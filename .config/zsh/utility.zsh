@@ -24,3 +24,8 @@ bindkey -s '^f' 'fzfcd\n'
 
 # CTRL-T and CTRL-R shortcuts for fzf
 source $HOME/.config/zsh/plugins/fzf/key-bindings.zsh
+
+# Little shortcut
+run() {
+    $@ & disown
+}
