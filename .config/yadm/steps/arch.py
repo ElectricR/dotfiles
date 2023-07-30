@@ -48,6 +48,8 @@ ARCH_PACKAGES = {
     "duf",
     "dust",
     "pkg-config",  # indirect for yay packages
+    # btrfs
+    "compsize",
 }
 
 # Remove after flameshot fix its stuff
