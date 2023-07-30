@@ -1,2 +1,3 @@
 // Xresource format, don't forget to run it with xrdb
 *.background: #000000
+*.foreground: #FFFFFF
