@@ -17,6 +17,7 @@ def get_scenario(installation: str, f: typing.TextIO) -> list:
     stps.append(arch.bootstrap_pipewire(f))
     stps.append(arch.bootstrap_ly(f))
     stps.append(arch.bootstrap_bluetooth(f))
+    stps.append(common.zsh_plugins_dir(f))
     stps.append(
         common.zsh_autosuggestions_link(f, "/usr/share/zsh/plugins/zsh-autosuggestions")
     )

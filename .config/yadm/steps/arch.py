@@ -47,8 +47,7 @@ ARCH_PACKAGES = {
     "exa",
     "duf",
     "dust",
-
-    "pkg-config", # indirect for yay packages
+    "pkg-config",  # indirect for yay packages
 }
 
 # Remove after flameshot fix its stuff
@@ -111,6 +110,11 @@ def pacman_config(log_fd: typing.IO) -> typing.Callable:
 
 
 def pacman_packages(log_fd: typing.IO) -> typing.Callable:
+    def update_pkgconf(in_set: typing.Set) -> None:
+        if "pkgconf" in in_set:
+            in_set.add("pkg-config")
+            in_set.remove("pkgconf")
+
     def run() -> dict:
         result = default_result()
         result["name"] = "pacman_packages"
@@ -120,6 +124,7 @@ def pacman_packages(log_fd: typing.IO) -> typing.Callable:
         if packages_call_result.returncode != 0:
             return result
         installed_packages = set(packages_call_result.stdout.decode().split())
+        update_pkgconf(installed_packages)
         if ARCH_PACKAGES - installed_packages:
             # TODO add task to add grub config rerender
             if subprocess.run(
@@ -415,9 +420,10 @@ def rust_set_toolchain(log_fd: typing.IO) -> typing.Callable:
         current_toolchain = subprocess.run(
             "rustup default".split(), stdout=subprocess.PIPE, stderr=log_fd
         )
-        if current_toolchain.returncode != 0:
-            return result
-        if not current_toolchain.stdout.decode().startswith("nightly"):
+        if (
+            current_toolchain.returncode != 0
+            or not current_toolchain.stdout.decode().startswith("nightly")
+        ):
             if subprocess.run(
                 "rustup default nightly".split(), stdout=log_fd, stderr=log_fd
             ).returncode:

@@ -41,6 +41,23 @@ def zsh_host_specific(log_fd: typing.IO, installation: str) -> typing.Callable:
     return run
 
 
+def zsh_plugins_dir(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "zsh_plugins_dir"
+        dirpath = f"{os.getenv('HOME')}/.config/zsh/plugins"
+        if not os.path.isdir(dirpath):
+            if subprocess.run(
+                f"mkdir -p {dirpath}".split(), stdout=log_fd, stderr=log_fd
+            ).returncode:
+                return result
+            result["changes"].append("zsh plugins directory has been created")
+        result["result"] = True
+        return result
+
+    return run
+
+
 def zsh_fzf(log_fd: typing.IO, path: str) -> typing.Callable:
     def run() -> dict:
         result = default_result()
