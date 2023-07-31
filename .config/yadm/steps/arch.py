@@ -52,7 +52,7 @@ ARCH_PACKAGES = {
     "compsize",
     # sxiv stuff
     "xorg-xrdb",
-    "sxiv",
+    "nsxiv",
 }
 
 # Remove after flameshot fix its stuff
