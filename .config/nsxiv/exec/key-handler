@@ -1,0 +1,8 @@
+#!/bin/sh
+while read file
+do
+        case "$1" in
+        "C-d")
+                mkdir ./trash -p && mv "$file" trash/ ;;
+        esac
+done
