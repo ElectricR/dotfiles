@@ -39,8 +39,9 @@ data.location=~/.task
 #include solarized-light-256.theme
 #include no-color.theme
 
-nag =
 news.version = 2.6.0
+nag =
+weekstart = Monday
 
 search.case.sensitive = 0
 
