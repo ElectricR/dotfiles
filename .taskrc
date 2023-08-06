@@ -40,6 +40,9 @@ data.location=~/.task
 #include no-color.theme
 
 nag =
+news.version = 2.6.0
+
+search.case.sensitive = 0
 
 color.tagged         = none
 color.overdue        = magenta
@@ -51,8 +54,6 @@ color.uda.priority.L = gray11
 color.uda.priority.  = gray15
 color.uda.priority.M = gray19
 color.uda.priority.H = gray23
-
-news.version = 2.6.0
 
 urgency.uda.priority.L.coefficient = -2
 urgency.due.coefficient            = 3
