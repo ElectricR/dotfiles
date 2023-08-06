@@ -39,26 +39,27 @@ data.location=~/.task
 #include solarized-light-256.theme
 #include no-color.theme
 
-color.tagged=none
-color.overdue=magenta
-color.due=magenta
-color.due.today=magenta
-color.tag.Red=red
-color.tag.Blue=blue
-color.uda.priority.L=gray11
-color.uda.priority.=gray15
-color.uda.priority.M=gray19
-color.uda.priority.H=gray23
+nag =
 
-news.version=2.6.0
+color.tagged         = none
+color.overdue        = magenta
+color.due            = magenta
+color.due.today      = magenta
+color.tag.Red        = red
+color.tag.Blue       = blue
+color.uda.priority.L = gray11
+color.uda.priority.  = gray15
+color.uda.priority.M = gray19
+color.uda.priority.H = gray23
 
-urgency.uda.priority.L.coefficient=-2
-urgency.due.coefficient=3
-urgency.project.coefficient=0
-urgency.blocking.coefficient=0
-urgency.annotations.coefficient=0
-urgency.tags.coefficient=0
-#urgency.user.tag.Skills.coefficient=4
+news.version = 2.6.0
+
+urgency.uda.priority.L.coefficient = -2
+urgency.due.coefficient            = 3
+urgency.project.coefficient        = 0
+urgency.blocking.coefficient       = 0
+urgency.annotations.coefficient    = 0
+urgency.tags.coefficient           = 0
 
 # Modify default listing
-report.list.sort=urgency+
+report.list.sort = urgency+
