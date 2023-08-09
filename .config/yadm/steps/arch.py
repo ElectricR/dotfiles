@@ -5,54 +5,56 @@ import typing
 import shutil
 
 ARCH_PACKAGES = {
+    "pkg-config",  # indirect for yay packages
     "openssh",
     "clang",
-    "gopls",
-    "pyright",
-    "fakeroot",
     "wget",
     "make",
-    "fd",
-    "bat",
-    "lua-language-server",
     "rustup",
     "fzf",
     "tmux",
     "tldr",
     "task",
-    "zsh-autosuggestions",
-    "zsh-syntax-highlighting",
-    "zathura",
-    "zathura-pdf-mupdf",
     "npm",
-    "bluez",
-    "bluez-utils",
-    "pipewire",
-    "pipewire-alsa",
-    "pipewire-pulse",
     "firefox",
     "tree",
     "htop",
     "go",
-    "picom",
     "kitty",
-    "ripgrep",
     "cmake",
-    "zsh",
     "unzip",
-    "neovim",
-    "python-pip",
     "nodejs",
+    # audio
+    "pipewire",
+    "pipewire-alsa",
+    "pipewire-pulse",
     "wireplumber",
+    "bluez",
+    "bluez-utils",
+    # editing
+    "neovim",
+    "lua-language-server",
+    "gopls",
+    "pyright",
+    # neoutils
+    "fd",
+    "bat",
     "exa",
     "duf",
     "dust",
-    "pkg-config",  # indirect for yay packages
+    "ripgrep",
+    # zsh
+    "zsh",
+    "zsh-autosuggestions",
+    "zsh-syntax-highlighting",
     # btrfs
     "compsize",
-    # sxiv stuff
-    "xorg-xrdb",
+    # image viewing
     "nsxiv",
+    "xorg-xrdb",
+    # pdf
+    "zathura",
+    "zathura-pdf-mupdf",
 }
 
 # Remove after flameshot fix its stuff
