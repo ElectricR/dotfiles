@@ -24,6 +24,7 @@ ARCH_PACKAGES = {
     "cmake",
     "unzip",
     "nodejs",
+    "pass",
     # audio
     "pipewire",
     "pipewire-alsa",
