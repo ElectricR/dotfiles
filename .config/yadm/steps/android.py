@@ -12,14 +12,17 @@ ANDROID_PACKAGES = {
     "tree",
     "zsh",
     "golang",
-    "exa",
-    "bat",
     "fzf",
-    "ripgrep",
-    "duf",
-    "lua-language-server",
+    "pass",
+    # neoutils
     "fd",
+    "bat",
+    "exa",
+    "duf",
     "dust",
+    "ripgrep",
+    # editing
+    "lua-language-server",
 }
 
 
