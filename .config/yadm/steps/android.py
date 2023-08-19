@@ -14,6 +14,7 @@ ANDROID_PACKAGES = {
     "golang",
     "fzf",
     "pass",
+    "jq",
     # neoutils
     "fd",
     "bat",
