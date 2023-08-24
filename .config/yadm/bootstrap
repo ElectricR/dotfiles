@@ -53,8 +53,9 @@ def colorize_result(result: dict) -> str:
             return termcolor.colored(str(result), "red")
         elif result["changes"]:
             return termcolor.colored(str(result), "green")
-    finally:
-        return str(result)
+    except:
+        pass
+    return str(result)
 
 
 if __name__ == "__main__":

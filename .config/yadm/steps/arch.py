@@ -5,7 +5,6 @@ import typing
 import shutil
 
 ARCH_PACKAGES = {
-    "pkg-config",  # indirect for yay packages
     "openssh",
     "clang",
     "wget",
@@ -56,6 +55,10 @@ ARCH_PACKAGES = {
     # pdf
     "zathura",
     "zathura-pdf-mupdf",
+    # bootstrap
+    "pkg-config",  # indirect for yay packages
+    "fakeroot",  # indirect for yay
+    "python-termcolor",
 }
 
 # Remove after flameshot fix its stuff
@@ -320,6 +323,7 @@ def bootstrap_pipewire(log_fd: typing.IO) -> typing.Callable:
             stderr=subprocess.DEVNULL,
         ).returncode
         if retcode == 1:
+            # Do not remove --now until dbus is able to run without restart
             if subprocess.run(
                 "systemctl --user enable --now pipewire-pulse".split(),
                 stdout=log_fd,
