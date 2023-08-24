@@ -2,7 +2,6 @@
 
 import uuid
 import os
-import termcolor
 import typing
 
 
@@ -48,11 +47,14 @@ def get_log_file(installation: str) -> typing.TextIO:
 
 
 def colorize_result(result: dict) -> str:
-    if not result["result"]:
-        return termcolor.colored(str(result), "red")
-    elif result["changes"]:
-        return termcolor.colored(str(result), "green")
-    return str(result)
+    try:
+        import termcolor
+        if not result["result"]:
+            return termcolor.colored(str(result), "red")
+        elif result["changes"]:
+            return termcolor.colored(str(result), "green")
+    finally:
+        return str(result)
 
 
 if __name__ == "__main__":
