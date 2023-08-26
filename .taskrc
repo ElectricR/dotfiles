@@ -45,23 +45,29 @@ weekstart = Monday
 
 search.case.sensitive = 0
 
-color.tagged         = none
-color.overdue        = magenta
-color.due            = magenta
-color.due.today      = magenta
-color.tag.Red        = red
-color.tag.Blue       = blue
-color.uda.priority.L = gray11
-color.uda.priority.  = gray15
-color.uda.priority.M = gray19
-color.uda.priority.H = gray23
+uda.priority.values = VL,L,,M,H
 
-urgency.uda.priority.L.coefficient = -2
-urgency.due.coefficient            = 3
-urgency.project.coefficient        = 0
-urgency.blocking.coefficient       = 0
-urgency.annotations.coefficient    = 0
-urgency.tags.coefficient           = 0
+color.tagged          = none
+color.overdue         = magenta
+color.due             = magenta
+color.due.today       = magenta
+color.tag.Red         = red
+color.tag.Blue        = blue
+color.blocking        = none
+color.uda.priority.VL = gray7
+color.uda.priority.L  = gray11
+color.uda.priority.   = gray15
+color.uda.priority.M  = gray19
+color.uda.priority.H  = gray23
+
+urgency.uda.priority.VL.coefficient = -10
+urgency.uda.priority.L.coefficient  = -2
+urgency.due.coefficient             = 3
+urgency.project.coefficient         = 0
+urgency.blocking.coefficient        = 0
+urgency.annotations.coefficient     = 0
+urgency.tags.coefficient            = 0
 
 # Modify default listing
 report.list.sort = urgency+
+report.list.filter = status:pending -WAITING -BLOCKED
