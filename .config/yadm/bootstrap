@@ -6,16 +6,14 @@ import typing
 
 
 def get_installation():
-    # TODO
-    return "pc"
+    if os.getenv("TERMUX_VERSION") is None:
+        return "pc"
+    return "android"
 
 
 def validate_user(installation):
     match installation:
         case "android":
-            # TODO
-            if os.getenv("USER") == "er":
-                raise RuntimeError("User is er")
             return
         case "pc" | "laptop":
             if os.getenv("USER") != "er":
