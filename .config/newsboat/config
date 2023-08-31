@@ -41,8 +41,8 @@ highlight feedlist "---.*---" `echo $COLOR_KEY` default bold invis
 highlight feedlist "\\(0/0\\)" default default invis dim
 
 color title             `echo $COLOR_WARN` default
-color listfocus         default `echo $COLOR_SELECT`
-color listfocus_unread  `echo $COLOR_NOTIFY` `echo $COLOR_SELECT`
+color listfocus         default `echo $COLOR_SEL`
+color listfocus_unread  `echo $COLOR_NOTIFY` `echo $COLOR_SEL`
 color listnormal_unread `echo $COLOR_NOTIFY` default
 
 # Spam protection
