@@ -1,6 +1,11 @@
 auto-reload yes
 reload-threads 100
 
+browser "firefox %u"
+
+show-keymap-hint no
+
+# Bindings
 unbind-key -a
 
 bind-key j down
@@ -29,4 +34,18 @@ bind-key 1 one
 bind-key 2 two
 bind-key 3 three
 bind-key 4 four
-browser "firefox %u"
+
+# Styling
+feedlist-format "%4i %n %11u %t"
+highlight feedlist "---.*---" `echo $COLOR_KEY` default bold invis
+highlight feedlist "\\(0/0\\)" default default invis dim
+
+color title             `echo $COLOR_WARN` default
+color listfocus         default `echo $COLOR_SELECT`
+color listfocus_unread  `echo $COLOR_NOTIFY` `echo $COLOR_SELECT`
+color listnormal_unread `echo $COLOR_NOTIFY` default
+
+# Spam protection
+ignore-mode display
+ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*go.vc.ru.*\""
+

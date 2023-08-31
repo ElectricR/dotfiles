@@ -1,3 +1,6 @@
+# I am so tired of kitty
+export TERM=xterm-256color
+
 # Load colors
 autoload -U colors && colors
 

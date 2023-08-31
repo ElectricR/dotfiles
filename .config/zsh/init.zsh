@@ -1,3 +1,4 @@
+source $HOME/.config/zsh/colors.zsh
 source $HOME/.config/zsh/config.zsh
 source $HOME/.config/zsh/aliases.zsh
 source $HOME/.config/zsh/utility.zsh
