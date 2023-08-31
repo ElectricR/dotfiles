@@ -1,7 +1,7 @@
 auto-reload yes
 reload-threads 100
 
-browser "firefox %u"
+browser "firefox %u &"
 
 show-keymap-hint no
 
