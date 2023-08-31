@@ -48,4 +48,4 @@ color listnormal_unread `echo $COLOR_NOTIFY` default
 # Spam protection
 ignore-mode display
 ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*go.vc.ru.*\""
-
+ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*Больше вакансий — на .*\""
