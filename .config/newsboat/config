@@ -2,7 +2,7 @@ auto-reload yes
 reload-threads 100
 
 browser "firefox %u &"
-
+scrolloff 8
 show-keymap-hint no
 
 # Bindings
