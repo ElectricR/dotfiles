@@ -30,6 +30,7 @@ bind-key n next-unread feedlist
 bind-key p prev-unread feedlist
 bind-key n next-unread articlelist
 bind-key p prev-unread articlelist
+bind-key m toggle-article-read
 
 bind-key 1 one
 bind-key 2 two
