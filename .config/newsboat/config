@@ -18,7 +18,8 @@ bind-key : cmdline
 bind-key / open-search
 bind-key x open-in-browser-noninteractively
 bind-key R mark-feed-read
-bind-key n next-unread
+bind-key n next
+bind-key p prev
 
 bind-key 1 one
 bind-key 2 two
