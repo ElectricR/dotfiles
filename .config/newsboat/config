@@ -20,7 +20,8 @@ bind-key G end
 bind-key t select-tag
 bind-key r reload-all
 bind-key : cmdline
-bind-key / open-search
+bind-key ^F open-search
+bind-key / goto-title
 bind-key x open-in-browser-noninteractively
 bind-key R mark-feed-read
 bind-key n next article
