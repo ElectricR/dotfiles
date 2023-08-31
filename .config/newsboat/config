@@ -1,0 +1,27 @@
+auto-reload yes
+reload-threads 100
+
+unbind-key -a
+
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key ENTER open
+bind-key h quit
+bind-key q hard-quit
+bind-key ? help
+bind-key g home
+bind-key G end
+bind-key t select-tag
+bind-key r reload-all
+bind-key : cmdline
+bind-key / open-search
+bind-key x open-in-browser-noninteractively
+bind-key R mark-feed-read
+bind-key n next-unread
+
+bind-key 1 one
+bind-key 2 two
+bind-key 3 three
+bind-key 4 four
+browser "firefox %u"

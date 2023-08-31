@@ -24,6 +24,9 @@ ARCH_PACKAGES = {
     "unzip",
     "nodejs",
     "pass",
+    "newsboat",
+    # osu
+    "fuse2",
     # audio
     "pipewire",
     "pipewire-alsa",
