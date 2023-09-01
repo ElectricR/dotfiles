@@ -10,6 +10,8 @@ alias cat='bat --style plain --paging never'
 alias p="python3"
 alias pdb="python3 -m pdb"
 
+alias y="yadm"
+
 alias m="make"
 alias mr="make run"
 
