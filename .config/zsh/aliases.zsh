@@ -45,6 +45,8 @@ sshd() {
     fi
 }
 
+alias st="ssh tablet"
+
 nsxiv() {
     xrdb -merge $HOME/.config/nsxiv/colors
     /usr/bin/nsxiv $@
