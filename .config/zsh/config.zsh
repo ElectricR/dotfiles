@@ -70,6 +70,7 @@ bindkey '^ ' autosuggest-accept
 # Highlighting. Should be last.
 source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_STYLES[arg0]="fg=${COLOR_OBJ:5}"
+ZSH_HIGHLIGHT_STYLES[precommand]="fg=${COLOR_OBJ:5},underline"
 
 # Ignore task command for adding in history
 setopt histignorespace
