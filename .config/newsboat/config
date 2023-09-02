@@ -40,7 +40,7 @@ bind-key 4 four
 
 # Styling
 feedlist-format "%4i %n %11u %t"
-highlight feedlist "---.*---" `echo $COLOR_KEY` default bold invis
+highlight feedlist "---.*---" `echo $COLOR_KEY` default bold
 highlight feedlist "\\(0/0\\)" default default invis dim
 
 highlight article "^Link:.*$" `echo $COLOR_NS`
