@@ -42,10 +42,15 @@ feedlist-format "%4i %n %11u %t"
 highlight feedlist "---.*---" `echo $COLOR_KEY` default bold invis
 highlight feedlist "\\(0/0\\)" default default invis dim
 
-color title             `echo $COLOR_WARN` default
+highlight article "^Link:.*$" `echo $COLOR_NS`
+highlight article "^(Feed|Title|Author|Links?|Date):" `echo $COLOR_TYPE`
+highlight article "^\\[.?.?\\]: https?://.*\..* \\(link\\)$" `echo $COLOR_NS`
+highlight article "^\\[.?.?\\]: https?://.*\..* \\(image\\)$" `echo $COLOR_OBJ`
+
+color title             `echo $COLOR_STR` default
 color listfocus         default `echo $COLOR_SEL`
-color listfocus_unread  `echo $COLOR_NOTIFY` `echo $COLOR_SEL`
-color listnormal_unread `echo $COLOR_NOTIFY` default
+color listfocus_unread  `echo $COLOR_HINT` `echo $COLOR_SEL`
+color listnormal_unread `echo $COLOR_HINT` default
 
 # Spam protection
 ignore-mode display
