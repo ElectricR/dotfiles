@@ -10,7 +10,7 @@ alias cat='bat --style plain --paging never'
 alias p="python3"
 alias pdb="python3 -m pdb"
 
-alias y="/sbin/yadm"
+alias y="$(which yadm)"
 alias yadm="/bin/false" # Temporary for acquiring new habit
 
 alias m="make"
