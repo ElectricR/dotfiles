@@ -26,3 +26,5 @@ export COLOR_ERR=color196                  # 16 + 5*6*6 + 0*6 + 0
 export COLOR_ERR_24='#FF0000'              #
 export COLOR_TYPE=color63                  # 16 + 1*6*6 + 1*6 + 5
 export COLOR_TYPE_24='#5F5FFF'             #
+export COLOR_RAW=color223                  # 16 + 5*6*6 + 4*6 + 3
+export COLOR_RAW_24='#FFD7AF'              #

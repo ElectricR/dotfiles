@@ -42,6 +42,7 @@ M.soda = {
   namespace = os.getenv("COLOR_NS_24"),
   error = os.getenv("COLOR_ERR_24"),
   type = os.getenv("COLOR_TYPE_24"),
+  raw = os.getenv("COLOR_RAW_24"),
 }
 
 local function remove_italics(config, colors)
@@ -96,6 +97,9 @@ M.load_syntax = function(palette)
     },
     Visual = {
         bg = palette.sel_off,
+    },
+    Number = {
+        fg = palette.raw,
     },
 
     Identifier = { fg = nil },
@@ -248,9 +252,6 @@ M.load_syntax = function(palette)
     Constant = {
       fg = palette.aqua,
     },
-    Number = {
-      fg = palette.purple,
-    },
     Float = {
       fg = palette.purple,
     },
@@ -395,6 +396,9 @@ M.load_plugin_syntax = function(palette)
     },
     ["@lsp.type.parameter"] = {
         fg = palette.param,
+    },
+    ["@lsp.type.operator"] = {
+        fg = palette.op,
     },
     ["@lsp.type.namespace"] = {
         fg = palette.namespace,
