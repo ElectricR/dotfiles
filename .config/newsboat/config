@@ -52,6 +52,8 @@ color listfocus         default `echo $COLOR_SEL`
 color listfocus_unread  `echo $COLOR_HINT` `echo $COLOR_SEL`
 color listnormal_unread `echo $COLOR_HINT` default
 
+search-highlight-colors default `echo $COLOR_SEARCH_ACTIVE`
+
 # Spam protection
 ignore-mode display
 ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*go.vc.ru.*\""
