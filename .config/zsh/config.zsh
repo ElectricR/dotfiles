@@ -72,6 +72,8 @@ source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
 ZSH_HIGHLIGHT_STYLES[arg0]="fg=${COLOR_OBJ:5}"
 ZSH_HIGHLIGHT_STYLES[precommand]="fg=${COLOR_OBJ:5},underline"
 ZSH_HIGHLIGHT_STYLES[unknown-token]="fg=${COLOR_ERR:5},bold"
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]="fg=${COLOR_STR:5}"
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]="fg=${COLOR_STR:5}"
 
 # Ignore task command for adding in history
 setopt histignorespace
