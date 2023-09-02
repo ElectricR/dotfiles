@@ -2,64 +2,6 @@ local vim = vim
 
 local M = {}
 
-M.classic = {
-  name = 'monokai',
-  base0 = '#222426',
-  base1 = '#272a30',
-  base2 = '#26292C',
-  base3 = '#2E323C',
-  base4 = '#333842',
-  base5 = '#4d5154',
-  base6 = '#9ca0a4',
-  base7 = '#b1b1b1',
-  base8 = '#e3e3e1',
-  border = '#a1b5b1',
-  brown = '#504945',
-  white = '#f8f8f0',
-  grey = '#8F908A',
-  black = '#000000',
-  pink = '#f92672',
-  green = '#a6e22e',
-  aqua = '#66d9ef',
-  yellow = '#e6db74',
-  orange = '#fd971f',
-  purple = '#ae81ff',
-  red = '#e95678',
-  diff_add = '#3d5213',
-  diff_remove = '#4a0f23',
-  diff_change = '#27406b',
-  diff_text = '#23324d',
-}
-
-M.pro = {
-  name = 'monokai_pro',
-  base0 = '#222426',
-  base1 = '#211F22',
-  base2 = '#26292C',
-  base3 = '#2E323C',
-  base4 = '#333842',
-  base5 = '#4d5154',
-  base6 = '#72696A',
-  base7 = '#B1B1B1',
-  base8 = '#e3e3e1',
-  border = '#A1B5B1',
-  brown = '#504945',
-  white = '#FFF1F3',
-  grey = '#72696A',
-  black = '#000000',
-  pink = '#FF6188',
-  green = '#A9DC76',
-  aqua = '#78DCE8',
-  yellow = '#FFD866',
-  orange = '#FC9867',
-  purple = '#AB9DF2',
-  red = '#FD6883',
-  diff_add = '#3d5213',
-  diff_remove = '#4a0f23',
-  diff_change = '#27406b',
-  diff_text = '#23324d',
-}
-
 M.soda = {
   name = 'monokai_soda',
   base0 = '#22242600',
@@ -87,35 +29,19 @@ M.soda = {
   diff_remove = '#4a0f23',
   diff_change = '#27406b',
   diff_text = '#23324d',
-}
 
-M.ristretto = {
-  name = 'monokai_ristretto',
-  base0 = '#191515',
-  base1 = '#211c1c',
-  base2 = '#2c2525',
-  base3 = '#403838',
-  base4 = '#5b5353',
-  base5 = '#72696a',
-  base6 = '#8c8384',
-  base7 = '#c3b7b8',
-  base8 = '#fff1f3',
-  border = '#A1B5B1',
-  brown = '#352e2e',
-  white = '#fff1f3',
-  grey = '#72696a',
-  black = '#000000',
-  pink = '#FF6188',
-  green = '#adda78',
-  aqua = '#85dacc',
-  yellow = '#f9cc6c',
-  orange = '#f38d70',
-  purple = '#a8a9eb',
-  red = '#fd6883',
-  diff_add = '#527728',
-  diff_remove = '#842335',
-  diff_change = '#247c6e',
-  diff_text = '#23324d',
+  key = os.getenv("COLOR_KEY_24"),
+  str = os.getenv("COLOR_STR_24"),
+  hint = os.getenv("COLOR_HINT_24"),
+  search_active= os.getenv("COLOR_SEARCH_ACTIVE_24"),
+  obj = os.getenv("COLOR_OBJ_24"),
+  op = os.getenv("COLOR_OP_24"),
+  sel = os.getenv("COLOR_SEL_24"),
+  sel_off = os.getenv("COLOR_SEL_OFF_24"),
+  param = os.getenv("COLOR_PARAM_24"),
+  namespace = os.getenv("COLOR_NS_24"),
+  error = os.getenv("COLOR_ERR_24"),
+  type = os.getenv("COLOR_TYPE_24"),
 }
 
 local function remove_italics(config, colors)
@@ -127,19 +53,54 @@ end
 
 local function highlighter(config)
   return function(group, color)
+   
     color = remove_italics(config, color)
-    local style = color.style and 'gui=' .. color.style or 'gui=NONE'
-    local fg = color.fg and 'guifg = ' .. color.fg or 'guifg = NONE'
-    local bg = color.bg and 'guibg = ' .. color.bg or 'guibg = NONE'
-    local sp = color.sp and 'guisp = ' .. color.sp or ''
+    local fg = (color.fg and 'guifg = ' .. color.fg) or 'guifg = NONE'
+    local bg = (color.bg and 'guibg = ' .. color.bg) or 'guibg = NONE'
+    local style = (color.style and 'gui=' .. color.style) or 'gui=NONE'
+    local sp = (color.sp and 'guisp = ' .. color.sp) or ''
   vim.cmd(
-    'highlight ' .. group .. ' ' .. style .. ' ' .. fg .. ' ' .. bg .. ' ' .. sp
+    'highlight ' .. group .. ' ' ..  fg .. ' ' .. bg .. ' ' .. style .. ' ' ..sp
   )
   end
 end
 
 M.load_syntax = function(palette)
   return {
+    Function = {
+        fg = palette.obj,
+        style = 'italic',
+    },
+    Conditional = {
+        fg = palette.key,
+    },
+    Keyword = {
+        fg = palette.key,
+    },
+    Repeat = {
+        fg = palette.key,
+    },
+    String = {
+        fg = palette.str,
+    },
+    Search = {
+        fg = palette.base2,
+        bg = palette.search_active,
+    },
+    IncSearch = {
+        fg = palette.base2,
+        bg = palette.search_active,
+    },
+    Operator = {
+        fg = palette.op,
+    },
+    Visual = {
+        bg = palette.sel_off,
+    },
+
+    Identifier = { fg = nil },
+
+    -- Unsorted below
     Normal = {
       fg = palette.white,
       bg = palette.base2,
@@ -178,19 +139,8 @@ M.load_syntax = function(palette)
     NonText = { -- used for "eol", "extends" and "precedes" in listchars
       fg = palette.base5,
     },
-    Visual = {
-      bg = palette.base4,
-    },
     VisualNOS = {
       bg = palette.base3,
-    },
-    Search = {
-      fg = palette.base2,
-      bg = palette.yellow,
-    },
-    IncSearch = {
-      fg = palette.base2,
-      bg = palette.orange,
     },
     CursorLineNr = {
       fg = palette.orange,
@@ -310,9 +260,6 @@ M.load_syntax = function(palette)
     Character = {
       fg = palette.yellow,
     },
-    String = {
-      fg = palette.yellow,
-    },
     Type = {
       fg = palette.aqua,
     },
@@ -325,25 +272,11 @@ M.load_syntax = function(palette)
     Typedef = {
       fg = palette.aqua,
     },
-    Identifier = {
-      fg = palette.white,
-    },
-    Function = {
-      fg = palette.green,
-      style = 'italic',
-    },
     Statement = {
-      fg = palette.pink,
-    },
-    Operator = {
       fg = palette.pink,
     },
     Label = {
       fg = palette.pink,
-    },
-    Keyword = {
-      fg = palette.pink,
-      style = 'italic',
     },
     PreProc = {
       fg = palette.green,
@@ -433,12 +366,6 @@ M.load_syntax = function(palette)
       fg = palette.base2,
       bg = palette.red,
     },
-    Conditional = {
-      fg = palette.pink,
-    },
-    Repeat = {
-      fg = palette.pink,
-    },
     Exception = {
       fg = palette.pink,
     },
@@ -447,6 +374,44 @@ end
 
 M.load_plugin_syntax = function(palette)
   return {
+    DiagnosticSignHint = {
+        fg = palette.hint,
+    },
+    DiagnosticVirtualTextHint = {
+        fg = palette.hint,
+    },
+    LspReferenceWrite= {
+        bg = palette.sel,
+    },
+    LspReferenceText = {
+        bg = palette.sel,
+    },
+    ["@parameter"] = {
+        fg = palette.param,
+    },
+    ["@keyword.function"] = {
+        fg = palette.key,
+        style = 'italic',
+    },
+    ["@lsp.type.parameter"] = {
+        fg = palette.param,
+    },
+    ["@lsp.type.namespace"] = {
+        fg = palette.namespace,
+        style = 'italic',
+    },
+    DiagnosticSignError = {
+        fg = palette.error,
+    },
+    DiagnosticVirtualTextError = {
+        fg = palette.error,
+        style = 'italic,underline',
+    },
+    Type = {
+        fg = palette.type,
+    },
+
+    -- Unsorted below
     TSString = {
       fg = palette.yellow,
     },
@@ -484,10 +449,6 @@ M.load_plugin_syntax = function(palette)
     TSCharacter = {
       fg = palette.yellow,
     },
-    TSFunction = {
-      fg = palette.green,
-      style = 'italic',
-    },
     TSFuncBuiltin = {
       fg = palette.aqua,
     },
@@ -520,9 +481,6 @@ M.load_plugin_syntax = function(palette)
     },
     TSOperator = {
       fg = palette.pink,
-    },
-    TSParameter = {
-      fg = palette.white,
     },
     TSParameterReference = {
       fg = palette.white,
@@ -560,9 +518,6 @@ M.load_plugin_syntax = function(palette)
     TSLabel = {
       fg = palette.pink,
     },
-    TSType = {
-      fg = palette.aqua,
-    },
     TSException = {
       fg = palette.pink,
     },
@@ -575,29 +530,17 @@ M.load_plugin_syntax = function(palette)
     dbui_tables = {
       fg = palette.white,
     },
-    DiagnosticSignError = {
-      fg = palette.red,
-    },
     DiagnosticSignWarn = {
       fg = palette.yellow,
     },
     DiagnosticSignInfo = {
       fg = palette.white,
     },
-    DiagnosticSignHint = {
-      fg = palette.aqua,
-    },
-    DiagnosticVirtualTextError = {
-      fg = palette.red,
-    },
     DiagnosticVirtualTextWarn = {
       fg = palette.yellow,
     },
     DiagnosticVirtualTextInfo = {
       fg = palette.white,
-    },
-    DiagnosticVirtualTextHint = {
-      fg = palette.aqua,
     },
     DiagnosticUnderlineError = {
       style = 'undercurl',
@@ -694,9 +637,7 @@ M.load_plugin_syntax = function(palette)
 
     -- ray-x/lsp_signature.nvim
     LspSignatureActiveParameter = { fg = palette.orange },
-    LspReferenceText = { bg = palette.diff_change },
     LspReferenceRead = { bg = palette.base5 },
-    LspReferenceWrite= { bg = palette.base4 },
   }
 end
 

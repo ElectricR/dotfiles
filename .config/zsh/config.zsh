@@ -13,14 +13,14 @@ export KEYTIMEOUT=1
 
 # Prompt
 setopt PROMPT_SUBST
-PROMPT_LEFT_BRACKET="%B%(?.%F{${COLOR_WARN:5}}.%F{${COLOR_ERR:5}})["
-PROMPT_RIGHT_BRACKET="%B%(?.%F{${COLOR_WARN:5}}.%F{${COLOR_ERR:5}})]"
+PROMPT_LEFT_BRACKET="%B%(?.%F{${COLOR_STR:5}}.%F{${COLOR_ERR:5}})["
+PROMPT_RIGHT_BRACKET="%B%(?.%F{${COLOR_STR:5}}.%F{${COLOR_ERR:5}})]"
 source $HOME/.config/zsh/host_specific.zsh
 PROMPT_ICON="%(?.%B$PROMPT_HOST_SPECIFIC_ICON.%B%F{${COLOR_KEY:5}} )"
 PROMPT_EXIT="%F{white}%B -> "
 PROMPT_PATH="%F{magenta}%~"
 PROMPT="$PROMPT_LEFT_BRACKET%F{blue}$PROMPT_ICON $PROMPT_PATH$PROMPT_RIGHT_BRACKET$PROMPT_EXIT%f%b"
-PROMPT_TIME="$PROMPT_LEFT_BRACKET%B%F{${COLOR_NOTIFY:5}}%*$PROMPT_RIGHT_BRACKET"
+PROMPT_TIME="$PROMPT_LEFT_BRACKET%B%F{${COLOR_HINT:5}}%*$PROMPT_RIGHT_BRACKET"
 
 precmd () {
     read NO_JOBS <<< $(jobs -p);
@@ -71,6 +71,7 @@ bindkey '^ ' autosuggest-accept
 source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_STYLES[arg0]="fg=${COLOR_OBJ:5}"
 ZSH_HIGHLIGHT_STYLES[precommand]="fg=${COLOR_OBJ:5},underline"
+ZSH_HIGHLIGHT_STYLES[unknown-token]="fg=${COLOR_ERR:5},bold"
 
 # Ignore task command for adding in history
 setopt histignorespace

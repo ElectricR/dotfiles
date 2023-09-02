@@ -12,11 +12,13 @@ return {
                     enable = false,
                 },
                 definition = {
-                    edit = Keys.lspsaga.edit,
-                    tabe = Keys.lspsaga.tabe,
-                    vsplit = Keys.lspsaga.vsplit,
-                    split = Keys.lspsaga.split,
-                    quit = Keys.lspsaga.quit,
+                    keys = {
+                        edit = Keys.lspsaga.edit,
+                        tabe = Keys.lspsaga.tabe,
+                        vsplit = Keys.lspsaga.vsplit,
+                        split = Keys.lspsaga.split,
+                        quit = Keys.lspsaga.quit,
+                    }
                 },
                 lightbulb = {
                     sign = false,
