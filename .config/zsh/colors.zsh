@@ -1,3 +1,10 @@
+# Stage: Defining
+function fg () {
+    echo -n "${2};38;5;${1:5}"
+    # For bg one should use 48 instead of 38
+}
+
+# Stage: Recolor
 function () {
     ZSH_HIGHLIGHT_STYLES[arg0]="fg=${COLOR_OBJ:5}"
     ZSH_HIGHLIGHT_STYLES[precommand]="fg=${COLOR_OBJ:5},underline"
@@ -6,18 +13,14 @@ function () {
     ZSH_HIGHLIGHT_STYLES[double-quoted-argument]="fg=${COLOR_STR:5}"
 }
 
-function fg () {
-    echo -n "${2};38;5;${1:5}"
-    # For bg one should use 48 instead of 38
-}
-
 function () {
     local MOD_BOLD="1"
 
     local C_DIR="di=$(fg $COLOR_NS $MOD_BOLD)"
     local C_EXE="ex=$(fg $COLOR_OBJ)"
+    local C_LN="ln=$(fg $COLOR_HINT)"
     local C_BLK="bd=$(fg $COLOR_RAW)"
-    LS_COLORS="$C_DIR:$C_EXE:$C_BLK"
+    LS_COLORS="$C_DIR:$C_EXE:$C_LN:$C_BLK"
 
     local C_PERM_EXE_USR_FILE="ux=$(fg $COLOR_OBJ)"
     local C_PERM_EXE_USR_FT="ue=$(fg $COLOR_OBJ)"
@@ -41,7 +44,9 @@ function () {
     local C_TS="da=$(fg $COLOR_HINT)"
     EXA_COLORS="$C_PERM:$C_USR:$C_TS"
 }
-unfunction fg
 
 export LS_COLORS
 export EXA_COLORS
+
+# Stage: Cleaning
+unfunction fg
