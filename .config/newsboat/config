@@ -12,6 +12,7 @@ bind-key j down
 bind-key k up
 bind-key l open
 bind-key ENTER open
+bind-key ENTER down article
 bind-key h quit
 bind-key q hard-quit
 bind-key ? help
