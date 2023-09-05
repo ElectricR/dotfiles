@@ -394,6 +394,9 @@ M.load_plugin_syntax = function(palette)
         fg = palette.key,
         style = 'italic',
     },
+    ["@keyword.operator"] = {
+        fg = palette.op,
+    },
     ["@lsp.type.parameter"] = {
         fg = palette.param,
     },
