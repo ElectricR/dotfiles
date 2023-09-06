@@ -10,6 +10,8 @@ unbind-key -a
 
 bind-key j down
 bind-key k up
+bind-key d pagedown
+bind-key u pageup
 bind-key l open
 bind-key ENTER open
 bind-key ENTER down article
