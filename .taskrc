@@ -49,6 +49,7 @@ uda.priority.values = VL,L,,M,H
 
 color.tagged          = none
 color.recurring       = none
+color.blocked         = none
 color.overdue         = magenta
 color.due             = magenta
 color.due.today       = magenta
