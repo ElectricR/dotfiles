@@ -59,6 +59,7 @@ function _t_memo_subcommand {
 function tan { _t_memo_subcommand annotate $@ }
 function tm { _t_memo_subcommand mod $@ }
 function ti { _t_memo_subcommand info $@ }
+function te { _t_memo_subcommand edit $@ }
 function tdel {
     _t_memo_subcommand delete $@
     if [[ $? != 0 ]]; then
@@ -69,7 +70,7 @@ function tdel {
 
 # Helper for learning aliases
 function t() {
-    if [[ $1 == "info" ]] || [[ $1 == "annotate" ]] || [[ $1 == "delete" ]]; then
+    if [[ $1 == "info" ]] || [[ $1 == "annotate" ]] || [[ $1 == "delete" ]] || [[ $1 == "edit" ]]; then
         echo 'Use alias'
         return 1
     fi
