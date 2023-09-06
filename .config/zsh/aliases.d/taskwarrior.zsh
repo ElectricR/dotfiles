@@ -29,13 +29,13 @@ function _is_num {
 function ta {
     _t_memo_reset
     local _output=$(task add $@)
+    echo $_output
     _t_id=$(_t_memo_parse $_output)
-    if _is_num $_t_id; then
-        _t_memo_store $_t_id
-        echo $_output
-        return 0
+    if ! _is_num $_t_id; then
+        echo "Failed to parse task id"
+        return 1
     fi
-    return 1
+    _t_memo_store $_t_id
 }
 
 # Wrapper for reusing previous task id, if possible
