@@ -48,6 +48,7 @@ search.case.sensitive = 0
 uda.priority.values = VL,L,,M,H
 
 color.tagged          = none
+color.recurring       = none
 color.overdue         = magenta
 color.due             = magenta
 color.due.today       = magenta
