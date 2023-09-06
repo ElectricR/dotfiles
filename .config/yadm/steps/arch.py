@@ -25,6 +25,7 @@ ARCH_PACKAGES = {
     "nodejs",
     "pass",
     "newsboat",
+    "xdg-utils",
     # osu
     "fuse2",
     # audio
