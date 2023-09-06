@@ -1,3 +1,5 @@
+source $HOME/.config/zsh/aliases.d/taskwarrior.zsh
+
 alias mv='mv -i'
 alias cal='cal -m'
 
@@ -17,14 +19,6 @@ alias m="make"
 alias mr="make run"
 
 alias v="nvim"
-
-alias t="task"
-alias ta="task add"
-alias tl="task list"
-alias td="task done"
-alias tm="task mod"
-alias ti="task info"
-alias te="task education"
 
 alias tms="python3 ~/projects/TMS/TMS2.py"
 
