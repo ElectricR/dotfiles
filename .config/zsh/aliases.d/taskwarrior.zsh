@@ -56,17 +56,21 @@ function _t_memo_subcommand {
     fi
 }
 
-function tan { _t_memo_subcommand annotate $@ }
-function tm { _t_memo_subcommand mod $@ }
-function ti { _t_memo_subcommand info $@ }
-function te { _t_memo_subcommand edit $@ }
-function tdel {
-    _t_memo_subcommand delete $@
+function _t_memo_subcommand_with_reset {
+    _t_memo_subcommand $@
     if [[ $? != 0 ]]; then
         return 1
     fi
     _t_memo_reset
 }
+
+
+function tan { _t_memo_subcommand annotate $@ }
+function tm { _t_memo_subcommand mod $@ }
+function ti { _t_memo_subcommand info $@ }
+function te { _t_memo_subcommand edit $@ }
+function tdel { _t_memo_subcommand_with_reset delete $@ }
+function td { _t_memo_subcommand_with_reset done $@ }
 
 # Helper for learning aliases
 function t() {
@@ -78,4 +82,3 @@ function t() {
 }
 
 alias tl="task list"
-alias td="task done"
