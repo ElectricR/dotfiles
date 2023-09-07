@@ -38,7 +38,7 @@ def get_scenario(installation: str, log_fd: typing.TextIO) -> list:
 def get_log_file(installation: str) -> typing.TextIO:
     match installation:
         case "android":
-            return open("yadm_bootstrap_{}".format(uuid.uuid4()), "w")
+            return open(f"{os.environ['TMPDIR']}/yadm_bootstrap_{uuid.uuid4()}", "w")
         case "pc" | "laptop":
             return open("/tmp/yadm_bootstrap_{}".format(uuid.uuid4()), "w")
     raise RuntimeError()
@@ -47,6 +47,7 @@ def get_log_file(installation: str) -> typing.TextIO:
 def colorize_result(result: dict) -> str:
     try:
         import termcolor
+
         if not result["result"]:
             return termcolor.colored(str(result), "red")
         elif result["changes"]:
