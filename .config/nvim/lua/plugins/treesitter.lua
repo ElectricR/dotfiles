@@ -7,6 +7,7 @@ return {
         },
         init = function()
             require('nvim-treesitter.configs').setup {
+                ensure_installed = {"python", "cpp", "go", "lua", "rust", "sql"},
                 sync_install = false,
                 highlight = {
                     enable = true,
