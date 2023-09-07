@@ -16,6 +16,7 @@ ANDROID_PACKAGES = {
     "pass",
     "jq",
     "nodejs",
+    "openssh",
     # neoutils
     "fd",
     "bat",
