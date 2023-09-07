@@ -414,7 +414,7 @@ def hypr_external_config(
         result = default_result()
         result["name"] = "hypr_external_config"
         linkpath = f"{os.getenv('HOME')}/.config/hypr/hyprland_external.conf"
-        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{installation}/{device}hyprland_external.conf"
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{installation}/{device}/hyprland_external.conf"
         link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
         if link_res:
             result["changes"].extend(link_changes)
