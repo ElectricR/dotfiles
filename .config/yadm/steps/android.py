@@ -15,6 +15,7 @@ ANDROID_PACKAGES = {
     "fzf",
     "pass",
     "jq",
+    "nodejs",
     # neoutils
     "fd",
     "bat",
