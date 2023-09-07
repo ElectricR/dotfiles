@@ -8,6 +8,7 @@ def get_scenario(f: typing.TextIO) -> list:
     stps = []
     stps.append(android.pip_termcolor(f))
     stps.append(android.termux_packages(f))
+    stps.append(android.npm_packages_pyright(f))
     stps.append(android.configure_shell(f))
     stps.append(android.zsh_autosuggestions_install(f))
     stps.append(android.zsh_highlighting_install(f))

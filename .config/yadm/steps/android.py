@@ -86,6 +86,31 @@ def termux_packages(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
+def npm_packages_pyright(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "npm_packages"
+        packages_call_result = subprocess.run(
+            ["npm", "ls", "-g"],
+            stdout=subprocess.PIPE,
+            stderr=log_fd,
+        )
+        if packages_call_result.returncode != 0:
+            return result
+        if not "pyright" in packages_call_result.stdout.decode():
+            if subprocess.run(
+                "npm install pyright -g".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append("pyright was installed")
+        result["result"] = True
+        return result
+
+    return run
+
+
 def configure_shell(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
