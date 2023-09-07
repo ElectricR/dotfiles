@@ -68,7 +68,7 @@ ARCH_PACKAGES = {
 # Remove after flameshot fix its stuff
 ARCH_PACKAGES.union({"wl-clipboard", "grim", "slurp"})
 
-YAY_PACKAGES = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly"}
+YAY_PACKAGES = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
