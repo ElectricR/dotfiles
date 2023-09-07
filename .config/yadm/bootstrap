@@ -6,7 +6,7 @@ import typing
 
 
 def get_installation():
-    if os.getenv("TERMUX_VERSION") is None:
+    if os.getenv("ANDROID_DATA") is None:
         return "pc"
     return "android"
 
