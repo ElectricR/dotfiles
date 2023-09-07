@@ -13,6 +13,7 @@ def get_scenario(f: typing.TextIO) -> list:
     stps.append(android.zsh_autosuggestions_install(f))
     stps.append(android.zsh_highlighting_install(f))
     stps.append(common.zsh_host_specific(f, "android"))
+    stps.append(common.zsh_plugins_dir(f))
     stps.append(common.zsh_fzf(f, "/data/data/com.termux/files/usr/share/fzf"))
     stps.append(common.zsh_bd(f))
     stps.append(common.zsh_external(f))
