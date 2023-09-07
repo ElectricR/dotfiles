@@ -1,4 +1,4 @@
-from .utils import default_result
+from .utils import default_result, setup_link
 import typing
 import os
 import subprocess
@@ -22,19 +22,17 @@ def yadm_awesome_init_submodules(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def zsh_host_specific(log_fd: typing.IO, installation: str) -> typing.Callable:
+def zsh_host_specific(
+    log_fd: typing.IO, installation: str, device: str
+) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "zsh_host_specific"
         linkpath = f"{os.getenv('HOME')}/.config/zsh/host_specific.zsh"
-        if not os.path.islink(linkpath):
-            if subprocess.run(
-                f"ln -s {os.getenv('HOME')}/.config/yadm/conf/{installation}/host_specific.zsh {linkpath}".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
-                return result
-            result["changes"].append("zsh host-specific config has been set up")
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{installation}/{device}/host_specific.zsh"
+        link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
+        if link_res:
+            result["changes"].extend(link_changes)
         result["result"] = True
         return result
 

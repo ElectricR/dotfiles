@@ -3,7 +3,7 @@ import steps.common as common
 import typing
 
 
-def get_scenario(installation: str, f: typing.TextIO) -> list:
+def get_scenario(installation: str, device: str, f: typing.TextIO) -> list:
     stps = []
     stps.append(arch.pacman_config(f))
     stps.append(arch.pacman_packages(f))
@@ -26,9 +26,9 @@ def get_scenario(installation: str, f: typing.TextIO) -> list:
             f, "/usr/share/zsh/plugins/zsh-syntax-highlighting"
         )
     )
-    stps.append(common.zsh_host_specific(f, installation))
-    stps.append(arch.hypr_paper(f, installation))
-    stps.append(arch.hypr_external_config(f, installation))
+    stps.append(common.zsh_host_specific(f, installation, device))
+    stps.append(arch.hypr_paper(f, installation, device))
+    stps.append(arch.hypr_external_config(f, installation, device))
     stps.append(arch.rust_set_toolchain(f))
     stps.append(arch.rust_install_analyzer(f))
     stps.append(common.zsh_fzf(f, "/usr/share/fzf"))

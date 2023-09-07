@@ -1,0 +1,1 @@
+PROMPT_HOST_SPECIFIC_ICON = "%F{blue} "

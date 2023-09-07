@@ -1,4 +1,4 @@
-from .utils import default_result
+from .utils import default_result, setup_link
 import os
 import subprocess
 import typing
@@ -63,6 +63,7 @@ ARCH_PACKAGES = {
     "pkg-config",  # indirect for yay packages
     "fakeroot",  # indirect for yay
     "python-termcolor",
+    "python-black",
 }
 
 # Remove after flameshot fix its stuff
@@ -391,38 +392,32 @@ def bootstrap_bluetooth(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def hypr_paper(log_fd: typing.IO, installation: str) -> typing.Callable:
+def hypr_paper(log_fd: typing.IO, installation: str, device: str) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "hypr_theme"
-        linkpath = "/home/er/.config/hypr/black/hyprpaper.conf"
-        if not os.path.islink(linkpath):
-            if subprocess.run(
-                f"ln -s /home/er/.config/yadm/conf/{installation}/hyprpaper.conf {linkpath}".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
-                return result
-            result["changes"].append("hyprpaper config has been linked")
+        linkpath = f"{os.getenv('HOME')}/.config/hypr/black/hyprpaper.conf"
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{installation}/{device}/hyprpaper.conf"
+        link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
+        if link_res:
+            result["changes"].extend(link_changes)
         result["result"] = True
         return result
 
     return run
 
 
-def hypr_external_config(log_fd: typing.IO, installation: str) -> typing.Callable:
+def hypr_external_config(
+    log_fd: typing.IO, installation: str, device: str
+) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "hypr_external_config"
-        linkpath = "/home/er/.config/hypr/hyprland_external.conf"
-        if not os.path.islink(linkpath):
-            if subprocess.run(
-                f"ln -s /home/er/.config/yadm/conf/{installation}/hyprland_external.conf {linkpath}".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
-                return result
-            result["changes"].append("hyprland external config has been linked")
+        linkpath = f"{os.getenv('HOME')}/.config/hypr/hyprland_external.conf"
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{installation}/{device}hyprland_external.conf"
+        link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
+        if link_res:
+            result["changes"].extend(link_changes)
         result["result"] = True
         return result
 

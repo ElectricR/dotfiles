@@ -4,7 +4,7 @@ import typing
 import os
 
 
-def get_scenario(f: typing.TextIO) -> list:
+def get_scenario(installation: str, device: str, f: typing.TextIO) -> list:
     stps = []
     stps.append(android.pip_termcolor(f))
     stps.append(android.termux_packages(f))
@@ -12,7 +12,7 @@ def get_scenario(f: typing.TextIO) -> list:
     stps.append(android.configure_shell(f))
     stps.append(android.zsh_autosuggestions_install(f))
     stps.append(android.zsh_highlighting_install(f))
-    stps.append(common.zsh_host_specific(f, "android"))
+    stps.append(common.zsh_host_specific(f, installation, device))
     stps.append(common.zsh_plugins_dir(f))
     stps.append(common.zsh_fzf(f, "/data/data/com.termux/files/usr/share/fzf"))
     stps.append(common.zsh_bd(f))
