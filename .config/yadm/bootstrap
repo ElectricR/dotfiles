@@ -17,7 +17,7 @@ def get_device(installation: str) -> str:
         case "android":
             model = subprocess.run(
                 ["/system/bin/getprop", "ro.product.model"], stdout=subprocess.PIPE
-            ).stdout.decode()
+            ).stdout.decode().strip()
             match model:
                 case "SM-X900":
                     return "tablet"
