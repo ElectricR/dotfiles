@@ -24,7 +24,34 @@ ANDROID_PACKAGES = {
     "ripgrep",
     # editing
     "lua-language-server",
+    "neovim",
 }
+
+
+def pip_termcolor(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "pip_termcolor"
+        termcolor_installed = (
+            subprocess.run(
+                ["pip", "show", "termcolor"],
+                stdout=subprocess.PIPE,
+                stderr=log_fd,
+            ).returncode
+            == 0
+        )
+        if not termcolor_installed:
+            if subprocess.run(
+                "pip install termcolor".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append("termcolor was installed")
+        result["result"] = True
+        return result
+
+    return run
 
 
 def termux_packages(log_fd: typing.IO) -> typing.Callable:
