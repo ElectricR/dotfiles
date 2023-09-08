@@ -7,15 +7,14 @@ color.blocking  = none
 # Actual colors
 color.label           = $COLOR_TYPE
 color.label.sort      = $COLOR_TYPE
-color.overdue         = $COLOR_WARN
-color.due.today       = $COLOR_WARN
-color.due             = $COLOR_OBJ
+color.overdue         = $COLOR_OP
+color.due.today       = $COLOR_OP
+color.due             = $COLOR_WARN
 color.tag.Red         = $COLOR_ERR
 color.tag.Blue        = $COLOR_HINT
-color.tag.next        = $COLOR_OP
+color.tag.next        = $COLOR_OBJ
 color.uda.priority.VL = gray7
 color.uda.priority.L  = gray11
 color.uda.priority.   = gray15
 color.uda.priority.M  = gray19
 color.uda.priority.H  = gray23
-
