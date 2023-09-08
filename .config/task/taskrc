@@ -24,7 +24,7 @@ weekstart = Monday
 search.case.sensitive = 0
 
 uda.priority.values = VL,L,,M,H
-dateformat.report = Y-M-D H:N:S
+dateformat.report = Y-M-D H:N
 
 urgency.uda.priority.VL.coefficient = -10
 urgency.uda.priority.L.coefficient  = -2
