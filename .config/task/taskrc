@@ -8,33 +8,14 @@
 #   variable=      -- By specifying no value, this means no default
 #   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
 
-# You can also refence environment variables:
-#   variable=$HOME/task
-#   variable=$VALUE
-
 # Use the command 'task show' to see all defaults and overrides
 
 # To use the default location of the XDG directories,
 # move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
 
+include theme
 data.location=~/.local/share/task
 #hooks.location=~/.config/task/hooks
-
-# Color theme (uncomment one to use)
-#include light-16.theme
-#include light-256.theme
-#include dark-16.theme
-#include dark-256.theme
-#include dark-red-256.theme
-#include dark-green-256.theme
-#include dark-blue-256.theme
-#include dark-violets-256.theme
-#include dark-yellow-green.theme
-#include dark-gray-256.theme
-#include dark-gray-blue-256.theme
-#include solarized-dark-256.theme
-#include solarized-light-256.theme
-#include no-color.theme
 
 news.version = 2.6.0
 nag =
@@ -43,21 +24,6 @@ weekstart = Monday
 search.case.sensitive = 0
 
 uda.priority.values = VL,L,,M,H
-
-color.tagged          = none
-color.recurring       = none
-color.blocked         = none
-color.overdue         = magenta
-color.due             = magenta
-color.due.today       = magenta
-color.tag.Red         = red
-color.tag.Blue        = blue
-color.blocking        = none
-color.uda.priority.VL = gray7
-color.uda.priority.L  = gray11
-color.uda.priority.   = gray15
-color.uda.priority.M  = gray19
-color.uda.priority.H  = gray23
 
 urgency.uda.priority.VL.coefficient = -10
 urgency.uda.priority.L.coefficient  = -2
