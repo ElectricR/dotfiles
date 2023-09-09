@@ -26,6 +26,7 @@ ARCH_PACKAGES = {
     "pass",
     "newsboat",
     "xdg-utils",
+    "libfido2",
     # osu
     "fuse2",
     # audio
