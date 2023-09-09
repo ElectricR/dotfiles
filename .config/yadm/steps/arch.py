@@ -27,6 +27,7 @@ ARCH_PACKAGES = {
     "newsboat",
     "xdg-utils",
     "libfido2",
+    "yubikey-manager",
     # osu
     "fuse2",
     # audio
