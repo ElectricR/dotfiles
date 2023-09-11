@@ -13,3 +13,5 @@ function t() {
     fi
     task $@
 }
+
+alias yadm="/bin/false" # Temporary for acquiring new habit
