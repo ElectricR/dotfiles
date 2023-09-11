@@ -72,13 +72,4 @@ function te { _t_memo_subcommand edit $@ }
 function tdel { _t_memo_subcommand_with_reset delete $@ }
 function td { _t_memo_subcommand_with_reset done $@ }
 
-# Helper for learning aliases
-function t() {
-    if [[ $1 == "info" ]] || [[ $1 == "annotate" ]] || [[ $1 == "delete" ]] || [[ $1 == "edit" ]]; then
-        echo 'Use alias'
-        return 1
-    fi
-    task $@
-}
-
 alias tl="task list"
