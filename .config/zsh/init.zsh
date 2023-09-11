@@ -4,3 +4,4 @@ source $HOME/.config/zsh/aliases.d/init.zsh
 source $HOME/.config/zsh/utility.zsh
 source $HOME/.config/zsh/external.zsh
 source $HOME/.config/zsh/colors.zsh
+source $HOME/.config/zsh/habit_breaker.zsh
