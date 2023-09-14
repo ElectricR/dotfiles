@@ -40,6 +40,10 @@ bind-key 1 one
 bind-key 2 two
 bind-key 3 three
 bind-key 4 four
+bind-key 5 five
+bind-key 6 six
+bind-key 7 seven
+bind-key 8 eight
 
 # Styling
 feedlist-format "%4i %n %11u %t"
