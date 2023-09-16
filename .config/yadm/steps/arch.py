@@ -4,44 +4,16 @@ import subprocess
 import typing
 import shutil
 
-ARCH_PACKAGES = {
-    "openssh",
-    "clang",
-    "wget",
-    "make",
-    "rustup",
-    "fzf",
+ARCH_PACKAGES_BASE = {
     "tmux",
-    "tldr",
-    "task",
-    "npm",
-    "firefox",
     "tree",
     "htop",
-    "go",
-    "kitty",
-    "cmake",
-    "unzip",
-    "nodejs",
-    "pass",
-    "newsboat",
-    "xdg-utils",
-    "libfido2",
-    "yubikey-manager",
-    # osu
-    "fuse2",
-    # audio
-    "pipewire",
-    "pipewire-alsa",
-    "pipewire-pulse",
-    "wireplumber",
-    "bluez",
-    "bluez-utils",
+    "fzf",
+    # nets
+    "openssh",
+    "wireguard-tools",
     # editing
     "neovim",
-    "lua-language-server",
-    "gopls",
-    "pyright",
     # neoutils
     "fd",
     "bat",
@@ -53,6 +25,45 @@ ARCH_PACKAGES = {
     "zsh",
     "zsh-autosuggestions",
     "zsh-syntax-highlighting",
+    # bootstrap
+    "python-termcolor",
+}
+
+ARCH_PACKAGES_EXTRA = {
+    "clang",
+    "wget",
+    "make",
+    "rustup",
+    "tldr",
+    "task",
+    "npm",
+    "firefox",
+    "go",
+    "kitty",
+    "cmake",
+    "unzip",
+    "nodejs",
+    "pass",
+    "newsboat",
+    "xdg-utils",
+    # yubikey
+    "libfido2",
+    "yubikey-manager",
+    # osu
+    "fuse2",
+    # audio
+    "pipewire",
+    "pipewire-alsa",
+    "pipewire-pulse",
+    "wireplumber",
+    "bluez",
+    "bluez-utils",
+    # nets
+    "openresolv",
+    # editing
+    "lua-language-server",
+    "gopls",
+    "pyright",
     # btrfs
     "compsize",
     # image viewing
@@ -64,12 +75,8 @@ ARCH_PACKAGES = {
     # bootstrap
     "pkg-config",  # indirect for yay packages
     "fakeroot",  # indirect for yay
-    "python-termcolor",
     "python-black",
 }
-
-# Remove after flameshot fix its stuff
-ARCH_PACKAGES.union({"wl-clipboard", "grim", "slurp"})
 
 YAY_PACKAGES = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
 
@@ -123,11 +130,10 @@ def pacman_config(log_fd: typing.IO) -> typing.Callable:
         )
 
         return result
-
     return run
 
 
-def pacman_packages(log_fd: typing.IO) -> typing.Callable:
+def pacman_packages(device: str, log_fd: typing.IO) -> typing.Callable:
     def update_pkgconf(in_set: typing.Set) -> None:
         if "pkgconf" in in_set:
             in_set.add("pkg-config")
@@ -143,11 +149,13 @@ def pacman_packages(log_fd: typing.IO) -> typing.Callable:
             return result
         installed_packages = set(packages_call_result.stdout.decode().split())
         update_pkgconf(installed_packages)
-        if ARCH_PACKAGES - installed_packages:
-            # TODO add task to add grub config rerender
+        pkgs = ARCH_PACKAGES_BASE
+        if device != "server":
+            pkgs.update(ARCH_PACKAGES_EXTRA)
+        if pkgs - installed_packages:
             if subprocess.run(
                 "sudo pacman -Suy --noconfirm {}".format(
-                    " ".join(ARCH_PACKAGES - installed_packages)
+                    " ".join(pkgs - installed_packages)
                 ).split(),
                 stdout=log_fd,
                 stderr=log_fd,
@@ -155,7 +163,7 @@ def pacman_packages(log_fd: typing.IO) -> typing.Callable:
                 return result
             result["changes"].append(
                 "following pacman packages were installed: {}".format(
-                    " ".join(ARCH_PACKAGES - installed_packages)
+                    " ".join(pkgs - installed_packages)
                 )
             )
         result["result"] = True

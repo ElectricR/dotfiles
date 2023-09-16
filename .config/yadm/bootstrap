@@ -5,6 +5,8 @@ import os
 import typing
 import subprocess
 
+import scenario
+
 
 def get_installation():
     if os.getenv("ANDROID_DATA") is not None:
@@ -43,19 +45,6 @@ def validate_user(installation: str) -> None:
     raise RuntimeError()
 
 
-def get_scenario(installation: str, device: str, log_fd: typing.TextIO) -> list:
-    match installation:
-        case "android":
-            from android_scenario import get_scenario
-
-            return get_scenario(installation, device, log_fd)
-        case "archlinux":
-            from arch_scenario import get_scenario
-
-            return get_scenario(installation, device, log_fd)
-    raise RuntimeError()
-
-
 def get_log_file(installation: str) -> typing.TextIO:
     match installation:
         case "android":
@@ -84,6 +73,6 @@ if __name__ == "__main__":
     validate_user(installation)
     with get_log_file(installation) as log_fd:
         print(log_fd.name)
-        for s in get_scenario(installation, device, log_fd):
+        for s in scenario.get_scenario(installation, device, log_fd):
             result = s()
             print(colorize_result(result))
