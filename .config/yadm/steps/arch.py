@@ -476,6 +476,20 @@ def rust_install_analyzer(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
+WIREGUARD_SERVER_TEMPLATE = '''
+[Interface]
+PrivateKey = 
+Address = 10.0.0.1
+ListenPort = 
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o !!TODO!! -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o !!TODO!! -j MASQUERADE
+
+# Someone
+[Peer]
+PublicKey = 
+AllowedIPs = 10.0.0.2/32
+'''
+
 def wireguard(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
@@ -497,13 +511,16 @@ def wireguard(log_fd: typing.IO) -> typing.Callable:
                 return result
             result["changes"].append("changed mode of wireguard keys")
 
-            if subprocess.run(
-                "sudo touch /etc/wireguard/wg0.conf".split(),
+            p = subprocess.Popen(
+                ["sudo", "bash", "-c", "cat > /etc/wireguard/wg0.conf"],
+                stdin=subprocess.PIPE,
                 stdout=log_fd,
                 stderr=log_fd,
-            ).returncode:
+            )
+            p.communicate(bytes(WIREGUARD_SERVER_TEMPLATE, 'utf-8'))
+            if p.returncode != 0:
                 return result
-            result["changes"].append("created stub for wireguard config")
+            result["changes"].append("created wireguard config template")
 
             if subprocess.run(
                 "sudo chmod 600 /etc/wireguard/wg0.conf".split(),
