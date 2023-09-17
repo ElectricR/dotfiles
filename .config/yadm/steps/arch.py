@@ -10,7 +10,7 @@ ARCH_PACKAGES_BASE = {
     "htop",
     "fzf",
     # nets
-    "netcat",
+    "openbsd-netcat",
     "openssh",
     "wireguard-tools",
     "ufw",
