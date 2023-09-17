@@ -10,11 +10,13 @@ ARCH_PACKAGES_BASE = {
     "htop",
     "fzf",
     # nets
+    "netcat",
     "openssh",
     "wireguard-tools",
     "ufw",
     # editing
     "neovim",
+    "clang",
     # neoutils
     "fd",
     "bat",
@@ -31,7 +33,6 @@ ARCH_PACKAGES_BASE = {
 }
 
 ARCH_PACKAGES_EXTRA = {
-    "clang",
     "wget",
     "make",
     "rustup",
