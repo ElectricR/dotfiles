@@ -521,15 +521,25 @@ def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
                 if p.returncode != 0:
                     return result
                 result["changes"].append("created wireguard config template")
-
+            else:
                 if subprocess.run(
-                    "sudo chmod 600 /etc/wireguard/wg0.conf".split(),
+                    "sudo touch /etc/wireguard/wg0.conf".split(),
                     stdout=log_fd,
                     stderr=log_fd,
                 ).returncode:
                     return result
-                result["changes"].append("changed mode of wireguard config")
+                result["changes"].append("created wireguard config stub")
 
+
+            if subprocess.run(
+                "sudo chmod 600 /etc/wireguard/wg0.conf".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append("changed mode of wireguard config")
+
+            if device == "server":
                 if subprocess.run(
                     ["sudo", "bash", "-c", "echo net.ipv4.ip_forward=1 >> /etc/sysctl.d/99-sysctl.conf; sysctl --system"],
                     stdout=log_fd,
