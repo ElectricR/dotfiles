@@ -37,6 +37,20 @@ def get_arch_server_scenario(installation: str, device: str, f: typing.TextIO) -
     stps = []
     stps.append(arch.pacman_config(f))
     stps.append(arch.pacman_packages(device, f))
+    stps.append(arch.configure_shell(f))
+    stps.append(common.zsh_plugins_dir(f))
+    stps.append(
+        common.zsh_autosuggestions_link(f, "/usr/share/zsh/plugins/zsh-autosuggestions")
+    )
+    stps.append(
+        common.zsh_highlighting_link(
+            f, "/usr/share/zsh/plugins/zsh-syntax-highlighting"
+        )
+    )
+    stps.append(common.zsh_host_specific(f, installation, device))
+    stps.append(common.zsh_fzf(f, "/usr/share/fzf"))
+    stps.append(common.zsh_bd(f))
+    stps.append(common.zsh_external(f))
     return stps
 
 
