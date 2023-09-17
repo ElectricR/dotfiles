@@ -26,7 +26,9 @@ def get_device(installation: str) -> str:
                 case "SM-S9080":
                     return "phone"
         case "archlinux":
-            # Hack
+            # Hacks
+            if not os.path.isdir("/sys/firmware/efi"):
+                return "server"
             ls = os.listdir("/sys/class/backlight")
             if len(ls):
                 return "laptop"
