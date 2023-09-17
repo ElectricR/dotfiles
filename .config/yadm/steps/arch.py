@@ -480,14 +480,21 @@ def wireguard(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "wireguard"
-        if subprocess.run("sudo ls /etc/wireguard/pubkey".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+        if subprocess.run("sudo ls /etc/wireguard/publickey".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
             if subprocess.run(
-                ["sudo", "bash", "-c", "wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/pubkey"],
+                ["sudo", "bash", "-c", "wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey"],
                 stdout=log_fd,
                 stderr=log_fd,
             ).returncode:
                 return result
             result["changes"].append("generated wireguard keys")
+            if subprocess.run(
+                "sudo chmod 400 /etc/wireguard/publickey /etc/wireguard/privatekey".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append("changed mode of wireguard keys")
         result["result"] = True
         return result
 
