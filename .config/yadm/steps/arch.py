@@ -476,8 +476,7 @@ def rust_install_analyzer(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-WIREGUARD_SERVER_TEMPLATE = '''
-[Interface]
+WIREGUARD_SERVER_TEMPLATE = '''[Interface]
 PrivateKey = 
 Address = 10.0.0.1
 ListenPort = 
