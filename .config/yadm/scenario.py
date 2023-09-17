@@ -51,6 +51,7 @@ def get_arch_server_scenario(installation: str, device: str, f: typing.TextIO) -
     stps.append(common.zsh_fzf(f, "/usr/share/fzf"))
     stps.append(common.zsh_bd(f))
     stps.append(common.zsh_external(f))
+    stps.append(arch.wireguard(f))
     return stps
 
 
@@ -87,6 +88,7 @@ def get_arch_scenario(installation: str, device: str, f: typing.TextIO) -> list:
     stps.append(common.zsh_fzf(f, "/usr/share/fzf"))
     stps.append(common.zsh_bd(f))
     stps.append(common.zsh_external(f))
+    stps.append(arch.wireguard(f))
     return stps
 
 

@@ -474,3 +474,21 @@ def rust_install_analyzer(log_fd: typing.IO) -> typing.Callable:
         return result
 
     return run
+
+
+def wireguard(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "wireguard"
+        if subprocess.run("sudo ls /etc/wireguard/wg0.conf".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+            if subprocess.run(
+                "sudo bash -c 'wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/pubkey'".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append("generated wireguard keys")
+        result["result"] = True
+        return result
+
+    return run
