@@ -262,7 +262,7 @@ def font_nerd(log_fd: typing.IO) -> typing.Callable:
         result["name"] = "font_nerd"
         if not os.path.isdir("/usr/share/fonts/nerd"):
             if subprocess.run(
-                "wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Ubuntu.zip".split(),
+                "wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Ubuntu.zip".split(),
                 stdout=log_fd,
                 stderr=log_fd,
             ).returncode:
