@@ -489,7 +489,7 @@ PublicKey =
 AllowedIPs = 10.0.0.2/32
 '''
 
-def wireguard(log_fd: typing.IO) -> typing.Callable:
+def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "wireguard"
@@ -510,24 +510,33 @@ def wireguard(log_fd: typing.IO) -> typing.Callable:
                 return result
             result["changes"].append("changed mode of wireguard keys")
 
-            p = subprocess.Popen(
-                ["sudo", "bash", "-c", "cat > /etc/wireguard/wg0.conf"],
-                stdin=subprocess.PIPE,
-                stdout=log_fd,
-                stderr=log_fd,
-            )
-            p.communicate(bytes(WIREGUARD_SERVER_TEMPLATE, 'utf-8'))
-            if p.returncode != 0:
-                return result
-            result["changes"].append("created wireguard config template")
+            if device == "server":
+                p = subprocess.Popen(
+                    ["sudo", "bash", "-c", "cat > /etc/wireguard/wg0.conf"],
+                    stdin=subprocess.PIPE,
+                    stdout=log_fd,
+                    stderr=log_fd,
+                )
+                p.communicate(bytes(WIREGUARD_SERVER_TEMPLATE, 'utf-8'))
+                if p.returncode != 0:
+                    return result
+                result["changes"].append("created wireguard config template")
 
-            if subprocess.run(
-                "sudo chmod 600 /etc/wireguard/wg0.conf".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
-                return result
-            result["changes"].append("changed mode of wireguard config")
+                if subprocess.run(
+                    "sudo chmod 600 /etc/wireguard/wg0.conf".split(),
+                    stdout=log_fd,
+                    stderr=log_fd,
+                ).returncode:
+                    return result
+                result["changes"].append("changed mode of wireguard config")
+
+                if subprocess.run(
+                    ["sudo", "bash", "-c", "echo net.ipv4.ip_forward=1 >> /etc/sysctl.d/99-sysctl.conf; sysctl --system"],
+                    stdout=log_fd,
+                    stderr=log_fd,
+                ).returncode:
+                    return result
+                result["changes"].append("enabled ipv4 forwarding")
         result["result"] = True
         return result
 
