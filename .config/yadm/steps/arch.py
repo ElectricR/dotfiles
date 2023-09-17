@@ -482,7 +482,7 @@ def wireguard(log_fd: typing.IO) -> typing.Callable:
         result["name"] = "wireguard"
         if subprocess.run("sudo ls /etc/wireguard/wg0.conf".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
             if subprocess.run(
-                "sudo bash -c 'wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/pubkey'".split(),
+                ["sudo", "bash", "-c", "wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/pubkey"],
                 stdout=log_fd,
                 stderr=log_fd,
             ).returncode:
