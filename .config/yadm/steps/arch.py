@@ -12,6 +12,7 @@ ARCH_PACKAGES_BASE = {
     # nets
     "openssh",
     "wireguard-tools",
+    "ufw",
     # editing
     "neovim",
     # neoutils
