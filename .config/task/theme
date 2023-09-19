@@ -16,6 +16,7 @@ color.due                      = $COLOR_WARN
 color.calendar.due             = $COLOR_WARN
 color.tag.Red                  = $COLOR_ERR
 color.tag.Blue                 = $COLOR_HINT
+color.tag.Purple               = $COLOR_SEARCH_ACTIVE
 color.tag.next                 = $COLOR_OBJ
 color.uda.priority.VL          = gray7
 color.uda.priority.L           = gray11
