@@ -30,6 +30,7 @@ def get_android_scenario(installation: str, device: str, f: typing.TextIO) -> li
             f, f"{os.getenv('HOME')}/.local/share/zsh-syntax-highlighting"
         )
     )
+    stps.append(android.termux_config(f))
     return stps
 
 

@@ -187,3 +187,29 @@ def zsh_highlighting_install(log_fd: typing.IO) -> typing.Callable:
         return result
 
     return run
+
+
+TERMUX_CONFIG = """# Version 4
+
+terminal-cursor-style = bar
+
+extra-keys = [['ESC', '_',    '-', '/',  '"',   'UP',   '>'], \\
+              ['TAB', 'CTRL', '+', 'BACKSLASH', 'LEFT', 'DOWN', 'RIGHT']]
+
+"""
+
+def termux_config(_: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "termux_config"
+        config_path = f"{os.getenv('HOME')}/.termux/termux.properties"
+        with open(config_path) as f:
+            needs_change = not f.readline().startswith('# Version 4')
+        if needs_change:
+            with open(config_path, 'w') as f:
+                f.write(TERMUX_CONFIG)
+            result["changes"].append("changed termux config")
+        result["result"] = True
+        return result
+
+    return run
