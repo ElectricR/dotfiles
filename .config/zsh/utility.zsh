@@ -27,5 +27,6 @@ source $HOME/.config/zsh/plugins/fzf/key-bindings.zsh
 
 # Little shortcut
 run() {
-    $@ & disown
+    nohup $@ & disown
+    exit
 }
