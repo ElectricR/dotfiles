@@ -48,6 +48,7 @@ ARCH_PACKAGES_EXTRA = {
     "pass",
     "newsboat",
     "xdg-utils",
+    "sshfs",
     # yubikey
     "libfido2",
     "yubikey-manager",
