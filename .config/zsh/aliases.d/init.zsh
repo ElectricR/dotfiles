@@ -1,4 +1,5 @@
 source $HOME/.config/zsh/aliases.d/taskwarrior.zsh
+source $HOME/.config/zsh/aliases.d/backups.zsh
 
 alias mv='mv -i'
 alias cal='cal -m'
