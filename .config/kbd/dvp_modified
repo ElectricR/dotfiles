@@ -1,0 +1,13 @@
+include "/usr/share/kbd/keymaps/i386/dvorak/dvorak-programmer.map.gz"
+
+keycode   2 = ampersand      seven
+keycode   3 = bracketleft    five
+keycode   4 = braceleft      three
+keycode   5 = braceright     one
+keycode   6 = parenleft      nine
+keycode   7 = equal          eight
+keycode   8 = asterisk       zero
+keycode   9 = parenright     two
+keycode  10 = plus           four
+keycode  11 = bracketright   six
+keycode  12 = exclam         percent
