@@ -1,4 +1,4 @@
-source /home/er/.config/zsh/palette.zsh
+source $HOME/.config/zsh/palette.zsh
 nvim -n \
     -c "set nonumber nolist norelativenumber showtabline=0 foldcolumn=0" \
     -c "autocmd TermOpen * normal G" \
