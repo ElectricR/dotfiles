@@ -2,6 +2,7 @@
 
 import sys
 import subprocess
+import string
 
 
 PRIORITY_VALUES = ["VL", "L", "", "M", "H"]
@@ -20,12 +21,14 @@ def main():
     if priority not in PRIORITY_VALUES:
         print(f"Priority {priority} is not valid")
         return
-    tag = input("Tag? ")
-    if len(tag.split()) != 1:
-        print(f"Tag {tag} is not valid")
-        return
+    tags = input("Tags? ").split()
+    for i, tag in enumerate(tags):
+        if len(set(tag) - set(string.ascii_letters)) > 0:
+            print(f"Tag {tag} is not valid")
+            return
+        tags[i] = '+' + tag
     task_prefix = get_prefix(url)
-    p = subprocess.run(["task", "add", f"pri:{priority}", f"+{tag}", f"{task_prefix} {bookmark_title}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p = subprocess.run(["task", "add", f"pri:{priority}", *tags, f"{task_prefix} {bookmark_title}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if p.returncode != 0:
         print(f"Error running task add: {p.stderr}")
         return
