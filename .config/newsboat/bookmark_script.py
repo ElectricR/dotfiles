@@ -7,6 +7,12 @@ import subprocess
 PRIORITY_VALUES = ["VL", "L", "", "M", "H"]
 
 
+def get_prefix(url: str) -> str:
+    if url.startswith("https://www.youtube.com"):
+        return 'Watch video'
+    return 'Read article'
+
+
 def main():
     url = sys.argv[1]
     bookmark_title = sys.argv[2]
@@ -18,7 +24,8 @@ def main():
     if len(tag.split()) != 1:
         print(f"Tag {tag} is not valid")
         return
-    p = subprocess.run(["task", "add", f"pri:{priority}", f"+{tag}", f"Read article {bookmark_title}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    task_prefix = get_prefix(url)
+    p = subprocess.run(["task", "add", f"pri:{priority}", f"+{tag}", f"{task_prefix} {bookmark_title}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if p.returncode != 0:
         print(f"Error running task add: {p.stderr}")
         return
