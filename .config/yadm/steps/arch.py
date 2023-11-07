@@ -51,6 +51,7 @@ ARCH_PACKAGES_EXTRA = {
     "newsboat",
     "xdg-utils",
     "sshfs",
+    "rclone",
     # yubikey
     "libfido2",
     "yubikey-manager",

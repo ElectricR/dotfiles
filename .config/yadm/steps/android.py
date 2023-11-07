@@ -17,6 +17,7 @@ ANDROID_PACKAGES = {
     "jq",
     "nodejs",
     "openssh",
+    "rclone",
     # neoutils
     "fd",
     "bat",
