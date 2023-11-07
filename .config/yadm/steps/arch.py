@@ -8,6 +8,7 @@ ARCH_PACKAGES_BASE = {
     "tmux",
     "tree",
     "htop",
+    "btop",
     "fzf",
     # nets
     "openbsd-netcat",
@@ -30,6 +31,7 @@ ARCH_PACKAGES_BASE = {
     "zsh-syntax-highlighting",
     # bootstrap
     "python-termcolor",
+    "fakeroot",  # indirect for yay
 }
 
 ARCH_PACKAGES_EXTRA = {
@@ -77,11 +79,11 @@ ARCH_PACKAGES_EXTRA = {
     "zathura-pdf-mupdf",
     # bootstrap
     "pkg-config",  # indirect for yay packages
-    "fakeroot",  # indirect for yay
     "python-black",
 }
 
-YAY_PACKAGES = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
+YAY_PACKAGES_BASE = {"shadowsocks-rust"}
+YAY_PACKAGES_EXTRA = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
@@ -201,7 +203,7 @@ def yay_install(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def yay_packages(log_fd: typing.IO) -> typing.Callable:
+def yay_packages(device: str,log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "yay_packages"
@@ -211,10 +213,13 @@ def yay_packages(log_fd: typing.IO) -> typing.Callable:
         if packages_call_result.returncode != 0:
             return result
         installed_packages = set(packages_call_result.stdout.decode().split())
-        if YAY_PACKAGES - installed_packages:
+        pkgs = YAY_PACKAGES_BASE
+        if device != "server":
+            pkgs.update(YAY_PACKAGES_EXTRA)
+        if pkgs - installed_packages:
             if subprocess.run(
                 "yay -Suy --noconfirm {}".format(
-                    " ".join(YAY_PACKAGES - installed_packages)
+                    " ".join(pkgs - installed_packages)
                 ).split(),
                 stdout=log_fd,
                 stderr=log_fd,
@@ -222,7 +227,7 @@ def yay_packages(log_fd: typing.IO) -> typing.Callable:
                 return result
             result["changes"].append(
                 "following yay packages were installed: {}".format(
-                    " ".join(YAY_PACKAGES - installed_packages)
+                    " ".join(pkgs - installed_packages)
                 )
             )
         result["result"] = True

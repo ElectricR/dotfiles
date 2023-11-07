@@ -38,6 +38,8 @@ def get_arch_server_scenario(installation: str, device: str, f: typing.TextIO) -
     stps = []
     stps.append(arch.pacman_config(f))
     stps.append(arch.pacman_packages(device, f))
+    stps.append(arch.yay_install(f))
+    stps.append(arch.yay_packages(device, f))
     stps.append(arch.configure_shell(f))
     stps.append(common.zsh_plugins_dir(f))
     stps.append(
@@ -63,7 +65,7 @@ def get_arch_scenario(installation: str, device: str, f: typing.TextIO) -> list:
     stps.append(arch.pacman_config(f))
     stps.append(arch.pacman_packages(device, f))
     stps.append(arch.yay_install(f))
-    stps.append(arch.yay_packages(f))
+    stps.append(arch.yay_packages(device, f))
     stps.append(common.yadm_awesome_init_submodules(f))
     stps.append(arch.font_jetbrains(f))
     stps.append(arch.font_nerd(f))
