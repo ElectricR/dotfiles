@@ -4,6 +4,7 @@ color.recurring        = none
 color.blocked          = none
 color.blocking         = none
 color.calendar.weekend = none
+color.tag.next         = none
 
 # Actual colors
 color.label                    = $COLOR_TYPE
@@ -17,7 +18,6 @@ color.calendar.due             = $COLOR_WARN
 color.tag.Red                  = $COLOR_ERR
 color.tag.Blue                 = $COLOR_HINT
 color.tag.Purple               = $COLOR_SEARCH_ACTIVE
-color.tag.next                 = $COLOR_OBJ
 color.uda.priority.VL          = gray7
 color.uda.priority.L           = gray11
 color.uda.priority.            = gray15
