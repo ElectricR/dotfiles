@@ -1,12 +1,28 @@
-function backup_taskwarrior {
-    tar cf ~/slow_ssd/backups/taskwarrior/task-backup-$(date +'%Y%m%d').tar ~/.local/share/task/*
-    exa ~/slow_ssd/backups/taskwarrior/
-}
+backup_taskwarrior() {(
+    echo "Creating backup..."
+    ssh berry "tar cf task-backup-$(date +'%Y%m%d').tar -C ~/.local/share/ task"
+    echo "Backup created"
+    echo "Copying backup to disk..."
+    scp "berry:task-backup-$(date +'%Y%m%d').tar" ~/slow_ssd/backups/taskwarrior/
+    echo "Backup copied"
+    echo "Removing archive from berry..."
+    ssh berry "rm task-backup-$(date +'%Y%m%d').tar"
+    echo "Removed"
+    echo "Success!"
+)}
 
-function backup_newsboat {
-    tar cf ~/slow_ssd/backups/rss/newsboat-backup-$(date +'%Y%m%d').tar ~/.config/newsboat/urls ~/.local/share/newsboat/*
-    exa ~/slow_ssd/backups/rss/
-}
+backup_newsboat() {(
+    echo "Creating backup..."
+    ssh berry "tar cf newsboat-backup-$(date +'%Y%m%d').tar .config/newsboat/urls .local/share/newsboat/*"
+    echo "Backup created"
+    echo "Copying backup to disk..."
+    scp "berry:newsboat-backup-$(date +'%Y%m%d').tar" ~/slow_ssd/backups/newsboat/
+    echo "Backup copied"
+    echo "Removing archive from berry..."
+    ssh berry "rm newsboat-backup-$(date +'%Y%m%d').tar"
+    echo "Removed"
+    echo "Success!"
+)}
 
 backup_photodir() {(
     set -e
