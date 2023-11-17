@@ -51,7 +51,7 @@ bind-key 7 seven
 bind-key 8 eight
 
 # Styling
-feedlist-format "%4i %n %11u %t"
+feedlist-format "%?T?%S %n %11u %t&        %t?"
 highlight feedlist "---.*---" `echo $COLOR_KEY` default bold
 highlight feedlist "\\(0/0\\)" default default invis dim
 
