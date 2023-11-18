@@ -1,6 +1,9 @@
 # I am so tired of kitty
 export TERM=xterm-256color
 
+# Let's put EDITOR here...
+export EDITOR=helix
+
 # XDG
 export XDG_DATA_HOME="$HOME/.local/share"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
