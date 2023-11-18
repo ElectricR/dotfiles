@@ -18,7 +18,9 @@ alias y="$(which yadm)"
 alias m="make"
 alias mr="make run"
 
-alias v="nvim"
+#alias v="nvim"
+alias hx="helix"
+alias v="hx"
 
 alias tms="python3 ~/projects/TMS/TMS2.py"
 
