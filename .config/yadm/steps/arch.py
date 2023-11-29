@@ -52,6 +52,7 @@ ARCH_PACKAGES_EXTRA = {
     "xdg-utils",
     "sshfs",
     "rclone",
+    "translate-shell",
     # yubikey
     "libfido2",
     "yubikey-manager",
