@@ -20,7 +20,8 @@ function () {
     local C_EXE="ex=$(fg $COLOR_OBJ)"
     local C_LN="ln=$(fg $COLOR_HINT)"
     local C_BLK="bd=$(fg $COLOR_RAW)"
-    LS_COLORS="$C_DIR:$C_EXE:$C_LN:$C_BLK"
+    local C_MP4="*.mp4=$(fg $COLOR_SEARCH_ACTIVE)"
+    LS_COLORS="$C_DIR:$C_EXE:$C_LN:$C_BLK:$C_MP4"
 
     local C_PERM_EXE_USR_FILE="ux=$(fg $COLOR_OBJ)"
     local C_PERM_EXE_USR_FT="ue=$(fg $COLOR_OBJ)"
