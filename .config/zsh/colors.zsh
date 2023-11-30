@@ -15,12 +15,13 @@ function () {
 
 function () {
     local MOD_BOLD="1"
+    local MOD_ITALICS="3"
 
     local C_DIR="di=$(fg $COLOR_NS $MOD_BOLD)"
     local C_EXE="ex=$(fg $COLOR_OBJ)"
     local C_LN="ln=$(fg $COLOR_HINT)"
     local C_BLK="bd=$(fg $COLOR_RAW)"
-    local C_MP4="*.mp4=$(fg $COLOR_SEARCH_ACTIVE)"
+    local C_MP4="*.mp4=$(fg $COLOR_SEARCH_ACTIVE $MOD_ITALICS)"
     LS_COLORS="$C_DIR:$C_EXE:$C_LN:$C_BLK:$C_MP4"
 
     local C_PERM_EXE_USR_FILE="ux=$(fg $COLOR_OBJ)"
