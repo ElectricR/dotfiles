@@ -1,2 +1,15 @@
+theme = "mytheme"
+
 [editor]
 scroll-lines=1
+
+[editor.soft-wrap]
+enable = true
+
+[editor.cursor-shape]
+normal = "bar"
+insert = "bar"
+select = "bar"
+
+[keys.normal]
+"A-c" = "copy_selection_on_prev_line"
