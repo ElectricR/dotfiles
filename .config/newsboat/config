@@ -14,12 +14,16 @@ unbind-key -a
 
 bind-key j down
 bind-key k up
+bind-key DOWN down
+bind-key UP up
 bind-key d pagedown
 bind-key u pageup
 bind-key l open
+bind-key RIGHT open
 bind-key ENTER open
 bind-key ENTER down article
 bind-key h quit
+bind-key LEFT quit
 bind-key q hard-quit
 bind-key ? help
 bind-key g home
