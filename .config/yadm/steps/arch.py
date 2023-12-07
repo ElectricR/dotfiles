@@ -21,7 +21,7 @@ ARCH_PACKAGES_BASE = {
     # neoutils
     "fd",
     "bat",
-    "exa",
+    "eza",
     "duf",
     "dust",
     "ripgrep",
@@ -53,6 +53,9 @@ ARCH_PACKAGES_EXTRA = {
     "sshfs",
     "rclone",
     "translate-shell",
+    # desktop
+    "hyprland",
+    "xdg-desktop-portal-hyprland", # <-- zoom screensharing in firefox
     # yubikey
     "libfido2",
     "yubikey-manager",
@@ -85,7 +88,7 @@ ARCH_PACKAGES_EXTRA = {
 }
 
 YAY_PACKAGES_BASE = {"shadowsocks-rust"}
-YAY_PACKAGES_EXTRA = {"hyprland-git", "hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
+YAY_PACKAGES_EXTRA = {"hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
