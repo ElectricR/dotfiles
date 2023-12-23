@@ -506,7 +506,16 @@ def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "wireguard"
-        if subprocess.run("sudo ls /etc/wireguard/wg0.conf".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+        if subprocess.run(['bash', '-c', 'test "$(stat -c %a /etc/wireguard)" = 711'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+            if subprocess.run(
+                "sudo chmod 711 /etc/wireguard/".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append("added x bit to /etc/wireguard")
+
+        if subprocess.run("stat /etc/wireguard/privatekey".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
             if subprocess.run(
                 ["sudo", "bash", "-c", "wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey"],
                 stdout=log_fd,
@@ -514,7 +523,6 @@ def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
             ).returncode:
                 return result
             result["changes"].append("generated wireguard keys")
-
             if subprocess.run(
                 "sudo chmod 400 /etc/wireguard/publickey /etc/wireguard/privatekey".split(),
                 stdout=log_fd,
@@ -523,6 +531,7 @@ def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
                 return result
             result["changes"].append("changed mode of wireguard keys")
 
+        if subprocess.run("stat /etc/wireguard/wg0.conf".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
             if device == "server":
                 p = subprocess.Popen(
                     ["sudo", "bash", "-c", "cat > /etc/wireguard/wg0.conf"],
@@ -543,7 +552,6 @@ def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
                     return result
                 result["changes"].append("created wireguard config stub")
 
-
             if subprocess.run(
                 "sudo chmod 600 /etc/wireguard/wg0.conf".split(),
                 stdout=log_fd,
@@ -560,6 +568,7 @@ def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
                 ).returncode:
                     return result
                 result["changes"].append("enabled ipv4 forwarding")
+
         result["result"] = True
         return result
 
