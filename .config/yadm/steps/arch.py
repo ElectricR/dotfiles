@@ -70,6 +70,7 @@ ARCH_PACKAGES_EXTRA = {
     "wireplumber",
     "bluez",
     "bluez-utils",
+    "noise-suppression-for-voice",
     # nets
     "openresolv",
     # editing
