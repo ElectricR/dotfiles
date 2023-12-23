@@ -592,6 +592,20 @@ def enable_ntp(log_fd: typing.IO) -> typing.Callable:
             result["changes"].append("ntpd service has been enabled")
         elif retcode != 0:
             return result
+
+        retcode = subprocess.run(
+            "systemctl is-enabled ntpdate".split(),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode
+        if retcode == 1:
+            if subprocess.run(
+                "sudo systemctl enable --now ntpdate".split(), stdout=log_fd, stderr=log_fd
+            ).returncode:
+                return result
+            result["changes"].append("ntpdate service has been enabled")
+        elif retcode != 0:
+            return result
         result["result"] = True
         return result
 
