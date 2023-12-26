@@ -54,11 +54,11 @@ nsxiv() {
 }
 
 ssh() {
-    if [ $1 = 'berry' ]; then
+    if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
         nc -kl localhost 44444 | xargs -L1 xdg-open &
     fi
     /usr/bin/ssh $@
-    if [ $1 = 'berry' ]; then
+    if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
         pkill -f 'xargs -L1'
         pkill -f 'nc -kl localhost 44444'
     fi
