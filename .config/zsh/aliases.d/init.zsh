@@ -59,7 +59,7 @@ ssh() {
     fi
     /usr/bin/ssh $@
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
-        pkill -f 'xargs -L1'
-        pkill -f 'nc -kl localhost 44444'
+        pkill -P $$ -f 'xargs -L1'
+        pkill -P $$ -f 'nc -kl localhost 44444'
     fi
 }
