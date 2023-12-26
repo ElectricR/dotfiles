@@ -1,7 +1,7 @@
 auto-reload yes
 reload-threads 100
 
-browser "bash -c 'echo %u | nc localhost 44444'"
+browser "bash -c 'echo %u | nc -N localhost 44444' &"
 scrolloff 8
 show-keymap-hint no
 
