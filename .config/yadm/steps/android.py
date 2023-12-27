@@ -18,6 +18,7 @@ ANDROID_PACKAGES = {
     "nodejs",
     "openssh",
     "rclone",
+    "netcat-openbsd",
     # neoutils
     "fd",
     "bat",
