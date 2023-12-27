@@ -2,7 +2,7 @@ auto-reload yes
 reload-threads 100
 
 browser "bash -c 'echo %u | nc -N localhost 44444' &"
-scrolloff 8
+scrolloff 256
 show-keymap-hint no
 
 bookmark-cmd "~/.config/newsboat/bookmark_script.py"
