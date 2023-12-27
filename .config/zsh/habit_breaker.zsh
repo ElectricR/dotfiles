@@ -15,3 +15,4 @@ function t() {
 }
 
 alias yadm="/bin/false" # Temporary for acquiring new habit
+alias grim="echo use keyboard; /bin/false"
