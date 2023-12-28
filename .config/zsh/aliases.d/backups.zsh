@@ -24,7 +24,22 @@ backup_newsboat() {(
     echo "Success!"
 )}
 
+backup_osu() {(
+    echo "Creating backup..."
+    tar cf osu-backup-$(date +'%Y%m%d').tar osu
+    echo "Backup created"
+    echo "Copying backup to disk..."
+    cp "osu-backup-$(date +'%Y%m%d').tar" ~/slow_ssd/backups/osu/
+    echo "Backup copied"
+    echo "Removing archive..."
+    rm osu-backup-$(date +'%Y%m%d').tar
+    echo "Removed"
+    echo "Success!"
+)}
+
 backup_photodir() {(
+    echo 'Outdated'
+    return 1
     set -e
     PHOTO_DIR="${1%/}"
 
@@ -74,18 +89,5 @@ backup_photodir() {(
     rm "$PHOTO_DIR.tar.gpg"
     echo "$PHOTO_DIR.tar.gpg removed"
 
-    echo "Success!"
-)}
-
-backup_osu() {(
-    echo "Creating backup..."
-    tar cf osu-backup-$(date +'%Y%m%d').tar osu
-    echo "Backup created"
-    echo "Copying backup to disk..."
-    cp "osu-backup-$(date +'%Y%m%d').tar" ~/slow_ssd/backups/osu/
-    echo "Backup copied"
-    echo "Removing archive..."
-    rm osu-backup-$(date +'%Y%m%d').tar
-    echo "Removed"
     echo "Success!"
 )}
