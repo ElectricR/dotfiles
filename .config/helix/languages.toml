@@ -2,3 +2,7 @@
 [[language]]
 name = "cpp"
 indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "python"
+language-servers = [ "pyright" ]
