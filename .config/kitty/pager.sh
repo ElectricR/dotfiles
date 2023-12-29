@@ -1,3 +1,4 @@
+exit 1 # Remove once ctrl+shift+e inhabited
 source $HOME/.config/zsh/palette.zsh
 nvim -n \
     -c "set nonumber nolist norelativenumber showtabline=0 foldcolumn=0" \
