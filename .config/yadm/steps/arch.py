@@ -55,6 +55,7 @@ ARCH_PACKAGES_EXTRA = {
     "sshfs",
     "rclone",
     "translate-shell",
+    "noto-fonts-emoji",
     # desktop
     "hyprland",
     "xdg-desktop-portal-hyprland", # <-- zoom screensharing in firefox
