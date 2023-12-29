@@ -300,34 +300,6 @@ def font_nerd(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def font_iosevka(log_fd: typing.IO) -> typing.Callable:
-    def run() -> dict:
-        result = default_result()
-        result["name"] = "font_iosevka"
-        if not os.path.isdir("/usr/share/fonts/iosevka"):
-            if subprocess.run(
-                "wget https://github.com/be5invis/Iosevka/releases/download/v15.0.2/ttf-iosevka-15.0.2.zip".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
-                return result
-            if subprocess.run(
-                "sudo unzip ttf-iosevka-15.0.2.zip -d /usr/share/fonts/iosevka".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
-                return result
-            result["changes"].append("iosevka font added")
-            if subprocess.run(
-                "rm ttf-iosevka-15.0.2.zip".split(), stdout=log_fd, stderr=log_fd
-            ).returncode:
-                return result
-        result["result"] = True
-        return result
-
-    return run
-
-
 def configure_shell(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()

@@ -4,23 +4,6 @@ import os
 import subprocess
 
 
-def yadm_awesome_init_submodules(log_fd: typing.IO) -> typing.Callable:
-    def run() -> dict:
-        result = default_result()
-        result["name"] = "yadm_awesome_init_submodules"
-        if len(os.listdir(f"{os.getenv('HOME')}/.config/awesome/collision")) == 0:
-            if subprocess.run(
-                "yadm submodule update --init --recursive".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
-                return result
-            result["changes"].append("yadm awesome modules have been initialized")
-        result["result"] = True
-        return result
-
-    return run
-
 
 def zsh_host_specific(
     log_fd: typing.IO, installation: str, device: str
