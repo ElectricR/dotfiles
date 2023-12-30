@@ -74,3 +74,4 @@ search-highlight-colors default `echo $COLOR_SEARCH_ACTIVE`
 ignore-mode display
 ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*go.vc.ru.*\""
 ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*Больше вакансий — на .*\""
+ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*#промо.*\""
