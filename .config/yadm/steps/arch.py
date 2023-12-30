@@ -31,6 +31,7 @@ ARCH_PACKAGES_BASE = {
     "zsh",
     "zsh-autosuggestions",
     "zsh-syntax-highlighting",
+    "zsh-theme-powerlevel10k",
     # bootstrap
     "python-termcolor",
     "fakeroot",  # indirect for yay
