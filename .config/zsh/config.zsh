@@ -79,3 +79,14 @@ source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
 
 # Ignore task command for adding in history
 setopt histignorespace
+
+# Force bottom prompt
+function bottom_prompt {
+  tput cup $(($LINES-1)) 0
+}
+add-zsh-hook precmd bottom_prompt
+
+# p10k
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
