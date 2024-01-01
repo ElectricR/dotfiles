@@ -43,7 +43,7 @@ precmd () {
 # History
 HISTSIZE=10000000
 SAVEHIST=10000000
-HISTFILE=$HOME/.config/zsh/.zhistory
+HISTFILE=$XDG_DATA_HOME/zsh/.zhistory
 
 # Add GO binaries
 PATH=$PATH:$HOME/go/bin/
