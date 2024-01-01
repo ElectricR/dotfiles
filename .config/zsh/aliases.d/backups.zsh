@@ -1,3 +1,12 @@
+function __encrypt_for_backup {
+    echo "Getting password..."
+    pass show -c backups
+    echo "Password copied to clipboard"
+    echo 'Encrypting...'
+    gpg -c --cipher-algo AES256 --no-symkey-cache $1
+    echo "Finished encryption"
+}
+
 backup_taskwarrior() {(
     echo "Creating backup..."
     ssh berry "tar cf task-backup-$(date +'%Y%m%d').tar -C ~/.local/share/ task"
@@ -37,6 +46,22 @@ backup_osu() {(
     echo "Success!"
 )}
 
+backup_music() {(
+    echo 'Starting rsync...'
+    rsync -rv --delete --progress phone:storage/music/ ~/fast_ssd/backups/music
+    echo 'Finished rsync'
+    echo 'Starting archiving...'
+    tar cf "music-backup-$(date +'%Y%m%d').tar" ~/fast_ssd/backups/music
+    echo 'Archive created'
+
+    __encrypt_for_backup "music-backup-$(date +'%Y%m%d').tar"
+
+    echo 'Removing temporary archive...'
+    rm "music-backup-$(date +'%Y%m%d').tar"
+    echo 'Removed'
+    echo 'Music backup creation is done, now do manual upload and remove gpg file'
+)}
+
 backup_photodir() {(
     echo 'Outdated'
     return 1
@@ -61,6 +86,7 @@ backup_photodir() {(
     tar cf "$PHOTO_DIR.tar" $1
     echo "Finished archiving"
 
+    # TODO: Use __encrypt_for_backup
     echo "Getting password..."
     pass show -c backups
     echo "Password copied to clipboard"
