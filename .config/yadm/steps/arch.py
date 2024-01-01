@@ -10,6 +10,7 @@ ARCH_PACKAGES_BASE = {
     "htop",
     "btop",
     "fzf",
+    "rsync",
     # core
     "ntp",
     # nets
@@ -57,6 +58,7 @@ ARCH_PACKAGES_EXTRA = {
     "rclone",
     "translate-shell",
     "noto-fonts-emoji",
+    "mediainfo",
     # desktop
     "hyprland",
     "xdg-desktop-portal-hyprland", # <-- zoom screensharing in firefox
