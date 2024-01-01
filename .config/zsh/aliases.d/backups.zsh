@@ -1,52 +1,85 @@
-function __encrypt_for_backup {
+function __backup_get_date_suffix {
+    echo "$(date +'%Y%m%d')"
+}
+
+function __backup_remote_archive_with_cd {
+    if [ -f "$HOME/slow_ssd/backups/$1/$1-backup-$2.tar" ]; then
+        echo "Local backup already exists"
+        return
+    fi
+    echo "Creating backup..."
+    ssh berry "tar cf $1-backup-$2.tar -C $3 ${@:4}"
+    echo "Backup created"
+    echo "Copying backup to disk..."
+    scp "berry:$1-backup-$2.tar" "$HOME/slow_ssd/backups/$1/"
+    echo "Backup copied"
+    echo "Removing archive from berry..."
+    ssh berry "rm $1-backup-$2.tar"
+    echo "Removed"
+}
+
+function __backup_local_archive {
+    if [ -f "$HOME/slow_ssd/backups/$1/$1-backup-$2.tar" ]; then
+        echo "Local backup already exists"
+        return
+    fi
+    echo "Creating backup..."
+    tar cf "$1-backup-$2.tar" "${@:3}"
+    echo "Backup created"
+    echo "Copying backup to disk..."
+    cp "$1-backup-$2.tar" "$HOME/slow_ssd/backups/$1/"
+    echo "Backup copied"
+    echo "Removing archive..."
+    rm "$1-backup-$2.tar"
+    echo "Removed"
+}
+
+function __backup_encrypt_archive {
+    if [ -f "$2.gpg" ]; then
+        echo "gpg file already exists"
+        return
+    fi
     echo "Getting password..."
     pass show -c backups
     echo "Password copied to clipboard"
     echo 'Encrypting...'
-    gpg -c --cipher-algo AES256 --no-symkey-cache $1
+    gpg -c -o "$2.gpg" --cipher-algo AES256 --no-symkey-cache "$1/$2"
     echo "Finished encryption"
 }
 
-backup_taskwarrior() {(
-    echo "Creating backup..."
-    ssh berry "tar cf task-backup-$(date +'%Y%m%d').tar -C ~/.local/share/ task"
-    echo "Backup created"
-    echo "Copying backup to disk..."
-    scp "berry:task-backup-$(date +'%Y%m%d').tar" ~/slow_ssd/backups/taskwarrior/
-    echo "Backup copied"
-    echo "Removing archive from berry..."
-    ssh berry "rm task-backup-$(date +'%Y%m%d').tar"
+function __backup_upload_gpg {
+    echo "Starting upload..."
+    rclone --verbose copy $2 yandex:/backups/$1/
+    echo "Uploaded"
+    echo "Removing gpg..."
+    rm "$2"
     echo "Removed"
-    echo "Success!"
-)}
+}
 
-backup_newsboat() {(
-    echo "Creating backup..."
-    ssh berry "tar cf newsboat-backup-$(date +'%Y%m%d').tar .config/newsboat/urls .local/share/newsboat/*"
-    echo "Backup created"
-    echo "Copying backup to disk..."
-    scp "berry:newsboat-backup-$(date +'%Y%m%d').tar" ~/slow_ssd/backups/newsboat/
-    echo "Backup copied"
-    echo "Removing archive from berry..."
-    ssh berry "rm newsboat-backup-$(date +'%Y%m%d').tar"
-    echo "Removed"
-    echo "Success!"
-)}
+backup_taskwarrior() {
+    datename=$(__backup_get_date_suffix)
+    __backup_remote_archive_with_cd taskwarrior $datename "~/.local/share" task
+    __backup_encrypt_archive "$HOME/slow_ssd/backups/taskwarrior" "taskwarrior-backup-$datename.tar"
+    __backup_upload_gpg taskwarrior "taskwarrior-backup-$datename.tar.gpg"
+    echo "Finished"
+}
 
-backup_osu() {(
-    echo "Creating backup..."
-    tar cf osu-backup-$(date +'%Y%m%d').tar osu
-    echo "Backup created"
-    echo "Copying backup to disk..."
-    cp "osu-backup-$(date +'%Y%m%d').tar" ~/slow_ssd/backups/osu/
-    echo "Backup copied"
-    echo "Removing archive..."
-    rm osu-backup-$(date +'%Y%m%d').tar
-    echo "Removed"
-    echo "Success!"
-)}
+backup_newsboat() {
+    datename=$(__backup_get_date_suffix)
+    __backup_remote_archive_with_cd newsboat $datename "~" ".config/newsboat/urls" ".local/share/newsboat/*"
+    __backup_encrypt_archive "$HOME/slow_ssd/backups/newsboat" "newsboat-backup-$datename.tar"
+    __backup_upload_gpg newsboat "newsboat-backup-$datename.tar.gpg"
+    echo "Finished"
+}
 
-backup_music() {(
+backup_osu() {
+    datename=$(__backup_get_date_suffix)
+    __backup_local_archive osu $datename "$HOME/osu"
+    __backup_encrypt_archive "$HOME/slow_ssd/backups/osu" "osu-backup-$datename.tar"
+    echo 'osu backup creation is done, now do manual upload and remove gpg file'
+}
+
+backup_music() {
     echo 'Starting rsync...'
     rsync -rv --delete --progress phone:storage/music/ ~/fast_ssd/backups/music
     echo 'Finished rsync'
@@ -60,7 +93,7 @@ backup_music() {(
     rm "music-backup-$(date +'%Y%m%d').tar"
     echo 'Removed'
     echo 'Music backup creation is done, now do manual upload and remove gpg file'
-)}
+}
 
 backup_photodir() {(
     echo 'Outdated'
