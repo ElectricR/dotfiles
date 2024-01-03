@@ -51,7 +51,7 @@ ssh() {
 
     if [ -n "$(lscpu | grep 5800X)" ]; then
         gpg-connect-agent updatestartuptty /bye > /dev/null
-        print "Don't forget to press the key'
+        print "Don't forget to press the key"
     fi
     /usr/bin/ssh $@
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
