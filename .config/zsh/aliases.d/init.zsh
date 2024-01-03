@@ -36,15 +36,6 @@ alias kitty-reload='kill -SIGUSR1 $(pgrep kitty)'
 
 alias n="newsboat"
 
-_SSHD_PATH=$(which sshd)
-sshd() {
-    if [[ -z $ANDROID_DATA ]]; then
-        $_SSHD_PATH -f $HOME/.ssh/sshd_config -o Subsystem='sftp /usr/lib/ssh/sftp-server' $@
-    else
-        $_SSHD_PATH -f $HOME/.ssh/sshd_config -o Subsystem='sftp /data/data/com.termux/files/usr/libexec/sftp-server' $@
-    fi
-}
-
 alias st="ssh tablet"
 alias sp="ssh pc"
 
@@ -60,6 +51,7 @@ ssh() {
 
     if [ -n "$(lscpu | grep 5800X)" ]; then
         gpg-connect-agent updatestartuptty /bye > /dev/null
+        print "Don't forget to press the key'
     fi
     /usr/bin/ssh $@
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
