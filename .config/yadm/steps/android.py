@@ -22,7 +22,7 @@ ANDROID_PACKAGES = {
     # neoutils
     "fd",
     "bat",
-    "exa",
+    "eza",
     "duf",
     "dust",
     "ripgrep",
