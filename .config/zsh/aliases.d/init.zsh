@@ -5,7 +5,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cal='cal -m'
 
-alias ls='exa'
+alias ls='eza'
 alias df='duf'
 alias du='dust'
 alias tree="tree -C"
