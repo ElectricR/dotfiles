@@ -57,6 +57,10 @@ ssh() {
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
         nc -kl localhost 44444 | xargs -L1 xdg-open &
     fi
+
+    if [ -n "$(lscpu | grep 5800X)" ]; then
+        gpg-connect-agent updatestartuptty /bye > /dev/null
+    fi
     /usr/bin/ssh $@
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
         pkill -P $$ -f 'xargs -L1'

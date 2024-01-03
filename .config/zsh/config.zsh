@@ -1,6 +1,10 @@
 # I am so tired of kitty
 export TERM=xterm-256color
 
+# Smartcard SSH
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
 # Let's put EDITOR here...
 export EDITOR=helix
 
