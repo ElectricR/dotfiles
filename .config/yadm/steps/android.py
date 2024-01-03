@@ -29,6 +29,7 @@ ANDROID_PACKAGES = {
     # editing
     "lua-language-server",
     "neovim",
+    "helix",
 }
 
 
