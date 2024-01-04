@@ -192,6 +192,27 @@ def zsh_highlighting_install(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
+def zsh_powerlevel10k_install(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "zsh_powerlevel10k_install"
+        dirpath = f"{os.getenv('HOME')}/.local/share"
+        if not os.path.isdir(dirpath + "/zsh-powerlevel10k"):
+            if subprocess.run(
+                f"git clone --depth=1 https://github.com/romkatv/powerlevel10k.git {dirpath}/zsh-powerlevel10k".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append(
+                "zsh powerlevel10k was successfully installed"
+            )
+        result["result"] = True
+        return result
+
+    return run
+
+
 TERMUX_CONFIG = """# Version 4
 
 terminal-cursor-style = bar
