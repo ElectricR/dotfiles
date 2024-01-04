@@ -27,8 +27,13 @@ def main():
             print(f"Tag {tag} is not valid")
             return
         tags[i] = '+' + tag
+    try:
+        est = int(input("Estimation? "))
+    except Exception:
+        print('Bad estimation')
+        return
     task_prefix = get_prefix(url)
-    p = subprocess.run(["task", "add", f"pri:{priority}", *tags, f"{task_prefix} {bookmark_title}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p = subprocess.run(["task", "add", f"pri:{priority}", f"est:{est}", *tags, f"{task_prefix} {bookmark_title}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if p.returncode != 0:
         print(f"Error running task add: {p.stderr}")
         return
