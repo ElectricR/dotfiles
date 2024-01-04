@@ -207,6 +207,25 @@ def zsh_powerlevel10k_install(log_fd: typing.IO) -> typing.Callable:
             result["changes"].append(
                 "zsh powerlevel10k was successfully installed"
             )
+        if not os.path.exists(f"{os.getenv('HOME')}/.termux/font.ttf"):
+            if subprocess.run(
+                f"curl -Lo {os.getenv('HOME')}/.termux/font.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf ".split(),
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append(
+                "zsh powerlevel10k font was successfully downloaded"
+            )
+            if subprocess.run(
+                f"termux-reload-settings",
+                stdout=log_fd,
+                stderr=log_fd,
+            ).returncode:
+                return result
+            result["changes"].append(
+                "termux settings have been reloaded"
+            )
         result["result"] = True
         return result
 
