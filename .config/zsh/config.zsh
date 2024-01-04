@@ -91,6 +91,6 @@ function bottom_prompt {
 add-zsh-hook precmd bottom_prompt
 
 # p10k
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source $HOME/.config/zsh/plugins/zsh-powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
