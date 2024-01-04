@@ -124,3 +124,21 @@ def zsh_highlighting_link(log_fd: typing.IO, path: str) -> typing.Callable:
         return result
 
     return run
+
+def zsh_histfile_dir(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "zsh_histfile_dir"
+        dirpath = f"{os.getenv('HOME')}/.local/share/zsh/"
+        if not os.path.isdir(dirpath):
+            try:
+                os.mkdir(dirpath)
+            except Exception as e:
+                print(e)
+                return result
+            result["changes"].append("zsh histfile dir has been created")
+        result["result"] = True
+        return result
+
+    return run
+
