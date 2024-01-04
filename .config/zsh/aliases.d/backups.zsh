@@ -57,11 +57,18 @@ function __backup_upload_gpg {
 }
 
 backup_taskwarrior() {
-    datename=$(__backup_get_date_suffix)
-    __backup_remote_archive_with_cd taskwarrior $datename "~/.local/share" task
-    __backup_encrypt_archive "$HOME/slow_ssd/backups/taskwarrior" "taskwarrior-backup-$datename.tar"
-    __backup_upload_gpg taskwarrior "taskwarrior-backup-$datename.tar.gpg"
-    echo "Finished"
+    echo 'Backing up taskwarrior...'
+    echo 'Prepare to press the button'
+    echo 'Mounting berry...'
+    sshfs berry:.local/share/task/ ~/mnt
+    echo 'Mounted'
+    echo 'Running backup...'
+    KEY=$(gpg --list-keys --with-colons v2 | awk -F: '/^pub:/ { print $5 }')
+    duplicity full --encrypt-key $KEY ~/mnt "multi://$HOME/.config/duplicity/taskwarrior_multi.conf?mode=mirror"
+    echo 'Done'
+    echo 'Unmounting berry...'
+    umount ~/mnt
+    echo 'Backup finished'
 }
 
 backup_newsboat() {

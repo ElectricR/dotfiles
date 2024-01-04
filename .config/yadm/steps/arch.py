@@ -59,6 +59,7 @@ ARCH_PACKAGES_EXTRA = {
     "translate-shell",
     "noto-fonts-emoji",
     "mediainfo",
+    "duplicity",
     # desktop
     "hyprland",
     "xdg-desktop-portal-hyprland", # <-- zoom screensharing in firefox
