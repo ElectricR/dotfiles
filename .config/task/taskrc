@@ -41,5 +41,5 @@ uda.estimate.label = Est
 # Modify default listing
 report.list.sort = urgency+
 report.list.filter = status:pending -WAITING -BLOCKED
-report.list.columns = id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due,until.remaining,description.count,estimate,urgency
-report.list.labels = ID,Active,Age,D,P,Project,Tags,R,Sch,Due,Until,Description,Est,Urg
+report.list.columns = id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due,until.remaining,estimate,description.count,urgency
+report.list.labels = ID,Active,Age,D,P,Project,Tags,R,Sch,Due,Until,Est,Description,Urg
