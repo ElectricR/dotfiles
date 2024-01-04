@@ -20,6 +20,9 @@ alias m="make"
 alias mr="make run"
 
 #alias v="nvim"
+if [ -n "$ANDROID_DATA" ]; then
+    alias helix="$TERMUX_APP__FILES_DIR/usr/opt/helix/hx"
+fi
 alias hx="helix"
 alias v="hx"
 
