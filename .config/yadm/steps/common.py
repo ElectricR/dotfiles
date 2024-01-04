@@ -102,7 +102,7 @@ def zsh_autosuggestions_link(log_fd: typing.IO, path: str) -> typing.Callable:
                 f"ln -s {path} {linkpath}".split(), stdout=log_fd, stderr=log_fd
             ).returncode:
                 return result
-            result["changes"].append("zsh autosuggestions has been installed")
+            result["changes"].append("zsh autosuggestions link has been created")
         result["result"] = True
         return result
 
@@ -119,11 +119,29 @@ def zsh_highlighting_link(log_fd: typing.IO, path: str) -> typing.Callable:
                 f"ln -s {path} {linkpath}".split(), stdout=log_fd, stderr=log_fd
             ).returncode:
                 return result
-            result["changes"].append("zsh syntax highlighting has been installed")
+            result["changes"].append("zsh syntax highlighting link has been created")
         result["result"] = True
         return result
 
     return run
+
+
+def zsh_powerlevel10k_link(log_fd: typing.IO, path: str) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "zsh_powerlevel10k_link"
+        linkpath = f"{os.getenv('HOME')}/.config/zsh/plugins/zsh-powerlevel10k"
+        if not os.path.islink(linkpath):
+            if subprocess.run(
+                f"ln -s {path} {linkpath}".split(), stdout=log_fd, stderr=log_fd
+            ).returncode:
+                return result
+            result["changes"].append("zsh powerlevel10k link has been created")
+        result["result"] = True
+        return result
+
+    return run
+
 
 def zsh_histfile_dir(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
@@ -141,4 +159,3 @@ def zsh_histfile_dir(log_fd: typing.IO) -> typing.Callable:
         return result
 
     return run
-

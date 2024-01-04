@@ -22,16 +22,9 @@ def get_android_scenario(installation: str, device: str, f: typing.TextIO) -> li
     stps.append(common.zsh_external(f))
     stps.append(common.zsh_histfile_dir(f))
     stps.append(android.gopls_install(f))
-    stps.append(
-        common.zsh_autosuggestions_link(
-            f, f"{os.getenv('HOME')}/.local/share/zsh-autosuggestions"
-        )
-    )
-    stps.append(
-        common.zsh_highlighting_link(
-            f, f"{os.getenv('HOME')}/.local/share/zsh-syntax-highlighting"
-        )
-    )
+    stps.append(common.zsh_autosuggestions_link(f, f"{os.getenv('HOME')}/.local/share/zsh-autosuggestions"))
+    stps.append(common.zsh_highlighting_link(f, f"{os.getenv('HOME')}/.local/share/zsh-syntax-highlighting"))
+    stps.append(common.zsh_powerlevel10k_link(f, f"{os.getenv('HOME')}/.local/share/zsh-powerlevel10k"))
     stps.append(android.termux_config(f))
     return stps
 
@@ -44,14 +37,9 @@ def get_arch_server_scenario(installation: str, device: str, f: typing.TextIO) -
     stps.append(arch.yay_packages(device, f))
     stps.append(arch.configure_shell(f))
     stps.append(common.zsh_plugins_dir(f))
-    stps.append(
-        common.zsh_autosuggestions_link(f, "/usr/share/zsh/plugins/zsh-autosuggestions")
-    )
-    stps.append(
-        common.zsh_highlighting_link(
-            f, "/usr/share/zsh/plugins/zsh-syntax-highlighting"
-        )
-    )
+    stps.append(common.zsh_autosuggestions_link(f, "/usr/share/zsh/plugins/zsh-autosuggestions"))
+    stps.append(common.zsh_highlighting_link(f, "/usr/share/zsh/plugins/zsh-syntax-highlighting"))
+    stps.append(common.zsh_powerlevel10k_link(f, "/usr/share/zsh-theme-powerlevel10k"))
     stps.append(common.zsh_host_specific(f, installation, device))
     stps.append(common.zsh_fzf(f, "/usr/share/fzf"))
     stps.append(common.zsh_bd(f))
@@ -77,14 +65,9 @@ def get_arch_scenario(installation: str, device: str, f: typing.TextIO) -> list:
     stps.append(arch.bootstrap_ly(f))
     stps.append(arch.bootstrap_bluetooth(f))
     stps.append(common.zsh_plugins_dir(f))
-    stps.append(
-        common.zsh_autosuggestions_link(f, "/usr/share/zsh/plugins/zsh-autosuggestions")
-    )
-    stps.append(
-        common.zsh_highlighting_link(
-            f, "/usr/share/zsh/plugins/zsh-syntax-highlighting"
-        )
-    )
+    stps.append(common.zsh_autosuggestions_link(f, "/usr/share/zsh/plugins/zsh-autosuggestions"))
+    stps.append(common.zsh_highlighting_link(f, "/usr/share/zsh/plugins/zsh-syntax-highlighting"))
+    stps.append(common.zsh_powerlevel10k_link(f, "/usr/share/zsh-theme-powerlevel10k"))
     stps.append(common.zsh_host_specific(f, installation, device))
     stps.append(arch.hypr_paper(f, installation, device))
     stps.append(arch.hypr_external_config(f, installation, device))
