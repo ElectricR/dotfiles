@@ -24,3 +24,6 @@ color.uda.priority.            = gray15
 color.uda.priority.M           = gray19
 color.uda.priority.H           = gray23
 color.calendar.today           = $COLOR_KEY
+
+# Colors order
+rule.precedence.color = deleted,completed,active,keyword.,tag.next,tag.,project.,overdue,scheduled,due.today,due,blocked,blocking,recurring,tagged,uda.
