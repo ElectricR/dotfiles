@@ -77,3 +77,46 @@ alias tl="task list"
 function to {
     ti $1 | grep https | head -n1 | awk '{print $3}' | nc -N localhost 44444
 }
+
+# Completions
+_tan () {
+    local -a words=( task annotate $words[1,-1] )
+    local -i CURRENT=$(( CURRENT + 1 ))
+    _normal
+}
+compdef _tan tan
+
+_tm () {
+    local -a words=( task mod $words[1,-1] )
+    local -i CURRENT=$(( CURRENT + 1 ))
+    _normal
+}
+compdef _tm tm
+
+_ti () {
+    local -a words=( task info $words[1,-1] )
+    local -i CURRENT=$(( CURRENT + 1 ))
+    _normal
+}
+compdef _ti ti
+
+_te () {
+    local -a words=( task edit $words[1,-1] )
+    local -i CURRENT=$(( CURRENT + 1 ))
+    _normal
+}
+compdef _te te
+
+_tdel () {
+    local -a words=( task delete $words[1,-1] )
+    local -i CURRENT=$(( CURRENT + 1 ))
+    _normal
+}
+compdef _tdel tdel
+
+_td () {
+    local -a words=( task done $words[1,-1] )
+    local -i CURRENT=$(( CURRENT + 1 ))
+    _normal
+}
+compdef _td td
