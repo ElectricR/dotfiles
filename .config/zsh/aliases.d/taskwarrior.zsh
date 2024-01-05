@@ -75,6 +75,11 @@ function td { _t_memo_subcommand_with_reset done $@ }
 alias tl="task list"
 
 function to {
+    # Double call because of freaking pipe subshells
+    ti $1 > /dev/null
+    if [[ $? != 0 ]]; then
+        return 1
+    fi
     ti $1 | grep https | head -n1 | awk '{print $3}' | nc -N localhost 44444
 }
 
