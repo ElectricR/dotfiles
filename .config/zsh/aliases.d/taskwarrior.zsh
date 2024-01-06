@@ -80,7 +80,7 @@ function to {
     if [[ $? != 0 ]]; then
         return 1
     fi
-    ti $1 | grep https | head -n1 | awk '{print $3}' | nc -N localhost 44444
+    ti $1 | grep -o 'https.*$' | head -n1 | nc -N localhost 44444
 }
 
 # Completions
