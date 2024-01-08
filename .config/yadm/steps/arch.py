@@ -21,6 +21,7 @@ ARCH_PACKAGES_BASE = {
     "openssh",
     "wireguard-tools",
     "ufw",
+    "mtr",
     # editing
     "neovim",
     "clang",
