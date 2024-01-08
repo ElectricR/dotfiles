@@ -95,7 +95,7 @@ ARCH_PACKAGES_EXTRA = {
     "python-black",
 }
 
-YAY_PACKAGES_BASE = {"shadowsocks-rust"}
+YAY_PACKAGES_BASE = {"shadowsocks-rust-bin"}
 YAY_PACKAGES_EXTRA = {"hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
 
 
