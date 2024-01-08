@@ -24,6 +24,7 @@ ARCH_PACKAGES_BASE = {
     "mtr",
     # editing
     "neovim",
+    "helix",
     "clang",
     # neoutils
     "fd",
