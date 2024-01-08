@@ -11,6 +11,9 @@ ARCH_PACKAGES_BASE = {
     "btop",
     "fzf",
     "rsync",
+    # services
+    "task",
+    "newsboat",
     # core
     "ntp",
     # nets
@@ -43,7 +46,6 @@ ARCH_PACKAGES_EXTRA = {
     "make",
     "rustup",
     "tldr",
-    "task",
     "npm",
     "firefox",
     "go",
@@ -52,7 +54,6 @@ ARCH_PACKAGES_EXTRA = {
     "unzip",
     "nodejs",
     "pass",
-    "newsboat",
     "xdg-utils",
     "sshfs",
     "rclone",
