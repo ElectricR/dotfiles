@@ -11,6 +11,7 @@ ARCH_PACKAGES_BASE = {
     "btop",
     "fzf",
     "rsync",
+    "man",
     # services
     "task",
     "timew",
