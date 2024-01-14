@@ -13,6 +13,7 @@ ARCH_PACKAGES_BASE = {
     "rsync",
     # services
     "task",
+    "timew",
     "newsboat",
     # core
     "ntp",

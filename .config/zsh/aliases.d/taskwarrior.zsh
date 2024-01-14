@@ -71,6 +71,8 @@ function ti { _t_memo_subcommand info $@ }
 function te { _t_memo_subcommand edit $@ }
 function tdel { _t_memo_subcommand_with_reset delete $@ }
 function td { _t_memo_subcommand_with_reset done $@ }
+function ts { _t_memo_subcommand start $@ }
+function tp { _t_memo_subcommand stop $@ }
 
 alias tl="task list"
 

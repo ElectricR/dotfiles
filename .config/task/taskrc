@@ -15,7 +15,7 @@
 
 include theme
 data.location=~/.local/share/task
-#hooks.location=~/.config/task/hooks
+hooks.location=~/.config/task/hooks
 
 news.version = 2.6.0
 nag =
