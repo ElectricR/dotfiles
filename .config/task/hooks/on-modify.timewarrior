@@ -106,5 +106,7 @@ def main(old, new):
 if __name__ == "__main__":
     old = json.loads(input_stream.readline().decode("utf-8", errors="replace"))
     new = json.loads(input_stream.readline().decode("utf-8", errors="replace"))
+    if 'estimate' in new.keys():
+        new['estimate'] = str(new['estimate'])
     print(json.dumps(new))
     main(old, new)
