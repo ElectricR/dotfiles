@@ -75,3 +75,4 @@ ignore-mode display
 ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*go.vc.ru.*\""
 ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*Больше вакансий — на .*\""
 ignore-article "regex:.*rsshub.*vcnews" "content =~ \".*#промо.*\""
+ignore-article "regex:.*rsshub.*invest_science_channel" "content =~ \".*\\bРеклама\..*\""
