@@ -19,6 +19,7 @@ ANDROID_PACKAGES = {
     "openssh",
     "rclone",
     "netcat-openbsd",
+    "traceroute",
     # neoutils
     "fd",
     "bat",
