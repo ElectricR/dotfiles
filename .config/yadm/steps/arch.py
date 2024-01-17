@@ -7,11 +7,14 @@ import shutil
 ARCH_PACKAGES_BASE = {
     "tmux",
     "tree",
-    "htop",
-    "btop",
     "fzf",
     "rsync",
     "man",
+    # system tools
+    "mtr",
+    "lsof",
+    "htop",
+    "btop",
     # services
     "task",
     "timew",
@@ -23,7 +26,6 @@ ARCH_PACKAGES_BASE = {
     "openssh",
     "wireguard-tools",
     "ufw",
-    "mtr",
     # editing
     "neovim",
     "helix",
