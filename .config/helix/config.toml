@@ -13,3 +13,7 @@ select = "bar"
 
 [keys.normal]
 "A-c" = "copy_selection_on_prev_line"
+
+[keys.normal."space"]
+"f" = "file_picker_in_current_directory"
+"F" = "file_picker"
