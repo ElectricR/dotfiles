@@ -10,6 +10,7 @@ ARCH_PACKAGES_BASE = {
     "fzf",
     "rsync",
     "man",
+    "man-pages",
     # system tools
     "nload",
     "mtr",
