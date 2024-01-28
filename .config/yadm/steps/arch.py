@@ -11,6 +11,7 @@ ARCH_PACKAGES_BASE = {
     "rsync",
     "man",
     # system tools
+    "nload",
     "mtr",
     "lsof",
     "htop",
