@@ -1,6 +1,9 @@
 # I am so tired of kitty
 export TERM=xterm-256color
 
+# I am so tired of gdb
+unset DEBUGINFOD_URLS
+
 # Smartcard SSH
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
