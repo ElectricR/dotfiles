@@ -2,6 +2,8 @@ Keys = {}
 
 vim.keymap.set('v', '<leader>c', ":'<,'>!column -t -s= -o=<CR><CR>", {silent=true, noremap=true})
 
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', {silent=true, noremap=true})
+
 Keys.sandwich = {
     add = '<leader>sa',
     delete = '<leader>sd',
