@@ -4,4 +4,5 @@ nvim -n \
     -c "autocmd TermOpen * normal G" \
     -c "map <silent> q :qa!<CR>" \
     -c "silent write! /tmp/kitty_scrollback_buffer" \
-    -c "te head -q -n-1 /tmp/kitty_scrollback_buffer; rm /tmp/kitty_scrollback_buffer; cat"
+    -c "te head -q -n-1 /tmp/kitty_scrollback_buffer; rm /tmp/kitty_scrollback_buffer; cat" \
+    -c "set modifiable"
