@@ -2,6 +2,7 @@ source $HOME/.config/zsh/aliases.d/taskwarrior.zsh
 source $HOME/.config/zsh/aliases.d/backups.zsh
 
 alias mv='mv -i'
+alias cp='cp -i'
 alias rm='rm -i'
 alias cal='cal -m'
 
