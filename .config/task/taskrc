@@ -31,6 +31,7 @@ urgency.uda.priority.L.coefficient  = -2
 urgency.due.coefficient             = 3
 urgency.project.coefficient         = 0
 urgency.blocking.coefficient        = 0
+urgency.blocked.coefficient         = -100
 urgency.annotations.coefficient     = 0
 urgency.tags.coefficient            = 0
 
@@ -40,11 +41,11 @@ uda.estimate.label = Est
 
 # Modify default listing
 report.list.sort = urgency+
-report.list.filter = status:pending -WAITING -BLOCKED
+report.list.filter = status:pending -WAITING
 report.list.columns = id,start.age,entry.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due,until.remaining,estimate,description.count,urgency
 report.list.labels = ID,Active,Age,D,P,Project,Tags,R,Sch,Due,Until,Est,Description,Urg
 
 report.ls.sort = urgency+
-report.ls.filter = status:pending -WAITING -BLOCKED
+report.ls.filter = status:pending -WAITING
 report.ls.columns = id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.countdown,until.countdown,estimate,description.count
 report.ls.labels = ID,A,D,Project,Tags,R,Wait,S,Due,Until,Est,Description
