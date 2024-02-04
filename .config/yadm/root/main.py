@@ -18,7 +18,7 @@ def get_device(config: Config) -> None:
             config.device = Device.ANDROID
         case Installation.ARCH:
             # Hacks
-            if os.system("lscpu | grep -q ARM"):
+            if not os.system("lscpu | grep -q ARM"):
                 config.device = Device.RASPBERRY
             elif not os.path.isdir("/sys/firmware/efi"):
                 config.device = Device.SERVER

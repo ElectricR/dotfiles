@@ -543,7 +543,6 @@ def wireguard(device: Device, log_fd: typing.IO) -> typing.Callable:
             result["changes"].append("generated wireguard keys")
         return True
 
-
     def run() -> dict:
         result = default_result()
         result["name"] = "wireguard"
