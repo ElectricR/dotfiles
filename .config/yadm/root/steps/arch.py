@@ -72,6 +72,7 @@ ARCH_PACKAGES_DESKTOP = {
     "kitty",
     "noto-fonts-emoji",
     "xdg-utils",
+    "ly",
     # osu
     "fuse2",
     # yubikey
@@ -110,7 +111,7 @@ ARCH_PACKAGES_DESKTOP = {
 }
 
 YAY_PACKAGES_BASE = {"shadowsocks-rust-bin", "xray-bin"}
-YAY_PACKAGES_DESKTOP = {"hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
+YAY_PACKAGES_DESKTOP = {"hyprpaper-git", "hyprpicker-git", "xdg-ninja"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
