@@ -1,15 +1,19 @@
 from .utils import default_result, setup_link
+from . import utils
+import sys
 import os
 import subprocess
 import typing
 import shutil
 
-ARCH_PACKAGES_BASE = {
+sys.path.append("..")
+from ..models import *
+
+ARCH_PACKAGES_HEADLESS = {
     "tmux",
     "tree",
     "fzf",
     "rsync",
-    "man",
     "man-pages",
     # system tools
     "nload",
@@ -17,21 +21,19 @@ ARCH_PACKAGES_BASE = {
     "lsof",
     "htop",
     "btop",
-    # services
-    "task",
-    "timew",
-    "newsboat",
+    "strace",
+    "openbsd-netcat",
     # core
     "ntp",
+    "make",
+    "cmake",
     # nets
-    "openbsd-netcat",
     "openssh",
     "wireguard-tools",
     "ufw",
     # editing
     "neovim",
     "helix",
-    "clang",
     # neoutils
     "fd",
     "bat",
@@ -49,33 +51,47 @@ ARCH_PACKAGES_BASE = {
     "fakeroot",  # indirect for yay
 }
 
-ARCH_PACKAGES_EXTRA = {
-    "wget",
-    "make",
-    "rustup",
+ARCH_PACKAGES_HEADLESS_EXTRA = {
+    # services
+    "task",
+    "timew",
+    "newsboat",
+    # utils
     "tldr",
-    "npm",
-    "firefox",
-    "go",
-    "kitty",
-    "cmake",
+    "wget",
     "unzip",
-    "nodejs",
-    "pass",
-    "xdg-utils",
-    "sshfs",
-    "rclone",
     "translate-shell",
-    "noto-fonts-emoji",
-    "mediainfo",
+    "sshfs",
+}
+
+ARCH_PACKAGES_DESKTOP = {
     # desktop
     "hyprland",
     "xdg-desktop-portal-hyprland", # <-- zoom screensharing in firefox
+    "firefox",
+    "kitty",
+    "noto-fonts-emoji",
+    "xdg-utils",
+    # osu
+    "fuse2",
     # yubikey
     "libfido2",
     "yubikey-manager",
-    # osu
-    "fuse2",
+    # pdf
+    "zathura",
+    "zathura-pdf-mupdf",
+    # image viewing
+    "nsxiv",
+    "xorg-xrdb",
+    # editing
+    "rustup",
+    "clang",
+    "npm",
+    "nodejs",
+    "lua-language-server",
+    "go",
+    "gopls",
+    "pyright",
     # audio
     "pipewire",
     "pipewire-alsa",
@@ -84,27 +100,17 @@ ARCH_PACKAGES_EXTRA = {
     "bluez",
     "bluez-utils",
     "noise-suppression-for-voice",
-    # nets
-    "openresolv",
-    # editing
-    "lua-language-server",
-    "gopls",
-    "pyright",
-    # btrfs
-    "compsize",
-    # image viewing
-    "nsxiv",
-    "xorg-xrdb",
-    # pdf
-    "zathura",
-    "zathura-pdf-mupdf",
+    # misc
+    "pass",
+    "rclone",
+    "mediainfo",
     # bootstrap
     "pkg-config",  # indirect for yay packages
     "python-black",
 }
 
 YAY_PACKAGES_BASE = {"shadowsocks-rust-bin", "xray-bin"}
-YAY_PACKAGES_EXTRA = {"hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
+YAY_PACKAGES_DESKTOP = {"hyprpaper-git", "hyprpicker-git", "ly", "xdg-ninja"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
@@ -159,7 +165,7 @@ def pacman_config(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def pacman_packages(device: str, log_fd: typing.IO) -> typing.Callable:
+def pacman_packages(device: Device, log_fd: typing.IO) -> typing.Callable:
     def update_pkgconf(in_set: typing.Set) -> None:
         if "pkgconf" in in_set:
             in_set.add("pkg-config")
@@ -175,9 +181,11 @@ def pacman_packages(device: str, log_fd: typing.IO) -> typing.Callable:
             return result
         installed_packages = set(packages_call_result.stdout.decode().split())
         update_pkgconf(installed_packages)
-        pkgs = ARCH_PACKAGES_BASE
-        if device != "server":
-            pkgs.update(ARCH_PACKAGES_EXTRA)
+        pkgs = ARCH_PACKAGES_HEADLESS
+        if device != Device.SERVER:
+            pkgs.update(ARCH_PACKAGES_HEADLESS_EXTRA)
+        if device in [Device.PC, Device.LAPTOP]:
+            pkgs.update(ARCH_PACKAGES_DESKTOP)
         if pkgs - installed_packages:
             if subprocess.run(
                 "sudo pacman -Suy --noconfirm {}".format(
@@ -224,7 +232,7 @@ def yay_install(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def yay_packages(device: str,log_fd: typing.IO) -> typing.Callable:
+def yay_packages(device: Device,log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "yay_packages"
@@ -235,8 +243,8 @@ def yay_packages(device: str,log_fd: typing.IO) -> typing.Callable:
             return result
         installed_packages = set(packages_call_result.stdout.decode().split())
         pkgs = YAY_PACKAGES_BASE
-        if device != "server":
-            pkgs.update(YAY_PACKAGES_EXTRA)
+        if device in [Device.PC, Device.LAPTOP]:
+            pkgs.update(YAY_PACKAGES_DESKTOP)
         if pkgs - installed_packages:
             if subprocess.run(
                 "yay -Suy --noconfirm {}".format(
@@ -403,12 +411,12 @@ def bootstrap_bluetooth(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def hypr_paper(log_fd: typing.IO, installation: str, device: str) -> typing.Callable:
+def hypr_paper(log_fd: typing.IO, config: Config) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "hypr_theme"
         linkpath = f"{os.getenv('HOME')}/.config/hypr/black/hyprpaper.conf"
-        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{installation}/{device}/hyprpaper.conf"
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{config.installation}/{config.device}/hyprpaper.conf"
         link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
         if link_res:
             result["changes"].extend(link_changes)
@@ -418,14 +426,12 @@ def hypr_paper(log_fd: typing.IO, installation: str, device: str) -> typing.Call
     return run
 
 
-def hypr_external_config(
-    log_fd: typing.IO, installation: str, device: str
-) -> typing.Callable:
+def hypr_external_config(log_fd: typing.IO, config: Config) -> typing.Callable:
     def run() -> dict:
         result = default_result()
         result["name"] = "hypr_external_config"
         linkpath = f"{os.getenv('HOME')}/.config/hypr/hyprland_external.conf"
-        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{installation}/{device}/hyprland_external.conf"
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{config.installation}/{config.device}/hyprland_external.conf"
         link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
         if link_res:
             result["changes"].extend(link_changes)
@@ -488,72 +494,82 @@ PublicKey =
 AllowedIPs = 10.0.0.2/32
 '''
 
-def wireguard(device: str, log_fd: typing.IO) -> typing.Callable:
-    def run() -> dict:
-        result = default_result()
-        result["name"] = "wireguard"
-        if subprocess.run(['bash', '-c', 'test "$(stat -c %a /etc/wireguard)" = 711'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+WIREGUARD_CLIENT_TEMPLATE = '''[Interface]
+PrivateKey = 
+Address = 10.0.0.x
+DNS = 1.1.1.1
+
+[Peer]
+PublicKey = 
+Endpoint = 
+AllowedIPs = 0.0.0.0/0, ::/0
+PersistentKeepalive = 25
+'''
+
+def wireguard(device: Device, log_fd: typing.IO) -> typing.Callable:
+    def create_template(result: dict, path: str, template: str) -> bool:
+        if subprocess.run(f"stat {path}".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+            p = subprocess.Popen(
+                ["sudo", "bash", "-c", f"cat > {path}"],
+                stdin=subprocess.PIPE,
+                stdout=log_fd,
+                stderr=log_fd,
+            )
+            p.communicate(bytes(template, 'utf-8'))
+            if p.returncode != 0:
+                return False
+            result["changes"].append(f"created wireguard config template at {path}")
+        return True
+
+    def ip_forward(result: dict) -> bool:
+        if os.system("grep -q ip_forward /etc/sysctl.d/99-sysctl.conf"):
             if subprocess.run(
-                "sudo chmod 711 /etc/wireguard/".split(),
+                ["sudo", "bash", "-c", "echo net.ipv4.ip_forward=1 >> /etc/sysctl.d/99-sysctl.conf; sysctl --system"],
                 stdout=log_fd,
                 stderr=log_fd,
             ).returncode:
-                return result
-            result["changes"].append("added x bit to /etc/wireguard")
+                return False
+            result["changes"].append("enabled ipv4 forwarding")
+        return True
 
+    def gen_keys(result: dict) -> bool:
         if subprocess.run("stat /etc/wireguard/privatekey".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
             if subprocess.run(
                 ["sudo", "bash", "-c", "wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey"],
                 stdout=log_fd,
                 stderr=log_fd,
             ).returncode:
-                return result
+                return False
             result["changes"].append("generated wireguard keys")
-            if subprocess.run(
-                "sudo chmod 400 /etc/wireguard/publickey /etc/wireguard/privatekey".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
+        return True
+
+
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "wireguard"
+        if not utils.chmod(result, log_fd, "/etc/wireguard", "711"):
+            return result
+        if not gen_keys(result):
+            return result
+        if not utils.chmod(result, log_fd, "/etc/wireguard/publickey", "400"):
+            return result
+        if not utils.chmod(result, log_fd, "/etc/wireguard/privatekey", "400"):
+            return result
+        if device == Device.SERVER:
+            if not create_template(result, "/etc/wireguard/wg0.conf", WIREGUARD_SERVER_TEMPLATE):
                 return result
-            result["changes"].append("changed mode of wireguard keys")
-
-        if subprocess.run("stat /etc/wireguard/wg0.conf".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
-            if device == "server":
-                p = subprocess.Popen(
-                    ["sudo", "bash", "-c", "cat > /etc/wireguard/wg0.conf"],
-                    stdin=subprocess.PIPE,
-                    stdout=log_fd,
-                    stderr=log_fd,
-                )
-                p.communicate(bytes(WIREGUARD_SERVER_TEMPLATE, 'utf-8'))
-                if p.returncode != 0:
-                    return result
-                result["changes"].append("created wireguard config template")
-            else:
-                if subprocess.run(
-                    "sudo touch /etc/wireguard/wg0.conf".split(),
-                    stdout=log_fd,
-                    stderr=log_fd,
-                ).returncode:
-                    return result
-                result["changes"].append("created wireguard config stub")
-
-            if subprocess.run(
-                "sudo chmod 600 /etc/wireguard/wg0.conf".split(),
-                stdout=log_fd,
-                stderr=log_fd,
-            ).returncode:
+        else:
+            if not create_template(result, "/etc/wireguard/wg0.conf", WIREGUARD_CLIENT_TEMPLATE):
                 return result
-            result["changes"].append("changed mode of wireguard config")
-
-            if device == "server":
-                if subprocess.run(
-                    ["sudo", "bash", "-c", "echo net.ipv4.ip_forward=1 >> /etc/sysctl.d/99-sysctl.conf; sysctl --system"],
-                    stdout=log_fd,
-                    stderr=log_fd,
-                ).returncode:
-                    return result
-                result["changes"].append("enabled ipv4 forwarding")
+            if not create_template(result, "/etc/wireguard/wg1.conf", WIREGUARD_CLIENT_TEMPLATE):
+                return result
+            if not utils.chmod(result, log_fd, "/etc/wireguard/wg1.conf", "600"):
+                return result
+        if not utils.chmod(result, log_fd, "/etc/wireguard/wg0.conf", "600"):
+            return result
+        if device == Device.SERVER:
+            if not ip_forward(result):
+                return result
 
         result["result"] = True
         return result
