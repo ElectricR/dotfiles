@@ -5,6 +5,7 @@ import os
 import subprocess
 import typing
 import shutil
+import uuid
 
 sys.path.append("..")
 from ..models import *
@@ -417,7 +418,7 @@ def hypr_paper(log_fd: typing.IO, config: Config) -> typing.Callable:
         result = default_result()
         result["name"] = "hypr_theme"
         linkpath = f"{os.getenv('HOME')}/.config/hypr/black/hyprpaper.conf"
-        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{config.installation}/{config.device}/hyprpaper.conf"
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{config.installation.value}/{config.device.value}/hyprpaper.conf"
         link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
         if link_res:
             result["changes"].extend(link_changes)
@@ -432,7 +433,7 @@ def hypr_external_config(log_fd: typing.IO, config: Config) -> typing.Callable:
         result = default_result()
         result["name"] = "hypr_external_config"
         linkpath = f"{os.getenv('HOME')}/.config/hypr/hyprland_external.conf"
-        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{config.installation}/{config.device}/hyprland_external.conf"
+        targetpath = f"{os.getenv('HOME')}/.config/yadm/conf/{config.installation.value}/{config.device.value}/hyprland_external.conf"
         link_res, link_changes = setup_link(log_fd, targetpath, linkpath)
         if link_res:
             result["changes"].extend(link_changes)
@@ -496,32 +497,32 @@ AllowedIPs = 10.0.0.2/32
 '''
 
 WIREGUARD_CLIENT_TEMPLATE = '''[Interface]
-PrivateKey = 
-Address = 10.0.0.x
+PrivateKey = {0}
+Address = 10.0.0.{1}
 DNS = 1.1.1.1
 
 [Peer]
-PublicKey = 
-Endpoint = 
+PublicKey = {2}
+Endpoint = {3}
 AllowedIPs = 0.0.0.0/0, ::/0
 PersistentKeepalive = 25
 '''
 
-def wireguard(device: Device, log_fd: typing.IO) -> typing.Callable:
-    def create_template(result: dict, path: str, template: str) -> bool:
-        if subprocess.run(f"stat {path}".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
-            p = subprocess.Popen(
-                ["sudo", "bash", "-c", f"cat > {path}"],
-                stdin=subprocess.PIPE,
-                stdout=log_fd,
-                stderr=log_fd,
-            )
-            p.communicate(bytes(template, 'utf-8'))
-            if p.returncode != 0:
-                return False
-            result["changes"].append(f"created wireguard config template at {path}")
-        return True
+WIREGUARD_CLIENT_TEMPLATE1 = '''[Interface]
+PrivateKey = {privateKey}
+Address = 10.0.0.{wgNode}
+DNS = 1.1.1.1
+PreUp = ip route add {serverAddress}/32 via 192.168.0.1 dev {dev}
+PostDown = ip route del {serverAddress}/32 via 192.168.0.1 dev {dev}
 
+[Peer]
+PublicKey = {serverWgPubkey}
+Endpoint = 127.0.0.1:{wgPort}
+AllowedIPs = 0.0.0.0/0, ::/0
+PersistentKeepalive = 25
+'''
+
+def wireguard(config: Config, log_fd: typing.IO) -> typing.Callable:
     def ip_forward(result: dict) -> bool:
         if os.system("grep -q ip_forward /etc/sysctl.d/99-sysctl.conf"):
             if subprocess.run(
@@ -544,6 +545,20 @@ def wireguard(device: Device, log_fd: typing.IO) -> typing.Callable:
             result["changes"].append("generated wireguard keys")
         return True
 
+    def get_privkey() -> str:
+        return subprocess.run("sudo cat /etc/wireguard/privatekey".split(), stdout=subprocess.PIPE).stdout.decode("utf-8").strip()
+
+    def get_dev() -> str:
+        return subprocess.run(['bash', '-c', "ip link | grep 'state UP' | awk '{print $2}'"], stdout=subprocess.PIPE).stdout.decode("utf-8").strip().strip(':')
+
+    def create_wg1_file(result) -> bool:
+        if os.system("stat /etc/wireguard/wg1.conf 2> /dev/null > /dev/null") == 0:
+            # Kostyl to remove sudo call
+            return True
+        privkey = get_privkey()
+        wg1config = WIREGUARD_CLIENT_TEMPLATE1.format(privateKey=privkey, wgNode=config.secrets.wgNode, serverAddress=config.secrets.serverAddress, serverWgPubkey=config.secrets.serverWgPubkey, wgPort=config.secrets.wgPort, dev=get_dev())
+        return utils.create_file(result, log_fd, "/etc/wireguard/wg1.conf", wg1config)
+
     def run() -> dict:
         result = default_result()
         result["name"] = "wireguard"
@@ -555,25 +570,97 @@ def wireguard(device: Device, log_fd: typing.IO) -> typing.Callable:
             return result
         if not utils.chmod(result, log_fd, "/etc/wireguard/privatekey", "400"):
             return result
-        if device == Device.SERVER:
-            if not create_template(result, "/etc/wireguard/wg0.conf", WIREGUARD_SERVER_TEMPLATE):
+        if config.device == Device.SERVER:
+            if not utils.create_file(result, log_fd, "/etc/wireguard/wg0.conf", WIREGUARD_SERVER_TEMPLATE):
                 return result
         else:
-            if not create_template(result, "/etc/wireguard/wg0.conf", WIREGUARD_CLIENT_TEMPLATE):
+            if not utils.create_file(result, log_fd, "/etc/wireguard/wg0.conf", WIREGUARD_CLIENT_TEMPLATE):
                 return result
-            if not create_template(result, "/etc/wireguard/wg1.conf", WIREGUARD_CLIENT_TEMPLATE):
+            if not create_wg1_file(result):
                 return result
             if not utils.chmod(result, log_fd, "/etc/wireguard/wg1.conf", "600"):
                 return result
         if not utils.chmod(result, log_fd, "/etc/wireguard/wg0.conf", "600"):
             return result
-        if device == Device.SERVER:
+        if config.device == Device.SERVER:
             if not ip_forward(result):
                 return result
 
         result["result"] = True
         return result
+    return run
 
+
+XRAY_CLIENT_TEMPLATE = '''{{
+    "log": {{
+        "loglevel": "warning"
+    }},
+    "inbounds": [
+        {{
+            "tag": "wireguard",
+            "port": {0},
+            "protocol": "dokodemo-door",
+            "settings": {{
+                "address":"127.0.0.1",
+                "port": {0},
+                "network":"udp"
+            }}
+        }}
+    ],
+    "outbounds": [
+        {{
+            "protocol": "vless",
+            "settings": {{
+                "vnext": [
+                    {{
+                        "address": "{1}",
+                        "port": 443,
+                        "users": [
+                            {{
+                                "id": "{2}",
+                                "encryption": "none",
+                                "flow": ""
+                            }}
+                        ]
+                    }}
+                ]
+            }},
+            "streamSettings": {{
+                "network": "h2",
+                "security": "reality",
+                "realitySettings": {{
+                    "show": false,
+                    "fingerprint": "chrome",
+                    "serverName": "www.lovelive-anime.jp",
+                    "publicKey": "{3}",
+                    "shortId": "{4}",
+                    "spiderX": ""
+                }}
+            }},
+            "tag": "proxy"
+        }}
+    ]
+}}
+'''
+
+
+def xray(log_fd: typing.IO, secrets: Secrets) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "xray"
+        if not utils.chmod(result, log_fd, "/etc/xray", "711"):
+            return result
+        xray_config = XRAY_CLIENT_TEMPLATE.format(secrets.wgPort, secrets.serverAddress, uuid.uuid4(), secrets.serverXrayPubkey, secrets.serverXrayId)
+        if not utils.create_file(result, log_fd, "/etc/xray/wg1.json", xray_config):
+            return result
+        if not utils.chown(result, log_fd, "/etc/xray/wg1.json", "xray"):
+            return result
+        if not utils.chmod(result, log_fd, "/etc/xray/wg1.json", "400"):
+            return result
+        if not utils.enable_service(result, log_fd, 'xray@wg1'):
+            return result
+        result["result"] = True
+        return result
     return run
 
 
@@ -610,5 +697,4 @@ def enable_ntp(log_fd: typing.IO) -> typing.Callable:
             return result
         result["result"] = True
         return result
-
     return run

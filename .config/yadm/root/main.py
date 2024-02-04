@@ -1,6 +1,8 @@
 import os
 import typing
 import uuid
+import json
+from pathlib import Path
 
 from .models import *
 from . import scenario
@@ -28,6 +30,22 @@ def get_device(config: Config) -> None:
                 config.device = Device.PC
         case default:
             raise RuntimeError("Unrecognized device")
+
+
+def load_secrets(config: Config) -> None:
+    path = Path(__file__).parent.parent.joinpath("secrets.json")
+    if not path.exists():
+        print(f"WARN: {path} does not exist")
+        return
+    with open(path) as f:
+        data = json.load(f)
+        config.secrets = Secrets()
+        config.secrets.wgPort = data.get("wgPort", "<NONE>")
+        config.secrets.wgNode = data.get("wgNode", "<NONE>")
+        config.secrets.serverAddress = data.get("serverAddress", "<NONE>")
+        config.secrets.serverXrayId = data.get("serverXrayId", "<NONE>")
+        config.secrets.serverXrayPubkey = data.get("serverXrayPubkey", "<NONE>")
+        config.secrets.serverWgPubkey = data.get("serverWgPubkey", "<NONE>")
 
 
 def validate_user(config: Config) -> None:
@@ -67,6 +85,7 @@ def create_config() -> Config:
     config = Config()
     get_installation(config)
     get_device(config)
+    load_secrets(config)
     return config
 
 

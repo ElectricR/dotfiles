@@ -13,8 +13,18 @@ class Device(Enum):
     PC = "pc"
     LAPTOP = "laptop"
 
-    
+
+class Secrets(SimpleNamespace):
+    serverAddress: str = "<NONE>"
+    wgPort: str = "<NONE>"
+    wgNode: str = "<NONE>"
+    serverXrayPubkey: str = "<NONE>"
+    serverXrayId: str = "<NONE>"
+    serverSSPort: str = "<NONE>"
+    serverWgPubkey: str = "<NONE>"
+
 
 class Config(SimpleNamespace):
     installation: Installation
     device: Device
+    secrets: Secrets

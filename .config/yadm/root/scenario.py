@@ -43,7 +43,9 @@ def get_arch_scenario(config: Config, f: typing.TextIO) -> list:
     stps.append(common.zsh_external(f))
     stps.append(common.zsh_histfile_dir(f))
     stps.append(arch.enable_ntp(f))
-    stps.append(arch.wireguard(config.device, f))
+    stps.append(arch.wireguard(config, f))
+    if config.device != Device.SERVER:
+        stps.append(arch.xray(f, config.secrets))
     if config.device in [Device.PC, Device.LAPTOP]:
         stps.append(arch.font_jetbrains(f))
         stps.append(arch.font_nerd(f))
