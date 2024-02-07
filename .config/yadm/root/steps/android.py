@@ -20,6 +20,7 @@ ANDROID_PACKAGES = {
     "rclone",
     "netcat-openbsd",
     "traceroute",
+    "speedtest-go",
     # neoutils
     "fd",
     "bat",
