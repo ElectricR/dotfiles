@@ -17,6 +17,7 @@ ARCH_PACKAGES_HEADLESS = {
     "rsync",
     "man-pages",
     # system tools
+    "bind", # <- dig tool
     "nload",
     "mtr",
     "lsof",

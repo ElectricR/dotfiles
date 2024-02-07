@@ -47,6 +47,7 @@ def pip_termcolor(log_fd: typing.IO) -> typing.Callable:
             == 0
         )
         if not termcolor_installed:
+            os.system("pkg install libexpat") # dependency for pip for some reason
             if subprocess.run(
                 "pip install termcolor".split(),
                 stdout=log_fd,
