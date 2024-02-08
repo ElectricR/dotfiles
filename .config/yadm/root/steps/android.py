@@ -21,6 +21,7 @@ ANDROID_PACKAGES = {
     "netcat-openbsd",
     "traceroute",
     "speedtest-go",
+    "tealdeer",
     # neoutils
     "fd",
     "bat",
