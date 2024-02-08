@@ -107,13 +107,14 @@ ARCH_PACKAGES_DESKTOP = {
     "pass",
     "rclone",
     "mediainfo",
+    "android-tools",
     # bootstrap
     "pkg-config",  # indirect for yay packages
     "python-black",
 }
 
 YAY_PACKAGES_BASE = {"shadowsocks-rust-bin", "xray-bin"}
-YAY_PACKAGES_DESKTOP = {"hyprpaper-git", "hyprpicker-git", "xdg-ninja"}
+YAY_PACKAGES_DESKTOP = {"hyprpaper-git", "hyprpicker-git", "xdg-ninja", "universal-android-debloater-bin"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
