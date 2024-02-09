@@ -34,6 +34,7 @@ urgency.blocking.coefficient        = 0
 urgency.blocked.coefficient         = -100
 urgency.annotations.coefficient     = 0
 urgency.tags.coefficient            = 0
+urgency.user.tag.next.coefficient   = +50
 
 # Define estimate attribute
 uda.estimate.type = numeric
