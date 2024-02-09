@@ -40,9 +40,6 @@ alias kitty-reload='kill -SIGUSR1 $(pgrep kitty)'
 
 alias n="newsboat"
 
-alias st="ssh tablet"
-alias sp="ssh pc"
-
 nsxiv() {
     xrdb -merge $HOME/.config/nsxiv/colors
     /usr/bin/nsxiv $@
