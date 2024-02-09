@@ -47,5 +47,5 @@ report.list.labels = ID,Active,Age,D,P,Project,Tags,R,Sch,Due,Until,Est,Descript
 
 report.ls.sort = urgency+
 report.ls.filter = status:pending -WAITING
-report.ls.columns = id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.countdown,until.countdown,estimate,description.count
-report.ls.labels = ID,A,D,Project,Tags,R,Wait,S,Due,Until,Est,Description
+report.ls.columns = id,start.active,depends.indicator,project,tags.count,recur.indicator,wait.remaining,scheduled.countdown,due.countdown,until.countdown,estimate,description.count
+report.ls.labels = ID,A,D,Project,T,R,Wait,S,Due,Until,Est,Description
