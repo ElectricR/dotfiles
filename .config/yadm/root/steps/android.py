@@ -22,6 +22,7 @@ ANDROID_PACKAGES = {
     "traceroute",
     "speedtest-go",
     "tealdeer",
+    "rsync",
     # neoutils
     "fd",
     "bat",
