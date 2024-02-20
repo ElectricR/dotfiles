@@ -69,6 +69,7 @@ ARCH_PACKAGES_HEADLESS_EXTRA = {
 ARCH_PACKAGES_DESKTOP = {
     # desktop
     "hyprland",
+    "hyprpaper",
     "xdg-desktop-portal-hyprland", # <-- zoom screensharing in firefox
     "firefox",
     "kitty",
@@ -114,7 +115,7 @@ ARCH_PACKAGES_DESKTOP = {
 }
 
 YAY_PACKAGES_BASE = {"shadowsocks-rust-bin", "xray-bin"}
-YAY_PACKAGES_DESKTOP = {"hyprpaper-git", "hyprpicker-git", "xdg-ninja", "universal-android-debloater-bin"}
+YAY_PACKAGES_DESKTOP = {"hyprpicker-git", "xdg-ninja", "universal-android-debloater-bin"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
