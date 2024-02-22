@@ -32,9 +32,13 @@ function prompt_my_tmux_indicator() {
   fi
 }
 
-function prompt_my_yadm_stash_warning() {
+function prompt_my_yadm_indicator() {
   if [[ -n "$(yadm stash list)" ]]; then
     p10k segment -b $COLOR_WARN_24 -t "YADM STASH" -i ""
+  fi
+  integer changes_count="$(yadm status --short | wc -l)"
+  if (( changes_count > 0 )); then
+    p10k segment -b $COLOR_RAW_24 -t "$changes_count" -i ""
   fi
 }
 
@@ -124,7 +128,7 @@ function prompt_my_yadm_stash_warning() {
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     background_jobs         # presence of background jobs
     my_tmux_indicator
-    my_yadm_stash_warning
+    my_yadm_indicator
     # cpu_arch              # CPU architecture
     time                    # current time
     # =========================[ Line #2 ]=========================
