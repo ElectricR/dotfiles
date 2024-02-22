@@ -40,7 +40,7 @@ function prompt_my_yadm_indicator() {
   if (( uncommited_count > 0 )); then
     p10k segment -b $COLOR_RAW_24 -t "$uncommited_count" -i ""
   fi
-  integer local_commits_count="$(yadm rev-list --count --first-parent origin/master..master | wc -l)"
+  integer local_commits_count="$(yadm rev-list --count --first-parent origin/master..master)"
   if (( local_commits_count > 0 )); then
     p10k segment -b $COLOR_OP_24 -t "$local_commits_count" -i ""
   fi
