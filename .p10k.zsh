@@ -36,9 +36,13 @@ function prompt_my_yadm_indicator() {
   if [[ -n "$(yadm stash list)" ]]; then
     p10k segment -b $COLOR_WARN_24 -t "YADM STASH" -i ""
   fi
-  integer changes_count="$(yadm status --short | wc -l)"
-  if (( changes_count > 0 )); then
-    p10k segment -b $COLOR_RAW_24 -t "$changes_count" -i ""
+  integer uncommited_count="$(yadm status --short | wc -l)"
+  if (( uncommited_count > 0 )); then
+    p10k segment -b $COLOR_RAW_24 -t "$uncommited_count" -i ""
+  fi
+  integer local_commits_count="$(yadm rev-list --count --first-parent origin/master..master | wc -l)"
+  if (( local_commits_count > 0 )); then
+    p10k segment -b $COLOR_OP_24 -t "$local_commits_count" -i ""
   fi
 }
 
