@@ -26,7 +26,7 @@ function prompt_my_task_current_id() {
 }
 
 function prompt_my_tmux_indicator() {
-  integer clients_count="$(tmux list-clients 2>/dev/null | wc -l)"
+  integer clients_count="$(tmux list-sessions 2>/dev/null | wc -l)"
   if (( clients_count > 0 )) && [[ -z $TMUX ]]; then
     p10k segment -b $COLOR_OBJ_24 -t "$clients_count" -i ""
   fi
