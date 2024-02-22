@@ -19,6 +19,12 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
+function prompt_my_task_current_id() {
+  if [[ -n $_t_memo_prev ]]; then
+    p10k segment -b $COLOR_HINT_24 -t "$_t_memo_prev" -i ''
+  fi
+}
+
 () {
   emulate -L zsh -o extended_glob
 
@@ -102,6 +108,7 @@
     # swap                  # used swap
     # todo                  # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
+    my_task_current_id
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     # cpu_arch              # CPU architecture
     time                    # current time
