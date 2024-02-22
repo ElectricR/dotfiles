@@ -3,18 +3,18 @@ function __backup_get_date_suffix {
 }
 
 function __backup_remote_archive_with_cd {
-    if [ -f "$HOME/slow_ssd/backups/$1/$1-backup-$2.tar" ]; then
+    if [ -f "$HOME/slow_ssd/backups/$2/$2-backup-$3.tar" ]; then
         echo "Local backup already exists"
         return
     fi
     echo "Creating backup..."
-    ssh berry "tar cf $1-backup-$2.tar -C $3 ${@:4}"
+    ssh $1 "tar cf $2-backup-$3.tar -C $4 ${@:5}"
     echo "Backup created"
     echo "Copying backup to disk..."
-    scp "berry:$1-backup-$2.tar" "$HOME/slow_ssd/backups/$1/"
+    scp "$1:$2-backup-$3.tar" "$HOME/slow_ssd/backups/$2/"
     echo "Backup copied"
     echo "Removing archive from berry..."
-    ssh berry "rm $1-backup-$2.tar"
+    ssh $1 "rm $2-backup-$3.tar"
     echo "Removed"
 }
 
@@ -24,7 +24,7 @@ function __backup_local_archive {
         return
     fi
     echo "Creating backup..."
-    tar cf "$1-backup-$2.tar" "${@:3}"
+    tar cf "$1-backup-$2.tar" -C $3 "${@:4}"
     echo "Backup created"
     echo "Copying backup to disk..."
     cp "$1-backup-$2.tar" "$HOME/slow_ssd/backups/$1/"
@@ -56,9 +56,24 @@ function __backup_upload_gpg {
     echo "Removed"
 }
 
+backup_zhistory() {
+    datename=$(__backup_get_date_suffix)
+    __backup_local_archive zhistory "pc-$datename" "$HOME/.local/share/zsh" ".zhistory"
+    for host in berry rasp overseer; do
+        __backup_remote_archive_with_cd $host zhistory "$host-$datename" "~/.local/share/zsh" .zhistory
+    done
+    for host in pc berry rasp overseer; do
+        __backup_encrypt_archive "$HOME/slow_ssd/backups/zhistory" "zhistory-backup-$host-$datename.tar"
+    done
+    for host in pc berry rasp overseer; do
+        __backup_upload_gpg zhistory "zhistory-backup-$host-$datename.tar.gpg"
+    done
+    echo 'Finished'
+}
+
 backup_taskwarrior() {
     datename=$(__backup_get_date_suffix)
-    __backup_remote_archive_with_cd taskwarrior $datename "~/.local/share" task
+    __backup_remote_archive_with_cd berry taskwarrior $datename "~/.local/share" task
     __backup_encrypt_archive "$HOME/slow_ssd/backups/taskwarrior" "taskwarrior-backup-$datename.tar"
     __backup_upload_gpg taskwarrior "taskwarrior-backup-$datename.tar.gpg"
     echo "Finished"
@@ -66,7 +81,7 @@ backup_taskwarrior() {
 
 backup_newsboat() {
     datename=$(__backup_get_date_suffix)
-    __backup_remote_archive_with_cd newsboat $datename "~" ".config/newsboat/urls" ".local/share/newsboat/*"
+    __backup_remote_archive_with_cd berry newsboat $datename "~" ".config/newsboat/urls" ".local/share/newsboat/*"
     __backup_encrypt_archive "$HOME/slow_ssd/backups/newsboat" "newsboat-backup-$datename.tar"
     __backup_upload_gpg newsboat "newsboat-backup-$datename.tar.gpg"
     echo "Finished"
@@ -74,7 +89,7 @@ backup_newsboat() {
 
 backup_osu() {
     datename=$(__backup_get_date_suffix)
-    __backup_local_archive osu $datename "$HOME/osu"
+    __backup_local_archive osu $datename "$HOME" "osu"
     __backup_encrypt_archive "$HOME/slow_ssd/backups/osu" "osu-backup-$datename.tar"
     echo 'osu backup creation is done, now do manual upload and remove gpg file'
 }
