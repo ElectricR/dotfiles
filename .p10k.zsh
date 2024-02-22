@@ -25,6 +25,13 @@ function prompt_my_task_current_id() {
   fi
 }
 
+function prompt_my_tmux_indicator() {
+  integer clients_count="$(tmux list-clients 2>/dev/null | wc -l)"
+  if (( clients_count > 0 )) && [[ -z $TMUX ]]; then
+    p10k segment -b $COLOR_OBJ_24 -t "$clients_count" -i ""
+  fi
+}
+
 () {
   emulate -L zsh -o extended_glob
 
@@ -56,7 +63,6 @@ function prompt_my_task_current_id() {
     # =========================[ Line #1 ]=========================
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
-    background_jobs         # presence of background jobs
     # direnv                # direnv status (https://direnv.net/)
     # asdf                  # asdf version manager (https://github.com/asdf-vm/asdf)
     # virtualenv            # python virtual environment (https://docs.python.org/3/library/venv.html)
@@ -110,6 +116,8 @@ function prompt_my_task_current_id() {
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     my_task_current_id
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    background_jobs         # presence of background jobs
+    my_tmux_indicator
     # cpu_arch              # CPU architecture
     time                    # current time
     # =========================[ Line #2 ]=========================
