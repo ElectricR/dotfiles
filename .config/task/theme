@@ -5,6 +5,7 @@ color.blocking         = none
 color.calendar.weekend = none
 
 # Actual colors
+color.active                   = rgb200 on $COLOR_OBJ
 color.label                    = $COLOR_TYPE
 color.label.sort               = $COLOR_TYPE
 color.overdue                  = $COLOR_OP
