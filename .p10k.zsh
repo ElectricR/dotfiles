@@ -21,7 +21,7 @@
 
 function prompt_my_task_current_id() {
   if [[ -n $_t_memo_prev ]]; then
-    p10k segment -b $COLOR_HINT_24 -t "$_t_memo_prev" -i ''
+    p10k segment -b $COLOR_PARAM_24 -t "$_t_memo_prev" -i ''
   fi
 }
 
