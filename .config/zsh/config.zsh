@@ -43,6 +43,18 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
+# Increase/Decrease number under cursor
+autoload -U incarg
+decarg() {
+    NUMERIC="-1"
+    incarg
+}
+zle -N incarg
+zle -N decarg
+bindkey '^a' incarg '^x' decarg
+bindkey -M vicmd '^a' incarg '^x' decarg
+bindkey -M visual '^a' incarg '^x' decarg
+
 # Edit line in editor with ctrl-e:
 autoload edit-command-line
 zle -N edit-command-line
