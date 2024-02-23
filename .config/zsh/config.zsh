@@ -47,6 +47,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '^e' edit-command-line
+bindkey -M vicmd '^e' edit-command-line
 
 # Basic auto/tab complete:
 autoload -U compinit
