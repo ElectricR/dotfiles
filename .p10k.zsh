@@ -25,22 +25,27 @@ function prompt_my_task_current_id() {
   fi
 }
 
-function prompt_my_tmux_indicator() {
-  integer clients_count="$(tmux list-sessions 2>/dev/null | wc -l)"
-  if (( clients_count > 0 )) && [[ -z $TMUX ]]; then
-    p10k segment -b $COLOR_OBJ_24 -t "$clients_count" -i ""
+function prompt_my_indicators() {
+  (
+    yadm stash list | wc -l > /tmp/_p10k_indicators_yadm_stash &
+    yadm status --short | wc -l > /tmp/_p10k_indicators_yadm_uncommited &
+    yadm rev-list --count --first-parent origin/master..master > /tmp/_p10k_indicators_yadm_local &
+    tmux list-sessions 2>/dev/null | wc -l > /tmp/_p10k_indicators_tmux &
+    wait
+  )
+  integer stash_count=$(</tmp/_p10k_indicators_yadm_stash)
+  integer uncommited_count=$(</tmp/_p10k_indicators_yadm_uncommited)
+  integer local_commits_count=$(</tmp/_p10k_indicators_yadm_local)
+  integer session_count=$(</tmp/_p10k_indicators_tmux)
+  if (( session_count > 0 )) && [[ -z $TMUX ]]; then
+    p10k segment -b $COLOR_OBJ_24 -t "$session_count" -i ""
   fi
-}
-
-function prompt_my_yadm_indicator() {
-  if [[ -n "$(yadm stash list)" ]]; then
+  if (( stash_count > 0 )); then
     p10k segment -b $COLOR_WARN_24 -t "YADM STASH" -i ""
   fi
-  integer uncommited_count="$(yadm status --short | wc -l)"
   if (( uncommited_count > 0 )); then
     p10k segment -b $COLOR_RAW_24 -t "$uncommited_count" -i ""
   fi
-  integer local_commits_count="$(yadm rev-list --count --first-parent origin/master..master)"
   if (( local_commits_count > 0 )); then
     p10k segment -b $COLOR_OP_24 -t "$local_commits_count" -i ""
   fi
@@ -131,8 +136,7 @@ function prompt_my_yadm_indicator() {
     my_task_current_id
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     background_jobs         # presence of background jobs
-    my_tmux_indicator
-    my_yadm_indicator
+    my_indicators
     # cpu_arch              # CPU architecture
     time                    # current time
     # =========================[ Line #2 ]=========================
