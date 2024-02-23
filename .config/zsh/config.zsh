@@ -55,6 +55,26 @@ bindkey '^a' incarg '^x' decarg
 bindkey -M vicmd '^a' incarg '^x' decarg
 bindkey -M visual '^a' incarg '^x' decarg
 
+# Change cursor shape for zsh (openssh issues)
+# Source: https://unix.stackexchange.com/questions/433273/changing-cursor-style-based-on-mode-in-both-zsh-and-vim
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+precmd_functions+=(_fix_cursor)
+
 # Edit line in editor with ctrl-e:
 autoload edit-command-line
 zle -N edit-command-line
