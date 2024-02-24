@@ -1,0 +1,45 @@
+##############################################
+# Keybinds
+##############################################
+## Unbind
+unbind *
+unbind * <Enter>
+unbind * <Return>
+unbind * <Esc>b
+unbind * <Esc>b
+unbind * q
+unbind * ?
+unbind * <F1>
+unbind * <F2>
+unbind * :
+unbind * \Cb
+unbind * y
+
+## Bind
+### Generic
+bind generic h exit
+bind generic ? help
+
+### Pager
+bind pager h exit
+bind pager j next-line
+bind pager k previous-line
+bind pager \Cd half-down
+bind pager \Cu half-up
+bind pager / search
+bind pager n search-next
+bind pager N search-opposite
+bind pager gg top
+bind pager G bottom
+
+### Index
+bind index q quit
+bind index j next-undeleted
+bind index k previous-undeleted
+bind index c change-folder
+bind index J sidebar-next
+bind index K sidebar-prev
+bind index <Return> sidebar-open
+bind index l display-message
+bind index t sidebar-toggle-visible
+bind index d delete-message
