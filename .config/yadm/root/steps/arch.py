@@ -58,6 +58,7 @@ ARCH_PACKAGES_HEADLESS_EXTRA = {
     "task",
     "timew",
     "newsboat",
+    "neomutt",
     # utils
     "tldr",
     "wget",
