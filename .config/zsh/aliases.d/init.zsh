@@ -48,6 +48,7 @@ nsxiv() {
 ssh() {
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
         nc -kl localhost 44444 | xargs -L1 xdg-open &
+        zsh ${HOME}/.config/neomutt/berry_port_map.sh &
     fi
 
     if [ -n "$(lscpu | grep 5800X)" ]; then
@@ -58,5 +59,7 @@ ssh() {
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
         pkill -P $$ -f 'xargs -L1'
         pkill -P $$ -f 'nc -kl localhost 44444'
+        pkill -P $$ -f "berry_port_map.sh"
+        pkill -f 'nc -l localhost 44445'
     fi
 }
