@@ -19,6 +19,7 @@ unbind * y
 ### Generic
 bind generic h exit
 bind generic ? help
+bind generic : enter-command
 
 ### Pager
 bind pager h exit
@@ -45,5 +46,12 @@ bind index <Return> sidebar-open
 bind index l display-message
 bind index t sidebar-toggle-visible
 bind index d delete-message
+bind index D undelete-message
+bind index r sync-mailbox
+bind index s save-message
+macro index m "<clear-flag>O"
+bind index n next-unread
 
 bind attach <Return> view-attach
+bind attach j next-entry
+bind attach k previous-entry
