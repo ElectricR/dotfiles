@@ -34,8 +34,8 @@ bind pager G bottom
 
 ### Index
 bind index q quit
-bind index j next-undeleted
-bind index k previous-undeleted
+bind index j next-entry
+bind index k previous-entry
 bind index c change-folder
 bind index J sidebar-next
 bind index K sidebar-prev
