@@ -132,7 +132,7 @@ return {
                 on_attach = on_attach,
                 capabilities = capabilities,
                 --root_dir = require('lspconfig.util').root_pattern("ya.make", "go.work", "go.mod", ".git"),
-                root_dir = require('lspconfig.util').root_pattern("mdb-internal-api"),
+                root_dir = require('lspconfig.util').root_pattern("mdb-internal-api", "backup"),
                 settings = {
                     gopls = {
                         semanticTokens = true,
