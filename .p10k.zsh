@@ -27,16 +27,16 @@ function prompt_my_task_current_id() {
 
 function prompt_my_indicators() {
   (
-    yadm stash list | wc -l > /tmp/_p10k_indicators_yadm_stash &
-    yadm status --short | wc -l > /tmp/_p10k_indicators_yadm_uncommited &
-    yadm rev-list --count --first-parent origin/master..master > /tmp/_p10k_indicators_yadm_local &
-    tmux list-sessions 2>/dev/null | wc -l > /tmp/_p10k_indicators_tmux &
+    yadm stash list | wc -l > ${TMPDIR}/tmp/_p10k_indicators_yadm_stash &
+    yadm status --short | wc -l > ${TMPDIR}/tmp/_p10k_indicators_yadm_uncommited &
+    yadm rev-list --count --first-parent origin/master..master > ${TMPDIR}/tmp/_p10k_indicators_yadm_local &
+    tmux list-sessions 2>/dev/null | wc -l > ${TMPDIR}/tmp/_p10k_indicators_tmux &
     wait
   )
-  integer stash_count=$(</tmp/_p10k_indicators_yadm_stash)
-  integer uncommited_count=$(</tmp/_p10k_indicators_yadm_uncommited)
-  integer local_commits_count=$(</tmp/_p10k_indicators_yadm_local)
-  integer session_count=$(</tmp/_p10k_indicators_tmux)
+  integer stash_count=$(<${TMPDIR}/tmp/_p10k_indicators_yadm_stash)
+  integer uncommited_count=$(<${TMPDIR}/tmp/_p10k_indicators_yadm_uncommited)
+  integer local_commits_count=$(<${TMPDIR}/tmp/_p10k_indicators_yadm_local)
+  integer session_count=$(<${TMPDIR}/tmp/_p10k_indicators_tmux)
   if (( session_count > 0 )) && [[ -z $TMUX ]]; then
     p10k segment -b $COLOR_OBJ_24 -t "$session_count" -i ""
   fi
