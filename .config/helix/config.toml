@@ -2,6 +2,7 @@ theme = "mytheme"
 
 [editor]
 scroll-lines=1
+mouse=false
 
 [editor.soft-wrap]
 enable = true
