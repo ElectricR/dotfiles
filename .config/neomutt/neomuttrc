@@ -1,3 +1,4 @@
 source config.rc
 source keys.rc
 source accounts/init.rc
+source colors.rc
