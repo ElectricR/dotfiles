@@ -8,3 +8,6 @@ set mail_check_stats # Autoupdate mailboxes
 
 # Misc
 set delete = yes # Do not prompt after sync
+set sort = threads
+set sort_aux = reverse-last-date-received
+set header_cache = "~/.cache/neomutt/headers"

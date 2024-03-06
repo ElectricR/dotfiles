@@ -1,0 +1,5 @@
+# Default account
+source gmail/folder.rc
+
+source hooks.rc
+source mailboxes.rc
