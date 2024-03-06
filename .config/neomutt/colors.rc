@@ -1,4 +1,6 @@
 set color_directcolor
 
+# Order of colors does matter
+
 color index `echo $COLOR_HINT_24` default ~U
 color index `echo $COLOR_OP_24` default ~D

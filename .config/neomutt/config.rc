@@ -3,7 +3,7 @@
 ##############################################
 # Sidebar
 set sidebar_visible
-set sidebar_format = "%B%<F? [%F]>%* %<N?%N>"
+set sidebar_format = "%D%<F? [%F]>%* %<N?%N>"
 set mail_check_stats # Autoupdate mailboxes
 
 # Misc
