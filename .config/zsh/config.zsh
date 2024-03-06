@@ -1,5 +1,5 @@
 # I am so tired of kitty
-export TERM=xterm-256color
+export TERM=xterm-direct
 
 # I am so tired of gdb
 unset DEBUGINFOD_URLS
