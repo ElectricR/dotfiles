@@ -51,6 +51,7 @@ bind index r sync-mailbox
 bind index s save-message
 macro index m "<clear-flag>O"
 bind index n next-unread
+bind index p previous-unread
 
 bind attach <Return> view-attach
 bind attach j next-entry
