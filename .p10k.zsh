@@ -26,17 +26,25 @@ function prompt_my_task_current_id() {
 }
 
 function prompt_my_indicators() {
+  function __get_tmp_dir() {
+    if [[ -n $TMPDIR ]]; then
+      echo ${TMPDIR::-4}
+    else
+      echo ""
+    fi
+  }
+
   (
-    yadm stash list | wc -l > ${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_yadm_stash &
-    yadm status --short | wc -l > ${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_yadm_uncommited &
-    yadm rev-list --count --first-parent origin/master..master > ${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_yadm_local &
-    tmux list-sessions 2>/dev/null | wc -l > ${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_tmux &
+    yadm stash list | wc -l > $(__get_tmp_dir)/tmp/_p10k_indicators_yadm_stash &
+    yadm status --short | wc -l > $(__get_tmp_dir)/tmp/_p10k_indicators_yadm_uncommited &
+    yadm rev-list --count --first-parent origin/master..master > $(__get_tmp_dir)/tmp/_p10k_indicators_yadm_local &
+    tmux list-sessions 2>/dev/null | wc -l > $(__get_tmp_dir)/tmp/_p10k_indicators_tmux &
     wait
   )
-  integer stash_count=$(<${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_yadm_stash)
-  integer uncommited_count=$(<${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_yadm_uncommited)
-  integer local_commits_count=$(<${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_yadm_local)
-  integer session_count=$(<${TMPDIR::${#TMPDIR}-4}/tmp/_p10k_indicators_tmux)
+  integer stash_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_yadm_stash)
+  integer uncommited_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_yadm_uncommited)
+  integer local_commits_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_yadm_local)
+  integer session_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_tmux)
   if (( session_count > 0 )) && [[ -z $TMUX ]]; then
     p10k segment -b $COLOR_OBJ_24 -t "$session_count" -i ""
   fi
