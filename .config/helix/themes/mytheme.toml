@@ -1,3 +1,45 @@
 inherits = "default"
 
+# Syntax
+"function"             = { fg = "obj", modifiers = ["italic"] }
+"type"                 = { fg = "type", modifiers = ["italic"] }
+"variable.parameter"   = { fg = "param" }
+"string"               = { fg = "str" }
+"namespace"            = { fg = "ns" }
+"keyword"              = { fg = "key" }
+"keyword.operator"     = { fg = "op" }
+"operator"             = { fg = "op" }
+"constant"             = { fg = "raw" }
+"constant.numeric"     = { fg = "raw" }
+"constant.builtin"     = { fg = "raw" }
+
+# UI
 "ui.background" = { modifiers = ["hidden"] }
+"ui.selection"         = { bg = "sel_off" }
+"ui.selection.primary" = { bg = "sel_off" }
+"ui.statusline" = { bg = "bg" }
+"ui.linenr" = { fg = "misc" }
+"ui.cursor" = { bg = "cursor" }
+
+# Hmmm...
+"ui.menu" = { fg = "white", bg = "bg" }
+"ui.text" = { fg = "white" }
+"punctuation" = { fg = "white" }
+"punctuation.delimiter" = { fg = "white" }
+"variable" = { fg = "white" }
+
+
+# Hoping for no mismatches with env vars
+[palette]
+obj     = "#87D700" # COLOR_OBJ_24
+key     = "#FF005F" # COLOR_KEY_24
+param   = "#87D7FF" # COLOR_PARAM_24
+str     = "#FFD75F" # COLOR_STR_24
+type    = "#FF875F" # COLOR_TYPE_24
+ns      = "#FFFF87" # COLOR_NS_24
+sel_off = "#4E4E4E" # COLOR_SEL_OFF_24
+op      = "#FF5F5F" # COLOR_OP_24
+raw     = "#FFD7AF" # COLOR_RAW_24
+bg      = "#1C1C1C" # COLOR_BG_24
+misc    = "#444444" # COLOR_MISC_24
+cursor  = "#5F5FFF" # COLOR_CURSOR_24
