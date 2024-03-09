@@ -74,7 +74,11 @@ function td { _t_memo_subcommand_with_reset done $@ }
 function ts { _t_memo_subcommand start $@ }
 function tp { _t_memo_subcommand stop $@ }
 
-alias tl="task list"
+if [[ $(echo $SSH_CLIENT | awk '{print $1}' | xargs -I{} grep "{}" /etc/hosts | awk '{print $2}') == 'phone' ]]; then
+    alias tl="task ls"
+else
+    alias tl="task list"
+fi
 
 function to {
     # Double call because of freaking pipe subshells
