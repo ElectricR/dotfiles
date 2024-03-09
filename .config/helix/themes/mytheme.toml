@@ -2,6 +2,7 @@ inherits = "default"
 
 # Syntax
 "function"             = { fg = "obj", modifiers = ["italic"] }
+"function.builtin"     = { fg = "obj", modifiers = ["italic"] }
 "type"                 = { fg = "type", modifiers = ["italic"] }
 "variable.parameter"   = { fg = "param" }
 "string"               = { fg = "str" }
