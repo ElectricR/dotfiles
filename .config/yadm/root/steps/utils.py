@@ -4,7 +4,7 @@ import subprocess
 
 
 def default_result():
-    return {"name": "CHANGE ME", "result": False, "changes": []}
+    return {"name": "CHANGE ME", "result": False, "skipped": False, "changes": []}
 
 
 def setup_link(

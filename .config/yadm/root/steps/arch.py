@@ -560,6 +560,9 @@ def wireguard(config: Config, log_fd: typing.IO) -> typing.Callable:
             # Kostyl to remove sudo call
             return True
         privkey = get_privkey()
+        if config.secrets.wgPort is None:
+            result['skipped'] = True
+            return False
         wg1config = WIREGUARD_CLIENT_TEMPLATE1.format(privateKey=privkey, wgNode=config.secrets.wgNode, serverAddress=config.secrets.serverAddress, serverWgPubkey=config.secrets.serverWgPubkey, wgPort=config.secrets.wgPort, dev=get_dev())
         return utils.create_file(result, log_fd, "/etc/wireguard/wg1.conf", wg1config)
 
@@ -654,9 +657,13 @@ def xray(log_fd: typing.IO, secrets: Secrets) -> typing.Callable:
         result["name"] = "xray"
         if not utils.chmod(result, log_fd, "/etc/xray", "711"):
             return result
-        xray_config = XRAY_CLIENT_TEMPLATE.format(secrets.wgPort, secrets.serverAddress, uuid.uuid4(), secrets.serverXrayPubkey, secrets.serverXrayId)
-        if not utils.create_file(result, log_fd, "/etc/xray/wg1.json", xray_config):
-            return result
+        if os.system("stat /etc/xray/wg1.json 2> /dev/null > /dev/null") != 0:
+            if secrets.wgPort is None:
+                result['skipped'] = True
+                return result
+            xray_config = XRAY_CLIENT_TEMPLATE.format(secrets.wgPort, secrets.serverAddress, uuid.uuid4(), secrets.serverXrayPubkey, secrets.serverXrayId)
+            if not utils.create_file(result, log_fd, "/etc/xray/wg1.json", xray_config):
+                return result
         if not utils.chown(result, log_fd, "/etc/xray/wg1.json", "xray"):
             return result
         if not utils.chmod(result, log_fd, "/etc/xray/wg1.json", "400"):

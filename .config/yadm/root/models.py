@@ -15,16 +15,16 @@ class Device(Enum):
 
 
 class Secrets(SimpleNamespace):
-    serverAddress: str = "<NONE>"
-    wgPort: str = "<NONE>"
-    wgNode: str = "<NONE>"
-    serverXrayPubkey: str = "<NONE>"
-    serverXrayId: str = "<NONE>"
-    serverSSPort: str = "<NONE>"
-    serverWgPubkey: str = "<NONE>"
+    serverAddress: str|None = None
+    wgPort: str|None = None
+    wgNode: str|None = None
+    serverXrayPubkey: str|None = None
+    serverXrayId: str|None = None
+    serverSSPort: str|None = None
+    serverWgPubkey: str|None = None
 
 
 class Config(SimpleNamespace):
     installation: Installation
     device: Device
-    secrets: Secrets
+    secrets: Secrets = Secrets()

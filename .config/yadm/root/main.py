@@ -39,13 +39,12 @@ def load_secrets(config: Config) -> None:
         return
     with open(path) as f:
         data = json.load(f)
-        config.secrets = Secrets()
-        config.secrets.wgPort = data.get("wgPort", "<NONE>")
-        config.secrets.wgNode = data.get("wgNode", "<NONE>")
-        config.secrets.serverAddress = data.get("serverAddress", "<NONE>")
-        config.secrets.serverXrayId = data.get("serverXrayId", "<NONE>")
-        config.secrets.serverXrayPubkey = data.get("serverXrayPubkey", "<NONE>")
-        config.secrets.serverWgPubkey = data.get("serverWgPubkey", "<NONE>")
+        config.secrets.wgPort = data.get("wgPort", None)
+        config.secrets.wgNode = data.get("wgNode", None)
+        config.secrets.serverAddress = data.get("serverAddress", None)
+        config.secrets.serverXrayId = data.get("serverXrayId", None)
+        config.secrets.serverXrayPubkey = data.get("serverXrayPubkey", None)
+        config.secrets.serverWgPubkey = data.get("serverWgPubkey", None)
 
 
 def validate_user(config: Config) -> None:
@@ -73,6 +72,8 @@ def colorize_result(result: dict) -> str:
         import termcolor
 
         if not result["result"]:
+            if result["skipped"]:
+                return termcolor.colored(str(result), "yellow")
             return termcolor.colored(str(result), "red")
         elif result["changes"]:
             return termcolor.colored(str(result), "green")
