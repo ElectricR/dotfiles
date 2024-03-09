@@ -1,19 +1,32 @@
 theme = "mytheme"
 
 [editor]
-scroll-lines=1
-mouse=false
+scroll-lines           = 1
+mouse                  = false
+line-number            = "relative"
+completion-trigger-len = 1
+true-color             = true
+undercurl              = true
+bufferline             = "multiple"
 
-[editor.soft-wrap]
-enable = true
+[editor.lsp]
+display-inlay-hints = true
+display-messages    = true
 
 [editor.cursor-shape]
 normal = "bar"
 insert = "bar"
 select = "bar"
 
+[editor.file-picker]
+follow-symlinks = false
+
+[editor.soft-wrap]
+enable = true
+
 [keys.normal]
 "A-c" = "copy_selection_on_prev_line"
+"A-k" = "remove_selections"
 
 [keys.normal."space"]
 "f" = "file_picker_in_current_directory"

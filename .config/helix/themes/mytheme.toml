@@ -18,6 +18,7 @@ inherits = "default"
 "ui.selection"         = { bg = "sel_off" }
 "ui.selection.primary" = { bg = "sel_off" }
 "ui.statusline" = { bg = "bg" }
+"ui.statusline.inactive" = { fg = "misc", bg = "bg" }
 "ui.linenr" = { fg = "misc" }
 "ui.cursor" = { bg = "cursor" }
 
