@@ -82,7 +82,8 @@ ARCH_PACKAGES_DESKTOP = {
     # yubikey
     "libfido2",
     "yubikey-manager",
-    # pdf
+    # documents
+    "glow",
     "zathura",
     "zathura-pdf-mupdf",
     # image viewing
@@ -97,6 +98,7 @@ ARCH_PACKAGES_DESKTOP = {
     "go",
     "gopls",
     "pyright",
+    "marksman",
     # audio
     "pipewire",
     "pipewire-alsa",
