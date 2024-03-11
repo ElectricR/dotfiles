@@ -1,5 +1,6 @@
 # All 24-bit colors are based on kitty's interpretation of these colors
 
+# Those values are also copied to kitty and helix
 export COLOR_KEY=color197                  # 16 + 5*6*6 + 0*6 + 1
 export COLOR_KEY_24='#FF005F'              #
 export COLOR_STR=color221                  # 16 + 5*6*6 + 4*6 + 1
