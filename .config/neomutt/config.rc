@@ -1,13 +1,20 @@
 ##############################################
 # Config
 ##############################################
-# Sidebar
-set sidebar_visible
-set sidebar_format = "%D%<F? [%F]>%* %<N?%N>"
+# Core
 set mail_check_stats # Autoupdate mailboxes
-
-# Misc
 set delete = yes # Do not prompt after sync
+set header_cache = "~/.cache/neomutt/headers"
+
+# Navigation
+set sidebar_visible
+set pager_context = 256
+set search_context = 256
+set menu_context = 256
 set sort = threads
 set sort_aux = reverse-last-date-received
-set header_cache = "~/.cache/neomutt/headers"
+
+# Styling
+set help = no
+set sidebar_format = "%D%<F? [%F]>%* %<N?%N>"
+set index_format = "%5C %{%b %d} %-15.15L %s"

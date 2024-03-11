@@ -2,5 +2,19 @@ set color_directcolor
 
 # Order of colors does matter
 
-color index `echo $COLOR_HINT_24` default ~U
+color indicator default `echo $COLOR_SEL_24`
 color index `echo $COLOR_OP_24` default ~D
+color index `echo $COLOR_HINT_24` default ~U
+color index_number `echo $COLOR_MISC_24` default ~A
+color index_date `echo $COLOR_OBJ_24` default ~A
+color index_author italic `echo $COLOR_TYPE_24` default ~A
+
+color search default `echo $COLOR_SEARCH_ACTIVE_24`
+color tree `echo $COLOR_STR_24` default
+
+color sidebar_unread `echo $COLOR_HINT_24` default
+color sidebar_ordinary `echo $COLOR_RAW_24` default
+color sidebar_divider `echo $COLOR_MISC_24` default
+color sidebar_indicator bold underline default default
+
+color status white `echo $COLOR_MISC_24`

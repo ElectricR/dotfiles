@@ -17,7 +17,6 @@ unbind * y
 
 ## Bind
 ### Generic
-bind generic h exit
 bind generic ? help
 bind generic : enter-command
 
@@ -54,6 +53,7 @@ bind index n next-unread
 bind index p previous-unread
 bind index gg first-entry
 bind index ge last-entry
+bind index / search
 
 bind attach <Return> view-attach
 bind attach j next-entry
