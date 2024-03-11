@@ -58,3 +58,4 @@ bind index / search
 bind attach <Return> view-attach
 bind attach j next-entry
 bind attach k previous-entry
+bind attach h exit
