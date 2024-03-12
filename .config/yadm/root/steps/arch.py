@@ -25,6 +25,7 @@ ARCH_PACKAGES_HEADLESS = {
     "btop",
     "strace",
     "openbsd-netcat",
+    "tcpdump",
     # core
     "ntp",
     "make",
