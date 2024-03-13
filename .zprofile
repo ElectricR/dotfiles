@@ -1,1 +1,1 @@
-export EDITOR='nvim'
+exec Hyprland
