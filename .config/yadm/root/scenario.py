@@ -29,6 +29,8 @@ def get_android_scenario(f: typing.TextIO) -> list:
 
 def get_arch_scenario(config: Config, f: typing.TextIO) -> list:
     stps = []
+    if config.device in [Device.PC, Device.LAPTOP]:
+        stps.append(arch.vconsole(f))
     stps.append(arch.pacman_config(f))
     stps.append(arch.pacman_packages(config.device, f))
     stps.append(arch.yay_install(f))

@@ -712,3 +712,46 @@ def enable_ntp(log_fd: typing.IO) -> typing.Callable:
         result["result"] = True
         return result
     return run
+
+
+FILES_MKINITCPIO = "FILES=(\\/home\\/er\\/.config\\/kbd\\/dvp_modified \\/usr\\/share\\/kbd\\/keymaps\\/i386\\/dvorak\\/dvorak-programmer.map.gz \\/usr\\/share\\/kbd\\/keymaps\\/i386\\/include\\/linux-keys-bare.inc \\/usr\\/share\\/kbd\\/keymaps\\/i386\\/include\\/linux-with-two-alt-keys.inc)"
+
+
+def vconsole(log_fd: typing.IO) -> typing.Callable:
+    def run() -> dict:
+        result = default_result()
+        result["name"] = "mkinitcpio"
+        retcode = subprocess.run(
+            "grep dvp_modified /etc/vconsole.conf".split(),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode
+        if retcode == 1:
+            if subprocess.run(
+                ["sudo",  "bash", "-c", "echo KEYMAP=/home/er/.config/kbd/dvp_modified > /etc/vconsole.conf"], stdout=log_fd, stderr=log_fd
+            ).returncode:
+                return result
+            result["changes"].append("modified /etc/vconsole.conf")
+        elif retcode != 0:
+            return result
+
+        retcode = subprocess.run(
+            "grep dvp_modified /etc/mkinitcpio.conf".split(),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode
+        if retcode == 1:
+            if subprocess.run(
+                ["sudo",  "sed",  "-i", f"s/FILES=.*/{FILES_MKINITCPIO}/", "/etc/mkinitcpio.conf"], stdout=log_fd, stderr=log_fd
+            ).returncode:
+                return result
+            if subprocess.run(
+                "sudo mkinitcpio -P".split(), stdout=log_fd, stderr=log_fd
+            ).returncode:
+                return result
+            result["changes"].append("added vconsole keymap files to initram")
+        elif retcode != 0:
+            return result
+        result["result"] = True
+        return result
+    return run
