@@ -118,7 +118,7 @@ ARCH_PACKAGES_DESKTOP = {
     "python-black",
 }
 
-YAY_PACKAGES_BASE = {"shadowsocks-rust-bin", "xray-bin"}
+YAY_PACKAGES_BASE = {"shadowsocks-rust", "xray-bin"}
 YAY_PACKAGES_DESKTOP = {"hyprpicker-git", "xdg-ninja", "universal-android-debloater-bin"}
 
 
