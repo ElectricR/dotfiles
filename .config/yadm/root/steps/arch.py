@@ -77,7 +77,6 @@ ARCH_PACKAGES_DESKTOP = {
     "kitty",
     "noto-fonts-emoji",
     "xdg-utils",
-    "ly",
     # osu
     "fuse2",
     # yubikey
