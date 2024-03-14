@@ -1,3 +1,3 @@
-if [[ -z $SSH_CONNECTION ]]; then
+if ! pgrep Hyprland > /dev/null; then
     exec Hyprland
 fi
