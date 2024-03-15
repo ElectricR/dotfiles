@@ -9,7 +9,7 @@ alias cal='cal -m'
 alias ls='eza'
 alias df='duf'
 alias du='dust'
-alias tree="tree -C"
+alias tree="ls --tree"
 alias cat='bat --style plain --paging never'
 
 alias p="python3"

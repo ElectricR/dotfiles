@@ -12,7 +12,6 @@ from ..models import *
 
 ARCH_PACKAGES_HEADLESS = {
     "tmux",
-    "tree",
     "fzf",
     "rsync",
     "man-pages",

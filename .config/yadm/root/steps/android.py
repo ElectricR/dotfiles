@@ -9,7 +9,6 @@ ANDROID_PACKAGES = {
     "wget",
     "tmux",
     "taskwarrior",
-    "tree",
     "zsh",
     "golang",
     "fzf",
