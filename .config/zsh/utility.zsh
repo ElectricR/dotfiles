@@ -9,7 +9,7 @@ for index ({1..100}) alias "$index"="cd +${index}"; unset index
 source $HOME/.config/zsh/plugins/bd.zsh
 
 # Fast cd using fzf
-export FZF_DEFAULT_OPTS='--height 50% --reverse --border'
+export FZF_DEFAULT_OPTS='--height 30% --reverse --border'
 fzfcd () {
     result=$(find | fzf)
     if [[ -n "$result" ]]; then
