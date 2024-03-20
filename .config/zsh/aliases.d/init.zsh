@@ -38,6 +38,7 @@ alias dvpoff="setxkbmap -model pc104 -layout us,ru -option grp:alt_shift_toggle"
 
 alias kitty-reload='kill -SIGUSR1 $(pgrep kitty)'
 
+alias newsboat="newsboat --log-file /var/log/newsboat.log --log-level 4"
 alias n="newsboat"
 alias neomutt="TERM=xterm-direct neomutt"
 
