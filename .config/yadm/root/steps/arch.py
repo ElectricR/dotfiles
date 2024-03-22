@@ -25,6 +25,7 @@ ARCH_PACKAGES_HEADLESS = {
     "strace",
     "openbsd-netcat",
     "tcpdump",
+    "sysstat", # iostat,...
     # core
     "ntp",
     "make",
