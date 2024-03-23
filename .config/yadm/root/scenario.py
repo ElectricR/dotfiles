@@ -52,7 +52,6 @@ def get_arch_scenario(config: Config, f: typing.TextIO) -> list:
         stps.append(arch.font_jetbrains(f))
         stps.append(arch.font_nerd(f))
         stps.append(arch.bootstrap_pipewire(f))
-        stps.append(arch.bootstrap_ly(f))
         stps.append(arch.bootstrap_bluetooth(f))
         stps.append(arch.hypr_paper(f, config))
         stps.append(arch.hypr_external_config(f, config))

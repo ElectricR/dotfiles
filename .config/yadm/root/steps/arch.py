@@ -371,29 +371,6 @@ def bootstrap_pipewire(log_fd: typing.IO) -> typing.Callable:
     return run
 
 
-def bootstrap_ly(log_fd: typing.IO) -> typing.Callable:
-    def run() -> dict:
-        result = default_result()
-        result["name"] = "bootstrap_ly"
-        retcode = subprocess.run(
-            "systemctl is-enabled ly".split(),
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        ).returncode
-        if retcode == 1:
-            if subprocess.run(
-                "sudo systemctl enable ly".split(), stdout=log_fd, stderr=log_fd
-            ).returncode:
-                return result
-            result["changes"].append("ly service has been enabled")
-        elif retcode != 0:
-            return result
-        result["result"] = True
-        return result
-
-    return run
-
-
 def bootstrap_bluetooth(log_fd: typing.IO) -> typing.Callable:
     def run() -> dict:
         result = default_result()
