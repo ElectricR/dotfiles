@@ -118,7 +118,7 @@ ARCH_PACKAGES_DESKTOP = {
 }
 
 YAY_PACKAGES_BASE = {"shadowsocks-rust", "xray-bin"}
-YAY_PACKAGES_DESKTOP = {"hyprpicker-git", "xdg-ninja", "universal-android-debloater-bin"}
+YAY_PACKAGES_DESKTOP = {"hyprpicker-git", "xdg-ninja", "universal-android-debloater-bin", "flameshot-git"}
 
 
 def pacman_config(log_fd: typing.IO) -> typing.Callable:
