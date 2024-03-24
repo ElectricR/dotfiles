@@ -39,12 +39,14 @@ function prompt_my_indicators() {
     yadm status --short | wc -l > $(__get_tmp_dir)/tmp/_p10k_indicators_yadm_uncommited &
     yadm rev-list --count --first-parent origin/master..master > $(__get_tmp_dir)/tmp/_p10k_indicators_yadm_local &
     tmux list-sessions 2>/dev/null | wc -l > $(__get_tmp_dir)/tmp/_p10k_indicators_tmux &
+    pass git rev-list --count --first-parent origin/master..master > $(__get_tmp_dir)/tmp/_p10k_indicators_pass_git_local &
     wait
   )
   integer stash_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_yadm_stash)
   integer uncommited_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_yadm_uncommited)
   integer local_commits_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_yadm_local)
   integer session_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_tmux)
+  integer pass_git_local_commits_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_pass_git_local)
   if (( session_count > 0 )) && [[ -z $TMUX ]]; then
     p10k segment -b $COLOR_OBJ_24 -t "$session_count" -i ""
   fi
@@ -56,6 +58,9 @@ function prompt_my_indicators() {
   fi
   if (( local_commits_count > 0 )); then
     p10k segment -b $COLOR_OP_24 -t "$local_commits_count" -i ""
+  fi
+  if (( pass_git_local_commits_count > 0 )); then
+    p10k segment -b $COLOR_OP_24 -t "$pass_git_local_commits_count" -i "󱅞"
   fi
 }
 
