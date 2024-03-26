@@ -39,7 +39,9 @@ function prompt_my_indicators() {
     yadm status --short | wc -l > $(__get_tmp_dir)/tmp/_p10k_indicators_yadm_uncommited &
     yadm rev-list --count --first-parent origin/master..master > $(__get_tmp_dir)/tmp/_p10k_indicators_yadm_local &
     tmux list-sessions 2>/dev/null | wc -l > $(__get_tmp_dir)/tmp/_p10k_indicators_tmux &
-    pass git rev-list --count --first-parent origin/master..master > $(__get_tmp_dir)/tmp/_p10k_indicators_pass_git_local &
+    if which pass > /dev/null; then
+        pass git rev-list --count --first-parent origin/master..master > $(__get_tmp_dir)/tmp/_p10k_indicators_pass_git_local &
+    fi
     wait
   )
   integer stash_count=$(<$(__get_tmp_dir)/tmp/_p10k_indicators_yadm_stash)
