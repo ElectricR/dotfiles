@@ -1,6 +1,0 @@
-[Unit]
-Description=URL listener
-
-[Service]
-ExecStart=%h/.config/newsboat/listener.sh
-Restart=always

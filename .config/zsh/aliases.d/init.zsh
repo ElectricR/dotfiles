@@ -50,6 +50,7 @@ nsxiv() {
 ssh() {
     if [ $1 = 'berry' ] || [ $1 = 'berry_wg' ]; then
         zsh ${HOME}/.config/neomutt/berry_port_map.sh &
+        ${HOME}/.config/newsboat/listener.sh > /dev/null 2>/dev/null & disown
     fi
 
     if [ -n "$(lscpu | grep 5800X)" ]; then
