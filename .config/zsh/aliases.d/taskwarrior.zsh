@@ -1,7 +1,8 @@
 function _t_memo_parse {
+    local text=$(echo $1 | grep 'Created task')
     local prefix='Created task '
     local suffix='.'
-    local _temp="${1#$prefix}"
+    local _temp="${text#$prefix}"
     echo ${_temp%$suffix}
 }
 
